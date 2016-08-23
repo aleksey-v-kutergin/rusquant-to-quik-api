@@ -12,6 +12,9 @@
 
       <properties>
           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+          <junit.version>3.8.1</junit.version>
+          <jna.version>3.0.9</jna.version>
+          <jna.platform.version>4.0.0</jna.platform.version>
       </properties>
 
       <dependencies>
@@ -19,14 +22,21 @@
           <dependency>
               <groupId>junit</groupId>
               <artifactId>junit</artifactId>
-              <version>3.8.1</version>
+              <version>${junit.version}</version>
               <scope>test</scope>
           </dependency>
 
           <dependency>
               <groupId>com.sun.jna</groupId>
               <artifactId>jna</artifactId>
-              <version>3.0.9</version>
+              <version>${jna.version}</version>
+          </dependency>
+
+
+          <dependency>
+              <groupId>net.java.dev.jna</groupId>
+              <artifactId>jna-platform</artifactId>
+              <version>${jna.platform.version}</version>
           </dependency>
 
       </dependencies>

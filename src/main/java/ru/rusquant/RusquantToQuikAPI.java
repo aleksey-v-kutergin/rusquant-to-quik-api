@@ -1,10 +1,6 @@
 package ru.rusquant;
 
-/**
- * Hello world!
- *
- */
-public class App 
+public class RusquantToQuikAPI
 {
     public static void main( String[] args )
     {
