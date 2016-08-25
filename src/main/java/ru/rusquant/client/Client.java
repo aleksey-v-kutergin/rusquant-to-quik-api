@@ -7,5 +7,18 @@ package ru.rusquant.client;
  */
 public abstract class Client
 {
+	protected Boolean isConnected = Boolean.FALSE;
 
+	public Boolean isConnected()
+	{
+		return isConnected;
+	}
+
+	public abstract void connect();
+
+	public abstract void disconnect();
+
+	public abstract void run();
+
+	public abstract void stop();
 }
