@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4836ef1-99cb-4cfe-bc2e-779facf210fe" name="Default" comment="/* Completed java windows named pipe client until Hello World level */">
-      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__com_sun_jna_jna_3_0_9.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/Client.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RusquantToQuikAPI.iml" afterPath="$PROJECT_DIR$/RusquantToQuikAPI.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/RusquantToQuikAPI.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/RusquantToQuikAPI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/connection/pipe/WindowsNamedPipe.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/connection/pipe/WindowsNamedPipe.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
+    <list default="true" id="a4836ef1-99cb-4cfe-bc2e-779facf210fe" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="RusquantToQuikAPI.iws" />
@@ -85,8 +78,8 @@
       <file leaf-file-name="WindowsNamedPipe.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connection/pipe/WindowsNamedPipe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.73704416">
-              <caret line="62" column="17" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.63915545">
+              <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -607,7 +600,7 @@
       <workItem from="1471593141211" duration="598000" />
       <workItem from="1471924273211" duration="7439000" />
       <workItem from="1471959462863" duration="9672000" />
-      <workItem from="1472096239833" duration="7936000" />
+      <workItem from="1472096239833" duration="8084000" />
     </task>
     <task id="LOCAL-00001" summary="/* Done project settings and add com.sun.jna lib to project */">
       <created>1471503593968</created>
@@ -621,11 +614,17 @@
       <option name="project" value="LOCAL" />
       <updated>1471933228799</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="/* Completed java windows named pipe client until Hello World level */">
+      <created>1472108869602</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1472108869602</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26891000" />
+    <option name="totallyTimeSpent" value="27039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -634,12 +633,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40648648" sideWeight="0.50852877" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40648648" sideWeight="0.510661" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40648648" sideWeight="0.4914712" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.40648648" sideWeight="0.48933902" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4108108" sideWeight="0.4936034" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33081082" sideWeight="0.48720682" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33081082" sideWeight="0.48507464" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18710022" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -955,8 +954,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connection/pipe/WindowsNamedPipe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.73704416">
-          <caret line="62" column="17" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.63915545">
+          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
