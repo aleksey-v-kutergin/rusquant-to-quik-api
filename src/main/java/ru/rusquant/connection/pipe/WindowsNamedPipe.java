@@ -1,9 +1,12 @@
 package ru.rusquant.connection.pipe;
 
+import com.sun.jna.Native;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinBase;
+import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
+import com.sun.jna.win32.W32APIOptions;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -23,18 +26,21 @@ public class WindowsNamedPipe implements Closeable
 		System.setProperty("jna.encoding", "Cp1251");
 	}
 
-	private static Kernel32 KERNEL32_INSTANCE = Kernel32.INSTANCE;
+	private static final  /*Kernel32*/ WindowsNamedPipeAPI KERNEL32_INSTANCE = (WindowsNamedPipeAPI) Native.loadLibrary("kernel32", WindowsNamedPipeAPI.class, W32APIOptions.UNICODE_OPTIONS);
+
+	private static final int IO_BUFFER_SIZE = 4 * 1024;
 
 	private String pipeName;
 
 	private WinNT.HANDLE handle = WinNT.INVALID_HANDLE_VALUE;
+
+	private WinBase.OVERLAPPED readWriteOverlapped;
 
 
 	public WindowsNamedPipe(String pipeName)
 	{
 		this.pipeName = pipeName;
 	}
-
 
 
 	public Boolean connect()
@@ -87,32 +93,87 @@ public class WindowsNamedPipe implements Closeable
 	}
 
 
-	public void write()
+	public void updateReadWriteOverlapped()
 	{
-
+		this.readWriteOverlapped = new WinBase.OVERLAPPED();
 	}
 
-
-	public String read()
+	public void write(String message) throws IOException
 	{
-		WinBase.OVERLAPPED overlapped = new WinBase.OVERLAPPED();
-		ByteBuffer buffer = ByteBuffer.allocate(4 * 1024);
-		IntByReference bytesRead = new IntByReference(buffer.capacity());
-		int lastError = 0;
+		if(message == null || message.length() == 0) return;
 
-		while( !( KERNEL32_INSTANCE.ReadFile(handle, buffer, buffer.capacity(), bytesRead, overlapped) ) || ( lastError = KERNEL32_INSTANCE.GetLastError() ) != Kernel32.ERROR_MORE_DATA )
-		{
-			if(lastError == Kernel32.ERROR_PIPE_NOT_CONNECTED || overlapped.Internal.intValue() != WinNT.ERROR_IO_PENDING) { break; }
-		}
+		/*WinBase.OVERLAPPED overlapped = new WinBase.OVERLAPPED();*/
+		ByteBuffer buffer = ByteBuffer.allocate(message.length() + 1);
+		IntByReference bytesWritten = new IntByReference();
 
-		if(bytesRead.getValue() > 0)
+		buffer.put(message.getBytes());
+		buffer.put( (byte) 0 );
+
+		boolean isIOOperationSuccess = KERNEL32_INSTANCE.WriteFile(handle, buffer.array(), buffer.capacity(), bytesWritten, readWriteOverlapped);
+		KERNEL32_INSTANCE.FlushFileBuffers(handle);
+
+		while(readWriteOverlapped.Internal.intValue() == WinNT.ERROR_IO_PENDING) {}
+
+		/*
+		if(isIOOperationSuccess)
 		{
-			return new String(buffer.array(), 0, bytesRead.getValue());
+			KERNEL32_INSTANCE.FlushFileBuffers(handle);
 		}
 		else
 		{
-			return null;
+			int lastError = KERNEL32_INSTANCE.GetLastError();
+			if(lastError == WinNT.ERROR_IO_PENDING)
+			{
+				while(overlapped.Internal.intValue() == WinNT.ERROR_IO_PENDING) {}
+				KERNEL32_INSTANCE.FlushFileBuffers(handle);
+			}
+			else
+			{
+				throw new IOException("ERROR! FAILED TO WRITE MESSAGE TO THE WINDOWS NAMED PIPE: " + this.pipeName + " WITH ERROR CODE: " + lastError);
+			}
 		}
+		*/
+	}
+
+
+	public String read() throws IOException
+	{
+		/*WinBase.OVERLAPPED overlapped = new WinBase.OVERLAPPED();*/
+		ByteBuffer buffer = ByteBuffer.allocate(IO_BUFFER_SIZE);
+		IntByReference bytesRead = new IntByReference(buffer.capacity());
+		WinDef.DWORDByReference totalBytesAvail = new WinDef.DWORDByReference();
+
+		if (KERNEL32_INSTANCE.PeekNamedPipe(handle, buffer, buffer.capacity(), bytesRead, totalBytesAvail, null))
+		{
+			if(totalBytesAvail != null && totalBytesAvail.getPointer().getInt(0) > 0)
+			{
+				boolean isIOOperationSuccess = KERNEL32_INSTANCE.ReadFile(handle, buffer, buffer.capacity(), bytesRead, readWriteOverlapped);
+			}
+		}
+
+		/*
+		if(isIOOperationSuccess)
+		{
+			KERNEL32_INSTANCE.FlushFileBuffers(handle);
+		}
+		else
+		{
+			int lastError = KERNEL32_INSTANCE.GetLastError();
+			if(lastError == WinNT.ERROR_IO_PENDING || lastError == WinNT.ERROR_MORE_DATA)
+			{
+				while(readWriteOverlapped.Internal.intValue() == WinNT.ERROR_IO_PENDING || readWriteOverlapped.Internal.intValue() == WinNT.ERROR_MORE_DATA) {}
+				KERNEL32_INSTANCE.FlushFileBuffers(handle);
+			}
+			else
+			{
+				throw new IOException("ERROR! FAILED TO READ MESSAGE FROM THE WINDOWS NAMED PIPE: " + this.pipeName + " WITH ERROR CODE: " + lastError);
+			}
+		}
+		*/
+
+		if(bytesRead.getValue() > 0) { return new String(buffer.array(), 0, bytesRead.getValue()); }
+
+		return null;
 	}
 
 

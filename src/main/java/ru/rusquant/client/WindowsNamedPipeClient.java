@@ -46,15 +46,35 @@ public class WindowsNamedPipeClient extends Client
 	@Override
 	public void run()
 	{
+
+		System.out.println("Start client to server data exchange!");
+
+		for(int i = 0; i < 5; i++)
+		{
+			pipe.updateReadWriteOverlapped();
+			String request = "RUSQUANT CLIENT TEST REQUEST";
+			writeMessage(request);
+			String response = readMessage();
+			if(response != null)
+			{
+				System.out.println("SERVER RESPONSE: " + response);
+			}
+		}
+
+		System.out.println("Stop client to server data exchange!");
+
+
+		/*
 		System.out.println("Start reading data from server!");
 
 		String response;
-		while( ( response = pipe.read() ) != null )
+		while( ( response = readMessage() ) != null )
 		{
 			System.out.println("SERVER RESPONSE: " + response);
 		}
 
 		System.out.println("Stop reading data from server!");
+		*/
 	}
 
 
@@ -79,6 +99,35 @@ public class WindowsNamedPipeClient extends Client
 
 			System.out.println("Stopping client!");
 			client.stop();
+		}
+	}
+
+
+	@Override
+	public String readMessage()
+	{
+		try
+		{
+			return pipe.read();
+		}
+		catch (IOException e)
+		{
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
+
+	@Override
+	public void writeMessage(String request)
+	{
+		try
+		{
+			pipe.write(request);
+		}
+		catch (IOException e)
+		{
+			System.out.println(e.getMessage());
 		}
 	}
 }
