@@ -26,7 +26,7 @@ public class WindowsNamedPipe implements Closeable
 		System.setProperty("jna.encoding", "Cp1251");
 	}
 
-	private static final  /*Kernel32*/ WindowsNamedPipeAPI KERNEL32_INSTANCE = (WindowsNamedPipeAPI) Native.loadLibrary("kernel32", WindowsNamedPipeAPI.class, W32APIOptions.UNICODE_OPTIONS);
+	private static final WindowsNamedPipeAPI KERNEL32_INSTANCE = (WindowsNamedPipeAPI) Native.loadLibrary("kernel32", WindowsNamedPipeAPI.class, W32APIOptions.UNICODE_OPTIONS);
 
 	private static final int IO_BUFFER_SIZE = 4 * 1024;
 
@@ -45,7 +45,7 @@ public class WindowsNamedPipe implements Closeable
 		if(this.pipeName == null || this.pipeName.isEmpty()) return Boolean.FALSE;
 		if(handle != WinNT.INVALID_HANDLE_VALUE) return Boolean.TRUE;
 
-		for(int retryCount = 10; retryCount > 0; retryCount--)
+		for(int retryCount = 20; retryCount > 0; retryCount--)
 		{
 			this.handle = KERNEL32_INSTANCE.CreateFile(this.pipeName, Kernel32.GENERIC_READ | Kernel32.GENERIC_WRITE, 0, null, Kernel32.OPEN_EXISTING, 0, null);
 
@@ -82,6 +82,7 @@ public class WindowsNamedPipe implements Closeable
 		if(handle != WinNT.INVALID_HANDLE_VALUE)
 		{
 			boolean result = KERNEL32_INSTANCE.CloseHandle(handle);
+			handle = WinNT.INVALID_HANDLE_VALUE;
 			if(!result)
 			{
 				throw new IOException("ERROR! FAILED TO CLOSE WINDOWS NAMED PIPE: " + this.pipeName + " HANDLE WITH ERROR CODE: " + KERNEL32_INSTANCE.GetLastError());
@@ -154,6 +155,10 @@ public class WindowsNamedPipe implements Closeable
 
 	public void close() throws IOException
 	{
-
+		if(handle != WinNT.INVALID_HANDLE_VALUE)
+		{
+			KERNEL32_INSTANCE.CloseHandle(handle);
+			handle = WinNT.INVALID_HANDLE_VALUE;
+		}
 	}
 }
