@@ -1,8 +1,10 @@
 package ru.rusquant.messages.response;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.response.body.ResponseBody;
 
+@JsonAutoDetect
 public class Response
 {
 	/**
@@ -77,5 +79,106 @@ public class Response
 	public Response()
 	{
 
+	}
+
+
+	public ResponseBody getBody()
+	{
+		return body;
+	}
+
+	public void setBody(ResponseBody body)
+	{
+		this.body = body;
+	}
+
+	public String getError()
+	{
+		return error;
+	}
+
+	public void setError(String error)
+	{
+		this.error = error;
+	}
+
+	public Long getRequestId()
+	{
+		return requestId;
+	}
+
+	public void setRequestId(Long requestId)
+	{
+		this.requestId = requestId;
+	}
+
+	public Long getSendingTimeOfResponseAtClient()
+	{
+		return sendingTimeOfResponseAtClient;
+	}
+
+	public void setSendingTimeOfResponseAtClient(Long sendingTimeOfResponseAtClient)
+	{
+		this.sendingTimeOfResponseAtClient = sendingTimeOfResponseAtClient;
+	}
+
+	public Long getSendingTimeOfReuestAtClient()
+	{
+		return sendingTimeOfReuestAtClient;
+	}
+
+	public void setSendingTimeOfReuestAtClient(Long sendingTimeOfReuestAtClient)
+	{
+		this.sendingTimeOfReuestAtClient = sendingTimeOfReuestAtClient;
+	}
+
+	public String getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
+
+	public String getSubject()
+	{
+		return subject;
+	}
+
+	public void setSubject(String subject)
+	{
+		this.subject = subject;
+	}
+
+	public Long getTimeOfReceiptOfResponseAtClient()
+	{
+		return timeOfReceiptOfResponseAtClient;
+	}
+
+	public void setTimeOfReceiptOfResponseAtClient(Long timeOfReceiptOfResponseAtClient)
+	{
+		this.timeOfReceiptOfResponseAtClient = timeOfReceiptOfResponseAtClient;
+	}
+
+	public Long getTimeOfReceiptOfReuestAtServer()
+	{
+		return timeOfReceiptOfReuestAtServer;
+	}
+
+	public void setTimeOfReceiptOfReuestAtServer(Long timeOfReceiptOfReuestAtServer)
+	{
+		this.timeOfReceiptOfReuestAtServer = timeOfReceiptOfReuestAtServer;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 }

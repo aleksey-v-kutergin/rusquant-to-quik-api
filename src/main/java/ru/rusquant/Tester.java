@@ -11,8 +11,11 @@ public class Tester
 {
 	public static void main(String[] args)
 	{
-		WindowsNamedPipeClient client = new WindowsNamedPipeClient();
-		client.fillMessages("RUSQUANT TEST MESSAGE", 2);
+		//WindowsNamedPipeClient client = new WindowsNamedPipeClient();
+		//client.fillMessages("RUSQUANT TEST MESSAGE", 2);
+
+		//MessagesManager manager = MessagesManager.getInstance();
+		//manager.deserializeResponse();
 
 	}
 

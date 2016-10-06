@@ -9,6 +9,7 @@ import ru.rusquant.messages.request.RequestSubject;
 import ru.rusquant.messages.request.RequestType;
 import ru.rusquant.messages.request.body.RequestBody;
 import ru.rusquant.messages.response.Response;
+import ru.rusquant.messages.response.body.EchoResponseBody;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,8 +30,8 @@ public class WindowsNamedPipeClient extends Client
 
 	private List<Request> requests = new ArrayList<Request>();
 
-	private Map<String, Long> requestResponseLatencyMap = new HashMap<String, Long>();
-	private List<String> responses = new ArrayList<String>();
+	private Map<Long, Long> requestResponseLatencyMap = new HashMap<Long, Long>();
+	private List<Response> responses = new ArrayList<Response>();
 	private List<Response> responsesList = new ArrayList<Response>();
 
 	private RequestBodyFactory requestBodyFactory = new RequestBodyFactory();
@@ -71,24 +72,27 @@ public class WindowsNamedPipeClient extends Client
 	public void run()
 	{
 		System.out.println();
-		fillMessages("RUSQUANT TEST MESSAGE", 10);
+		fillMessages("RUSQUANT TEST MESSAGE", 100000);
 		long testDuration = runBandwidthTest();
 
-		/*
 		double sum = 0;
 		for(int i = 0; i < responses.size(); i++)
 		{
-			String res = responses.get(i);
-			sum += (double) requestResponseLatencyMap.get(request);
+			sum += (double) requestResponseLatencyMap.get( responses.get(i).getRequestId() );
 		}
 		System.out.println("\nServer process " + requests.size() + " requests in " + testDuration + " milliseconds with average time per request: " + ( sum / (double) requests.size() ) + " milliseconds");
 		System.out.println();
-		*/
 
+
+		/*
 		for(int i = 0; i < responses.size(); i++)
 		{
-			System.out.println(responses.get(i));
+			Response response = responses.get(i);
+			String str = "ECHO REQUEST ID: " + response.getRequestId() + " || ECHO ANSWER: " +  ( (EchoResponseBody) response.getBody() ).getEchoAnswer();
+			if(i == 0) { str = "\n" + str; }
+			System.out.println(str);
 		}
+		*/
 	}
 
 
@@ -139,11 +143,10 @@ public class WindowsNamedPipeClient extends Client
 		int counter = 0;
 		int countOfRequests = requests.size();
 
+		Request request = null;
+		Response response;
 		String rawJSONRequest = null;
-		String response;
-
-		long requestTime = 0;
-		long responseTime;
+		String rawJSONResponse;
 		long latency;
 
 		isStopped = Boolean.FALSE;
@@ -152,7 +155,7 @@ public class WindowsNamedPipeClient extends Client
 		{
 			if(clientMode == 1)
 			{
-				Request request= requests.get(counter);
+				request = requests.get(counter);
 				request.fixSendingTime();
 
 				rawJSONRequest = messagesManager.serializeRequest(requests.get(counter));
@@ -160,22 +163,22 @@ public class WindowsNamedPipeClient extends Client
 				{
 					writeMessage(rawJSONRequest);
 					clientMode = 2;
-					requestTime = System.currentTimeMillis();
 				}
 			}
 			else if(clientMode == 2)
 			{
-				response = readMessage();
-				if(response != null && !response.isEmpty())
+				rawJSONResponse = readMessage();
+				response = messagesManager.deserializeResponse(rawJSONResponse);
+				if(response != null)
 				{
-					if(validateResponse(rawJSONRequest, response))
+					if(validateResponse(request, response))
 					{
 						responses.add(response);
 						clientMode = 1;
 
-						responseTime = System.currentTimeMillis();
-						latency = responseTime - requestTime;
-						requestResponseLatencyMap.put(rawJSONRequest, latency);
+						response.setTimeOfReceiptOfResponseAtClient( System.currentTimeMillis() );
+						latency = response.getTimeOfReceiptOfResponseAtClient() - response.getSendingTimeOfResponseAtClient();
+						requestResponseLatencyMap.put(response.getRequestId(), latency);
 						if( counter % (0.10 * requests.size()) == 0) { System.out.print("*"); }
 
 						counter++;
@@ -200,7 +203,6 @@ public class WindowsNamedPipeClient extends Client
 		this.responsesList.clear();
 		this.requestResponseLatencyMap.clear();
 
-
 		RequestBody echoBody;
 		Request echoRequest;
 
@@ -211,21 +213,18 @@ public class WindowsNamedPipeClient extends Client
 			if(echoBody != null)
 			{
 				echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
-				String rawJson = messagesManager.serializeRequest(echoRequest);
-				System.out.println(rawJson);
+				//String rawJson = messagesManager.serializeRequest(echoRequest);
+				//System.out.println(rawJson);
 				requests.add(echoRequest);
 			}
 		}
 	}
 
 
-	private boolean validateResponse(String request, String response)
+	private boolean validateResponse(Request request, Response response)
 	{
-		if(request == null || request.isEmpty()) return false;
-
-		request = "@ECHO: " + request;
-		if(request.equals(response)) return true;
-
+		if(request == null) return false;
+		if(request.getId().equals(response.getRequestId())) return true;
 		return false;
 	}
 
@@ -244,7 +243,7 @@ public class WindowsNamedPipeClient extends Client
 				//System.out.println("Start new session?");
 				//String command = reader.readLine();
 				//if("yes".equals(command))
-				if(counter <= 1)
+				if(counter <= 10)
 				{
 					System.out.println("==============================================================================================");
 					System.out.println("Start session number: " + counter);
