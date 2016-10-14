@@ -20,9 +20,5 @@ public abstract class Client
 
 	public abstract void run();
 
-	public abstract void stop();
-
-	public abstract void writeMessage(String request);
-
-	public abstract String readMessage();
+	public abstract void stop() throws InterruptedException;
 }

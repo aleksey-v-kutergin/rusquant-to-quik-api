@@ -5,9 +5,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for simple RusquantToQuikAPI.
+ * Unit test for simple JavaToQuikAPI.
  */
-public class RusquantToQuikAPITest
+public class JavaToQuikConnectorTest
     extends TestCase
 {
     /**
@@ -15,7 +15,7 @@ public class RusquantToQuikAPITest
      *
      * @param testName name of the test case
      */
-    public RusquantToQuikAPITest(String testName)
+    public JavaToQuikConnectorTest(String testName)
     {
         super( testName );
     }
@@ -25,7 +25,7 @@ public class RusquantToQuikAPITest
      */
     public static Test suite()
     {
-        return new TestSuite( RusquantToQuikAPITest.class );
+        return new TestSuite( JavaToQuikConnectorTest.class );
     }
 
     /**

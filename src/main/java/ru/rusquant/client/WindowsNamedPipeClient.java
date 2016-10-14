@@ -2,19 +2,11 @@ package ru.rusquant.client;
 
 import ru.rusquant.connection.pipe.WindowsNamedPipe;
 import ru.rusquant.messages.MessagesManager;
-import ru.rusquant.messages.factory.RequestBodyFactory;
-import ru.rusquant.messages.factory.RequestFactory;
 import ru.rusquant.messages.request.Request;
-import ru.rusquant.messages.request.RequestSubject;
-import ru.rusquant.messages.request.RequestType;
-import ru.rusquant.messages.request.body.RequestBody;
 import ru.rusquant.messages.response.Response;
-import ru.rusquant.messages.response.body.EchoResponseBody;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  *    Class implements all client-side logic of Windows Named Pipe server-client process
@@ -25,45 +17,62 @@ public class WindowsNamedPipeClient extends Client
 {
 	private WindowsNamedPipe pipe= new WindowsNamedPipe("\\\\.\\pipe\\RusquantToQuikPipe");
 
-	private int clientMode = 1;
+	private MessagesManager messagesManager = MessagesManager.getInstance();
+
 	private Boolean isStopped = Boolean.FALSE;
 
-	private List<Request> requests = new ArrayList<Request>();
 
-	private Map<Long, Long> requestResponseLatencyMap = new HashMap<Long, Long>();
-	private List<Response> responses = new ArrayList<Response>();
-	private List<Response> responsesList = new ArrayList<Response>();
+	/**
+	 *    Queues for producer - consumer scheme.
+	 *	  Client instance acts as producer. It populates queue of request and takes the requests come.
+	 *	  ClientThread acts as consumer. It takes requests, sends them to server and populate queue with responses.
+	 *	  So, ClientThread is some kind of meat grinder for requests. While Client is a control layer.
+	 **/
+	private LinkedBlockingQueue<Request> requests = new LinkedBlockingQueue<Request>();
+	private LinkedBlockingQueue<Response> responses = new LinkedBlockingQueue<Response>();
 
-	private RequestBodyFactory requestBodyFactory = new RequestBodyFactory();
-	private RequestFactory requestFactory = new RequestFactory();
 
-	private MessagesManager messagesManager = MessagesManager.getInstance();
+	/**
+	 *    Inner message processor.
+	 **/
+	private MessageGrinder grinder = new MessageGrinder();
+
+
+	/**
+	 *     Control layer.
+	 **/
 
 	public WindowsNamedPipeClient()
 	{
-
+		grinder.setName("MessageGrinder");
 	}
+
 
 	@Override
 	public void connect()
 	{
-		this.isConnected = pipe.connect();
+		synchronized (pipe)
+		{
+			this.isConnected = pipe.connect();
+		}
 	}
 
 
 	@Override
 	public void disconnect()
 	{
-		try
+		synchronized (pipe)
 		{
-			pipe.disconnect();
-			this.isConnected = Boolean.FALSE;
-			requestFactory.resetRequestIdSequence();
-			System.out.println("Disconnected from pipe!");
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
+			try
+			{
+				pipe.disconnect();
+				this.isConnected = Boolean.FALSE;
+				System.out.println("Disconnected from pipe!");
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -71,218 +80,224 @@ public class WindowsNamedPipeClient extends Client
 	@Override
 	public void run()
 	{
-		System.out.println();
-		fillMessages("RUSQUANT TEST MESSAGE", 100000);
-		long testDuration = runBandwidthTest();
-
-		double sum = 0;
-		for(int i = 0; i < responses.size(); i++)
-		{
-			sum += (double) requestResponseLatencyMap.get( responses.get(i).getRequestId() );
-		}
-		System.out.println("\nServer process " + requests.size() + " requests in " + testDuration + " milliseconds with average time per request: " + ( sum / (double) requests.size() ) + " milliseconds");
-		System.out.println();
-
-
-		/*
-		for(int i = 0; i < responses.size(); i++)
-		{
-			Response response = responses.get(i);
-			String str = "ECHO REQUEST ID: " + response.getRequestId() + " || ECHO ANSWER: " +  ( (EchoResponseBody) response.getBody() ).getEchoAnswer();
-			if(i == 0) { str = "\n" + str; }
-			System.out.println(str);
-		}
-		*/
-	}
-
-
-
-
-	@Override
-	public void stop()
-	{
-		disconnect();
-	}
-
-
-
-	@Override
-	public String readMessage()
-	{
-		try
-		{
-			return pipe.read();
-		}
-		catch (IOException e)
-		{
-			System.out.println(e.getMessage());
-		}
-		return null;
-	}
-
-
-	@Override
-	public void writeMessage(String request)
-	{
-		try
-		{
-			pipe.write(request);
-		}
-		catch (IOException e)
-		{
-			System.out.println(e.getMessage());
-		}
-	}
-
-
-	public long runBandwidthTest()
-	{
-		System.out.println("Running bandwidth test");
-		System.out.println("Start client to server data exchange!");
-
-		int counter = 0;
-		int countOfRequests = requests.size();
-
-		Request request = null;
-		Response response;
-		String rawJSONRequest = null;
-		String rawJSONResponse;
-		long latency;
-
 		isStopped = Boolean.FALSE;
-		long testStartTime = System.currentTimeMillis();
-		while(!isStopped)
-		{
-			if(clientMode == 1)
-			{
-				request = requests.get(counter);
-				request.fixSendingTime();
+		grinder.start();
+	}
 
-				rawJSONRequest = messagesManager.serializeRequest(requests.get(counter));
-				if(rawJSONRequest != null && !rawJSONRequest.isEmpty())
+
+	/**
+	 *   Causes stop of client to server message exchange process.
+	 **/
+	@Override
+	public void stop() throws InterruptedException
+	{
+		grinder.interrupt();
+		grinder.join();
+		isStopped = Boolean.TRUE;
+	}
+
+
+
+
+	/**
+	 *    Producer's method to populate queue of requests
+	 **/
+	public void postRequest(Request request) throws InterruptedException
+	{
+		requests.put(request);
+	}
+
+
+	/**
+	 *    Producer's method to get the result of the request.
+	 *    Actually, in this case Client class acts as consumer of responses.
+	 **/
+	public Response getResponse(Request request) throws InterruptedException
+	{
+		Response response = responses.take();
+		return response;
+	}
+
+
+	public Boolean isStopped()
+	{
+		return isStopped;
+	}
+
+	/**
+	 *     MessageGrinder class takes care about request - response processing between client and server.
+	 *
+	 *     It executes client's main loop:
+	 *     1. Take request from queue
+	 *     2. Serialize request into json and send it to server
+	 *     3. Receive response from server and deserialize from json it into java-object
+	 *     4. Put response into queue and go to next request
+	 *
+	 *     Execution of MessageGrinder makes sense only when client is connected to server.
+	 *
+	 *     So, scenario is as follows:
+	 *     1. If client successfully connects to server - start MessageGrinder thread
+	 *     2. MessageGrinder processes incoming requests
+	 *     3. If client looses connection or instructed to stop or end session:
+	 *     		3.1. Interrupt thread
+	 *     		3.2. Main thread MUST wait until MessageGrinder thread finishes all operations
+	 *
+	 *
+	 *     	Exception's politics:
+	 *     	The hard link between request and response is considered.
+	 *		The situations when client cannot write\read\serialize\deserialize request or response,
+	 *		cannot receive valid (in sense of id) response for given request are considered as serious errors in message flow process.
+	 *		In such situations client aborts all operations, shut down the connection and clean pipe descriptor, notify at connector's level about error.
+	 **/
+	private class MessageGrinder extends Thread
+	{
+		/**
+		 *    Client switches between two modes:
+		 *    1 - writing message to sever
+		 *    2 - reading answer from server
+		 **/
+		private int clientMode = 1;
+
+
+		private boolean isInterrupted = false;
+
+		/**
+		 *    Flag for emergency stop of the grinder.
+		 **/
+		private Boolean isEmergencyAborted = Boolean.FALSE;
+
+
+		/**
+		 *	   In order to know what's happens.
+		 **/
+		private IOException error;
+
+
+		/**
+		 *   For each response the corresponding request has to obtained.
+		 *   If client has been instructed to shut down and response for last sent request has not been received,
+		 *   then MessageGrinder has to work until this response will be received.
+		 **/
+		private Boolean isLastResponseReceived = Boolean.TRUE;
+
+
+
+		public IOException getError()
+		{
+			return error;
+		}
+
+
+		public String readMessage() throws IOException
+		{
+			synchronized (pipe)
+			{
+				return pipe.read();
+			}
+		}
+
+
+		public void writeMessage(String request) throws IOException
+		{
+			synchronized (pipe)
+			{
+				pipe.write(request);
+			}
+		}
+
+
+		/**
+		 *    The hard link between request and response is considered.
+		 **/
+		private boolean validateResponse(Request request, Response response)
+		{
+			if(request == null) return false;
+			if(request.getId().equals(response.getRequestId())) return true;
+			return false;
+		}
+
+
+		private Boolean needContinueWork()
+		{
+			if(isEmergencyAborted) return false;
+			if(isInterrupted && isLastResponseReceived) return false;
+			return true;
+		}
+
+
+		private Request executeWriteStep() throws InterruptedException, IOException
+		{
+			Request request = null;
+			request = requests.take();
+			if(request == null) return null;
+			request.fixSendingTime();
+
+			String rawJSONRequest = messagesManager.serializeRequest(request);
+			if(rawJSONRequest != null && !rawJSONRequest.isEmpty())
+			{
+				writeMessage(rawJSONRequest);
+				isLastResponseReceived = Boolean.FALSE;
+				clientMode = 2;
+			}
+
+			return request;
+		}
+
+
+		private void executeReadStep(Request request) throws InterruptedException, IOException
+		{
+			String rawJSONResponse = readMessage();
+			Response response = messagesManager.deserializeResponse(rawJSONResponse);
+			if(response != null)
+			{
+				if(validateResponse(request, response))
 				{
-					writeMessage(rawJSONRequest);
-					clientMode = 2;
+					response.setTimeOfReceiptOfResponseAtClient(System.currentTimeMillis());
+					responses.put(response);
+
+					isLastResponseReceived = Boolean.TRUE;
+					clientMode = 1;
 				}
 			}
-			else if(clientMode == 2)
+		}
+
+
+
+		@Override
+		public void run()
+		{
+			MessageGrinder.this.isInterrupted = false;
+			Request request = null;
+			try
 			{
-				rawJSONResponse = readMessage();
-				response = messagesManager.deserializeResponse(rawJSONResponse);
-				if(response != null)
+				while( needContinueWork() )
 				{
-					if(validateResponse(request, response))
+					try
 					{
-						responses.add(response);
-						clientMode = 1;
-
-						response.setTimeOfReceiptOfResponseAtClient( System.currentTimeMillis() );
-						latency = response.getTimeOfReceiptOfResponseAtClient() - response.getSendingTimeOfResponseAtClient();
-						requestResponseLatencyMap.put(response.getRequestId(), latency);
-						if( counter % (0.10 * requests.size()) == 0) { System.out.print("*"); }
-
-						counter++;
+						if(clientMode == 1)
+						{
+							request = executeWriteStep();
+						}
+						else if(clientMode == 2)
+						{
+							executeReadStep(request);
+						}
+					}
+					catch (InterruptedException e)
+					{
+						MessageGrinder.this.isInterrupted = true;
+						System.out.println("Message grinder thread has been interrupted!");
 					}
 				}
-			}
 
-			if(counter == countOfRequests)
-			{
 				writeMessage("CLIENT_OFF");
-				isStopped = Boolean.TRUE;
+
 			}
-		}
-		long testEndTime = System.currentTimeMillis();
-		return testEndTime - testStartTime;
-	}
-
-
-	public void fillMessages(String message, int count)
-	{
-		this.requests.clear();
-		this.responsesList.clear();
-		this.requestResponseLatencyMap.clear();
-
-		RequestBody echoBody;
-		Request echoRequest;
-
-		for(int i = 1; i <= count; i++)
-		{
-			String[] args = {message + ": " + i};
-			echoBody =  requestBodyFactory.createRecuestBody(RequestSubject.ECHO, args);
-			if(echoBody != null)
+			catch (IOException e)
 			{
-				echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
-				//String rawJson = messagesManager.serializeRequest(echoRequest);
-				//System.out.println(rawJson);
-				requests.add(echoRequest);
+				MessageGrinder.this.isEmergencyAborted = Boolean.TRUE;
+				error = e;
 			}
 		}
 	}
-
-
-	private boolean validateResponse(Request request, Response response)
-	{
-		if(request == null) return false;
-		if(request.getId().equals(response.getRequestId())) return true;
-		return false;
-	}
-
-
-	public static void main(String[] args)
-	{
-		try
-		{
-			WindowsNamedPipeClient client = new WindowsNamedPipeClient();
-			//BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-			boolean isStopped = false;
-			int counter = 1;
-			while(!isStopped)
-			{
-				//System.out.println("Start new session?");
-				//String command = reader.readLine();
-				//if("yes".equals(command))
-				if(counter <= 10)
-				{
-					System.out.println("==============================================================================================");
-					System.out.println("Start session number: " + counter);
-
-					System.out.println();
-					System.out.println("Making connection to server");
-					client.connect();
-
-					if(client.isConnected())
-					{
-						System.out.println("Connect success!!!");
-
-						System.out.println();
-						System.out.println("Starting main client loop");
-						client.run();
-
-						System.out.println("Stopping client!");
-						client.disconnect();
-					}
-
-					System.out.println();
-					System.out.println("End session number: " + counter);
-					System.out.println();
-					System.out.println();
-
-					counter++;
-				}
-				else
-				{
-					isStopped = true;
-				}
-			}
-			//reader.close();
-		}
-		catch (Exception e)
-		{
-
-		}
-	}
-
-
 }
