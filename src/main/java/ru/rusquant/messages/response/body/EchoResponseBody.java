@@ -1,28 +1,28 @@
 package ru.rusquant.messages.response.body;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.rusquant.data.quik.Echo;
 
 public class EchoResponseBody extends ResponseBody
 {
-	private String echoAnswer;
+	private Echo echo;
 
 	public EchoResponseBody()
 	{
 
 	}
 
-	public EchoResponseBody(String echoAnswer)
+	public EchoResponseBody(Echo echo)
 	{
-		this.echoAnswer = echoAnswer;
+		this.echo = echo;
 	}
 
-	public String getEchoAnswer()
+	public Echo getEcho()
 	{
-		return echoAnswer;
+		return echo;
 	}
 
-	public void setEchoAnswer(String echoAnswer)
+	public void setEcho(Echo echo)
 	{
-		this.echoAnswer = echoAnswer;
+		this.echo = echo;
 	}
 }

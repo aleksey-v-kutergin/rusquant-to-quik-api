@@ -1,7 +1,6 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
-import ru.rusquant.data.quik.Echo;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.messages.factory.RequestBodyFactory;
@@ -105,7 +104,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	{
 		QuikDataObject result = new ErrorObject();
 		if(message == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
-		if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
+		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
 
 		String[] args = {message};
 		RequestBody echoBody =  requestBodyFactory.createRecuestBody(RequestSubject.ECHO, args);
@@ -118,8 +117,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 			{
 				if( "SUCCESS".equals(response.getStatus()) )
 				{
-					String echoAnswer = ( (EchoResponseBody) response.getBody() ).getEchoAnswer();
-					result = new Echo(echoAnswer);
+					result = ( (EchoResponseBody) response.getBody() ).getEcho();
 				}
 				else
 				{

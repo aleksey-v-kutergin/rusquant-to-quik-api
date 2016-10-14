@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a4836ef1-99cb-4cfe-bc2e-779facf210fe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/Echo.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/ErrorObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikAPI.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikConnector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java" />
-      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\src\main\java\ru\rusquant\RusquantToQuikAPI.java" afterPath="" />
-      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\src\main\java\ru\rusquant\Tester.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/Client.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/Client.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/MessagesManager.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/MessagesManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java" />
+    <list default="true" id="a4836ef1-99cb-4cfe-bc2e-779facf210fe" name="Default" comment="/* Add manual and auto test  */">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java" afterPath="$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\src\test\java\ru\rusquant\RusquantToQuikAPITest.java" afterPath="$PROJECT_DIR$/src/test/java/ru/rusquant/JavaToQuikConnectorTest.java" />
     </list>
     <ignored path="RusquantToQuikAPI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="WindowsNamedPipeClient.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WindowsNamedPipeClient.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7263339">
-              <caret line="288" column="45" selection-start-line="288" selection-start-column="45" selection-end-line="288" selection-end-column="45" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="208" column="11" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1183#1192#0" expanded="true" />
@@ -59,11 +50,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JavaToQuikPipeConnector.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java">
+      <file leaf-file-name="QuikDataObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EchoResponseBody.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="14" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Echo.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/Echo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaToQuikPipeConnector.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.2709766">
+              <caret line="106" column="14" selection-start-line="106" selection-start-column="14" selection-end-line="106" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -75,24 +98,11 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2206#2207#0" expanded="true" />
-                <element signature="e#2255#2256#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ErrorObject.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/ErrorObject.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-              <folding>
-                <element signature="e#385#386#0" expanded="true" />
-                <element signature="e#411#412#0" expanded="true" />
+                <element signature="e#3363#3364#0" expanded="true" />
+                <element signature="e#3415#3416#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -136,7 +146,6 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/factory/RequestFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/Response.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/request/body/RequestBody.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/ResponseBody.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/MessagesManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/Tester.java" />
@@ -149,9 +158,11 @@
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikConnector.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/Echo.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/ErrorObject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java" />
       </list>
     </option>
   </component>
@@ -347,6 +358,10 @@
               <option name="myItemId" value="ru" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rusquant" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
@@ -358,7 +373,7 @@
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../rusquant-to-quik-server" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -669,7 +684,7 @@
       <workItem from="1476102007310" duration="32907000" />
       <workItem from="1476266510759" duration="203000" />
       <workItem from="1476267062786" duration="19176000" />
-      <workItem from="1476349958068" duration="8888000" />
+      <workItem from="1476349958068" duration="16962000" />
     </task>
     <task id="LOCAL-00001" summary="/* Done project settings and add com.sun.jna lib to project */">
       <created>1471503593968</created>
@@ -719,34 +734,40 @@
       <option name="project" value="LOCAL" />
       <updated>1475740021740</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="/*  Message processing within client moved into separate thread. Finished base architecture of API  */">
+      <created>1476422565914</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1476422565914</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="251304000" />
+    <option name="totallyTimeSpent" value="259378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.4936034" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.4914712" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3416216" sideWeight="0.53411514" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18378378" sideWeight="0.53837955" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3416216" sideWeight="0.46588486" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26384366" sideWeight="0.9109808" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18378378" sideWeight="0.46162048" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29621622" sideWeight="0.90724945" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31606218" sideWeight="0.68550104" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2675906" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2867804" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13081081" sideWeight="0.46375266" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1718919" sideWeight="0.46162048" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26594594" sideWeight="0.73880595" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30702704" sideWeight="0.7356077" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -773,11 +794,13 @@
     <MESSAGE value="/* Achieved  workable echo client-to-server data exchange */" />
     <MESSAGE value="/* Add necessary class for client-to-server data exchange in json format  */" />
     <MESSAGE value="/* Finished JSON support for request-response interaction  */" />
-    <option name="LAST_COMMIT_MESSAGE" value="/* Finished JSON support for request-response interaction  */" />
+    <MESSAGE value="/*  Message processing within client moved into separate thread. Finished base architecture of API  */" />
+    <MESSAGE value="/* Add manual and auto test  */" />
+    <option name="LAST_COMMIT_MESSAGE" value="/* Add manual and auto test  */" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="73" />
+      <option name="time" value="74" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -997,13 +1020,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/ResponseBody.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25073746">
-          <caret line="12" column="90" selection-start-line="12" selection-start-column="90" selection-end-line="12" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_75/src.zip!/java/util/concurrent/BlockingQueue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1047,14 +1063,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.043814432">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="6" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.7.0_75/src.zip!/java/lang/Error.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7229381">
@@ -1077,34 +1085,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7886598">
           <caret line="36" column="7" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/Echo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
-          <folding>
-            <element signature="e#312#313#0" expanded="false" />
-            <element signature="e#347#348#0" expanded="false" />
-            <element signature="e#371#372#0" expanded="false" />
-            <element signature="e#421#422#0" expanded="false" />
-            <element signature="e#456#457#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="30" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1120,34 +1100,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/ErrorObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-          <folding>
-            <element signature="e#385#386#0" expanded="true" />
-            <element signature="e#411#412#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikConnector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5260586">
           <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2206#2207#0" expanded="true" />
-            <element signature="e#2255#2256#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1159,20 +1116,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/Response.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/ErrorObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="24" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#385#386#0" expanded="false" />
+            <element signature="e#411#412#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/ResponseBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2225131">
+          <caret line="12" column="90" selection-start-line="12" selection-start-column="90" selection-end-line="12" selection-end-column="90" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/client/WindowsNamedPipeClient.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7263339">
-          <caret line="288" column="45" selection-start-line="288" selection-start-column="45" selection-end-line="288" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="208" column="11" selection-start-line="208" selection-start-column="11" selection-end-line="208" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1183#1192#0" expanded="true" />
@@ -1183,6 +1157,54 @@
             <element signature="e#2679#2680#0" expanded="true" />
             <element signature="e#4838#4839#0" expanded="true" />
             <element signature="e#4859#4860#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/QuikDataObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/messages/response/body/EchoResponseBody.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="14" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/data/quik/Echo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/TestConnectorUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3363#3364#0" expanded="true" />
+            <element signature="e#3415#3416#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ru/rusquant/connector/JavaToQuikPipeConnector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2709766">
+          <caret line="106" column="14" selection-start-line="106" selection-start-column="14" selection-end-line="106" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

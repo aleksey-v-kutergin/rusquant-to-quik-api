@@ -10,6 +10,8 @@ import ru.rusquant.data.quik.QuikDataObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 /**
  * Just for testing
@@ -17,6 +19,8 @@ import java.io.InputStreamReader;
  */
 public class TestConnectorUser
 {
+	private static SecureRandom random = new SecureRandom();
+
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		JavaToQuikConnector connector = new JavaToQuikPipeConnector();
@@ -24,8 +28,7 @@ public class TestConnectorUser
 		if(connector.isConnected())
 		{
 			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-			runManualTest(connector, reader);
-			/*
+
 			boolean isExit = false;
 			while(!isExit)
 			{
@@ -38,7 +41,7 @@ public class TestConnectorUser
 				}
 				else if("auto".equals(test))
 				{
-					runAutoTest();
+					runAutoTest(connector);
 				}
 				else if("exit".equals(test))
 				{
@@ -49,8 +52,6 @@ public class TestConnectorUser
 					System.out.println("Invalid test type!");
 				}
 			}
-			*/
-
 
 			reader.close();
 		}
@@ -98,183 +99,53 @@ public class TestConnectorUser
 	}
 
 
-	private static void runAutoTest()
+	private static void runAutoTest(JavaToQuikConnector connector)
 	{
 		System.out.println("Running auto test...");
-	}
-
-}
-
-
-		/*
 		System.out.println();
-		fillMessages("RUSQUANT TEST MESSAGE", 10000);
-		long testDuration = runBandwidthTest();
 
-		double sum = 0;
-		for(int i = 0; i < responses.size(); i++)
+		long startTime = System.currentTimeMillis();
+		int count = 100000;
+		for(int i = 0; i < count; i++)
 		{
-			sum += (double) requestResponseLatencyMap.get( responses.get(i).getRequestId() );
-		}
-		System.out.println("\nServer process " + requests.size() + " requests in " + testDuration + " milliseconds with average time per request: " + (sum / (double) requests.size()) + " milliseconds");
-		System.out.println();
-		*/
-
-
-		/*
-		for(int i = 0; i < responses.size(); i++)
-		{
-			Response response = responses.get(i);
-			String str = "ECHO REQUEST ID: " + response.getRequestId() + " || ECHO ANSWER: " +  ( (EchoResponseBody) response.getBody() ).getEchoAnswer();
-			if(i == 0) { str = "\n" + str; }
-			System.out.println(str);
-		}
-		*/
-
-
-/*
-
-	public long runBandwidthTest()
-	{
-		System.out.println("Running bandwidth test");
-		System.out.println("Start client to server data exchange!");
-
-		int counter = 0;
-		int countOfRequests = requests.size();
-
-		Request request = null;
-		Response response;
-		String rawJSONRequest;
-		String rawJSONResponse;
-		long latency;
-
-		isStopped = Boolean.FALSE;
-		long testStartTime = System.currentTimeMillis();
-		while(!isStopped)
-		{
-			if(clientMode == 1)
+			String message = getRandomString();
+			if(message != null && !message.isEmpty())
 			{
-				request = requests.get(counter);
-				request.fixSendingTime();
-
-				rawJSONRequest = messagesManager.serializeRequest(requests.get(counter));
-				if(rawJSONRequest != null && !rawJSONRequest.isEmpty())
+				QuikDataObject result = connector.getEcho(message);
+				if(result instanceof ErrorObject)
 				{
-					writeMessage(rawJSONRequest);
-					clientMode = 2;
-				}
-			}
-			else if(clientMode == 2)
-			{
-				rawJSONResponse = readMessage();
-				response = messagesManager.deserializeResponse(rawJSONResponse);
-				if(response != null)
-				{
-					if(validateResponse(request, response))
-					{
-						responses.add(response);
-						clientMode = 1;
-
-						response.setTimeOfReceiptOfResponseAtClient( System.currentTimeMillis() );
-						latency = response.getTimeOfReceiptOfResponseAtClient() - response.getSendingTimeOfResponseAtClient();
-						requestResponseLatencyMap.put(response.getRequestId(), latency);
-						if( counter % (0.10 * requests.size()) == 0) { System.out.print("*"); }
-
-						counter++;
-					}
-				}
-			}
-
-			if(counter == countOfRequests)
-			{
-				writeMessage("CLIENT_OFF");
-				isStopped = Boolean.TRUE;
-			}
-		}
-		long testEndTime = System.currentTimeMillis();
-		return testEndTime - testStartTime;
-	}
-
-
-	public void fillMessages(String message, int count)
-	{
-		this.requests.clear();
-		this.responses.clear();
-		this.requestResponseLatencyMap.clear();
-
-		RequestBody echoBody;
-		Request echoRequest;
-
-		for(int i = 1; i <= count; i++)
-		{
-			String[] args = {message + ": " + i};
-			echoBody =  requestBodyFactory.createRecuestBody(RequestSubject.ECHO, args);
-			if(echoBody != null)
-			{
-				echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
-				//String rawJson = messagesManager.serializeRequest(echoRequest);
-				//System.out.println(rawJson);
-				requests.add(echoRequest);
-			}
-		}
-	}
-
-
-
-	public static void main(String[] args)
-	{
-		try
-		{
-			WindowsNamedPipeClient client = new WindowsNamedPipeClient();
-			//BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-			boolean isStopped = false;
-			int counter = 1;
-			while(!isStopped)
-			{
-				//System.out.println("Start new session?");
-				//String command = reader.readLine();
-				//if("yes".equals(command))
-				if(counter <= 1)
-				{
-					System.out.println("==============================================================================================");
-					System.out.println("Start session number: " + counter);
-
-					System.out.println();
-					System.out.println("Making connection to server");
-					client.connect();
-
-					if(client.isConnected())
-					{
-						System.out.println("Connect success!!!");
-
-						System.out.println();
-						System.out.println("Starting main client loop");
-						client.run();
-
-						System.out.println("Stopping client!");
-						client.disconnect();
-					}
-
-					System.out.println();
-					System.out.println("End session number: " + counter);
-					System.out.println();
-					System.out.println();
-
-					counter++;
+					System.out.println( ((ErrorObject) result).getErrorMessage() );
+					break;
 				}
 				else
 				{
-					isStopped = true;
+					String answer = ((Echo) result).getEchoAnswer();
+					if(!answer.contains(message))
+					{
+						System.out.println("Wrong answer received!");
+						break;
+					}
+					else
+					{
+						if( i % (0.10 * count) == 0) { System.out.print("*"); }
+					}
 				}
 			}
-			//reader.close();
+			else
+			{
+				System.out.println("Invalid message!");
+				break;
+			}
 		}
-		catch (Exception e)
-		{
-
-		}
+		long endTime = System.currentTimeMillis();
+		System.out.println("\nConnector process " + count + " of messages in " + (endTime - startTime) + " milliseconds");
+		System.out.println();
 	}
 
 
-*/
+	private static String getRandomString()
+	{
+		return new BigInteger(130, random).toString();
+	}
+
+}
