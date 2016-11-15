@@ -1,6 +1,7 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
+import ru.rusquant.client.exceptions.MessageGrinderEmergencyAbortException;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.messages.factory.RequestBodyFactory;
@@ -10,7 +11,10 @@ import ru.rusquant.messages.request.RequestSubject;
 import ru.rusquant.messages.request.RequestType;
 import ru.rusquant.messages.request.body.RequestBody;
 import ru.rusquant.messages.response.Response;
+import ru.rusquant.messages.response.ResponseStatus;
 import ru.rusquant.messages.response.body.EchoResponseBody;
+
+import java.io.IOException;
 
 /**
  *    Implementation of java to quik connector based on windows named pipe client.
@@ -46,27 +50,29 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	private RequestFactory requestFactory = new RequestFactory();
 
 
+
 	public JavaToQuikPipeConnector()
 	{
 
 	}
 
 
+
 	@Override
 	public void connect()
 	{
-		System.out.println();
-		System.out.println("Making connection to server");
-
+		connectorError = null;
 		client.connect();
+
 		if(client.isConnected())
 		{
-			System.out.println("Connect success!!!");
-
-			System.out.println();
-			System.out.println("Starting main client loop");
 			isConnected = Boolean.TRUE;
 			client.run();
+		}
+		else
+		{
+			connectorError = new ErrorObject(client.getPipeError());
+			isConnected = Boolean.FALSE;
 		}
 	}
 
@@ -78,8 +84,6 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		{
 			if(client.isConnected())
 			{
-				System.out.println("Stopping client!");
-
 				client.stop();
 				if(client.isStopped())
 				{
@@ -91,10 +95,38 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		}
 		catch (InterruptedException e)
 		{
-			e.printStackTrace();
+			connectorError = new ErrorObject(e.getMessage());
+		}
+		catch (IOException e)
+		{
+			connectorError = new ErrorObject(e.getMessage());
 		}
 	}
 
+
+	@Override
+	public Float getAvgShippingDurationOfRequest(RequestSubject subject)
+	{
+		return client.getAvgShippingDurationOfRequest(subject);
+	}
+
+	@Override
+	public Float getAvgDurationOfRequestProcessing(RequestSubject subject)
+	{
+		return client.getAvgDurationOfRequestProcessing(subject);
+	}
+
+	@Override
+	public Float getAvgShippingDurationOfResponse(RequestSubject subject)
+	{
+		return client.getAvgShippingDurationOfResponse(subject);
+	}
+
+	@Override
+	public Float getAvgRequestResponseLatency(RequestSubject subject)
+	{
+		return client.getAvgRequestResponseLatency(subject);
+	}
 
 
 
@@ -107,15 +139,15 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
 
 		String[] args = {message};
-		RequestBody echoBody =  requestBodyFactory.createRecuestBody(RequestSubject.ECHO, args);
+		RequestBody echoBody =  requestBodyFactory.createRequestBody(RequestSubject.ECHO, args);
 		Request echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
 		try
 		{
 			client.postRequest(echoRequest);
-			Response response = client.getResponse(echoRequest);
+			Response response = client.getResponse();
 			if(response != null)
 			{
-				if( "SUCCESS".equals(response.getStatus()) )
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
 				{
 					result = ( (EchoResponseBody) response.getBody() ).getEcho();
 				}
@@ -124,6 +156,10 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 					( (ErrorObject) result ).setErrorMessage("Call of getEcho() with message: " + message + " failed with error: " + response.getError());
 				}
 			}
+		}
+		catch (MessageGrinderEmergencyAbortException e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
 		}
 		catch (InterruptedException e)
 		{

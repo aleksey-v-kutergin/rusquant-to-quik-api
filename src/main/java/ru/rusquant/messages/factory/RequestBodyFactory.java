@@ -11,7 +11,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 public class RequestBodyFactory
 {
-	public RequestBody createRecuestBody(RequestSubject subject, String[] args)
+	public RequestBody createRequestBody(RequestSubject subject, String[] args)
 	{
 		switch (subject)
 		{

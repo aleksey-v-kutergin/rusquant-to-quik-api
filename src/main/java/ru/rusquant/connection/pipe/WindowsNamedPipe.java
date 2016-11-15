@@ -3,10 +3,11 @@ package ru.rusquant.connection.pipe;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinBase;
-import com.sun.jna.platform.win32.WinDef;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.W32APIOptions;
+import ru.rusquant.connection.pipe.exceptions.PipeErrorSource;
+import ru.rusquant.connection.pipe.exceptions.PipeErrorUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -30,7 +31,11 @@ public class WindowsNamedPipe implements Closeable
 
 	private static final int IO_BUFFER_SIZE = 4 * 1024;
 
+	private static final int INITIAL_RETRY_COUNT = 20;
+
 	private String pipeName;
+
+	private String errorMessage;
 
 	private WinNT.HANDLE handle = WinNT.INVALID_HANDLE_VALUE;
 
@@ -40,38 +45,32 @@ public class WindowsNamedPipe implements Closeable
 	}
 
 
+	public String getErrorMessage()
+	{
+		return errorMessage;
+	}
+
+
 	public Boolean connect()
 	{
 		if(this.pipeName == null || this.pipeName.isEmpty()) return Boolean.FALSE;
 		if(handle != WinNT.INVALID_HANDLE_VALUE) return Boolean.TRUE;
 
-		for(int retryCount = 20; retryCount > 0; retryCount--)
+		for(int retryCount = INITIAL_RETRY_COUNT; retryCount > 0; retryCount--)
 		{
 			this.handle = KERNEL32_INSTANCE.CreateFile(this.pipeName, Kernel32.GENERIC_READ | Kernel32.GENERIC_WRITE, 0, null, Kernel32.OPEN_EXISTING, 0, null);
+			int errorCode = KERNEL32_INSTANCE.GetLastError();
 
 			if(handle == WinNT.INVALID_HANDLE_VALUE)
 			{
-				int errorCode = KERNEL32_INSTANCE.GetLastError();
-				if(errorCode == Kernel32.ERROR_FILE_NOT_FOUND)
-				{
-					System.out.println("ERROR! FAILED TO CONNECT TO WINDOWS NAMED PIPE: " + this.pipeName + " SERVER HAS NOT YET OPENED CONNECTION!");
-				}
-				else if(errorCode == Kernel32.ERROR_PIPE_BUSY)
-				{
-					System.out.println("ERROR! FAILED TO CONNECT TO WINDOWS NAMED PIPE: " + this.pipeName + " THE PIPE IS BUSY!!");
-				}
-				else
-				{
-					System.out.println("ERROR! FAILED TO CONNECT TO WINDOWS NAMED PIPE: " + this.pipeName + " WITH ERROR CODE: " + KERNEL32_INSTANCE.GetLastError());
-				}
+				errorMessage = PipeErrorUtils.getErrorMessageByErrorCode(PipeErrorSource.CONNECT, pipeName, errorCode);
 			}
 			else
 			{
+				errorMessage = null;
 				return Boolean.TRUE;
 			}
 		}
-
-		System.out.println("ERROR! FAILED TO CONNECT TO WINDOWS NAMED PIPE: " + this.pipeName + " EXCEEDED RETRY COUNT!");
 		return Boolean.FALSE;
 	}
 
@@ -79,13 +78,15 @@ public class WindowsNamedPipe implements Closeable
 
 	public void disconnect() throws IOException
 	{
-		if(handle != WinNT.INVALID_HANDLE_VALUE)
+		if(!handle.equals(WinNT.INVALID_HANDLE_VALUE))
 		{
 			boolean result = KERNEL32_INSTANCE.CloseHandle(handle);
+			int errorCode = KERNEL32_INSTANCE.GetLastError();
 			handle = WinNT.INVALID_HANDLE_VALUE;
+
 			if(!result)
 			{
-				throw new IOException("ERROR! FAILED TO CLOSE WINDOWS NAMED PIPE: " + this.pipeName + " HANDLE WITH ERROR CODE: " + KERNEL32_INSTANCE.GetLastError());
+				throw PipeErrorUtils.getErrorByErrorCode(PipeErrorSource.DISCONNECT, pipeName, errorCode);
 			}
 		}
 	}
@@ -119,7 +120,7 @@ public class WindowsNamedPipe implements Closeable
 			}
 			else
 			{
-				throw new IOException("ERROR! FAILED TO WRITE MESSAGE TO THE WINDOWS NAMED PIPE: " + this.pipeName + " WITH ERROR CODE: " + lastError);
+				throw PipeErrorUtils.getErrorByErrorCode(PipeErrorSource.WRITE, pipeName, lastError);
 			}
 		}
 	}
@@ -131,10 +132,11 @@ public class WindowsNamedPipe implements Closeable
 		ByteBuffer buffer = ByteBuffer.allocate(IO_BUFFER_SIZE);
 		IntByReference bytesRead = new IntByReference(buffer.capacity());
 
+		int lastError;
 		if (KERNEL32_INSTANCE.PeekNamedPipe(handle, buffer, buffer.capacity(), bytesRead, null, null))
 		{
 			boolean isIOOperationSuccess = KERNEL32_INSTANCE.ReadFile(handle, buffer, buffer.capacity(), bytesRead, overlapped);
-			int lastError = KERNEL32_INSTANCE.GetLastError();
+			lastError = KERNEL32_INSTANCE.GetLastError();
 			if(!isIOOperationSuccess)
 			{
 				if(lastError == WinNT.ERROR_IO_PENDING || lastError == WinNT.ERROR_MORE_DATA)
@@ -143,10 +145,15 @@ public class WindowsNamedPipe implements Closeable
 				}
 				else
 				{
-					throw new IOException("ERROR! FAILED TO READ MESSAGE FROM THE WINDOWS NAMED PIPE: " + this.pipeName + " WITH ERROR CODE: " + lastError);
+					throw PipeErrorUtils.getErrorByErrorCode(PipeErrorSource.READ, pipeName, lastError);
 				}
 			}
 			if(bytesRead.getValue() > 0) { return new String(buffer.array(), 0, bytesRead.getValue()); }
+		}
+		else
+		{
+			lastError = KERNEL32_INSTANCE.GetLastError();
+			throw PipeErrorUtils.getErrorByErrorCode(PipeErrorSource.READ, pipeName, lastError);
 		}
 
 		return null;
@@ -155,10 +162,6 @@ public class WindowsNamedPipe implements Closeable
 
 	public void close() throws IOException
 	{
-		if(handle != WinNT.INVALID_HANDLE_VALUE)
-		{
-			KERNEL32_INSTANCE.CloseHandle(handle);
-			handle = WinNT.INVALID_HANDLE_VALUE;
-		}
+		this.disconnect();
 	}
 }

@@ -17,21 +17,21 @@ public class Response
 	 *     The time when the request was sent from client in UNIX format.
 	 *     This is service parameter.
 	 **/
-	private Long sendingTimeOfReuestAtClient;
+	private Long sendingTimeOfRequestAtClient;
 
 
 	/**
 	 *     The time when server receipts the request in UNIX format.
 	 *     This is service parameter.
 	 **/
-	private Long timeOfReceiptOfReuestAtServer;
+	private Long timeOfReceiptOfRequestAtServer;
 
 
 	/**
 	 *     The time when the response was sent from server in UNIX format.
 	 *     This is service parameter.
 	 **/
-	private Long sendingTimeOfResponseAtClient;
+	private Long sendingTimeOfResponseAtServer;
 
 
 	/**
@@ -112,24 +112,24 @@ public class Response
 		this.requestId = requestId;
 	}
 
-	public Long getSendingTimeOfResponseAtClient()
+	public Long getSendingTimeOfResponseAtServer()
 	{
-		return sendingTimeOfResponseAtClient;
+		return sendingTimeOfResponseAtServer;
 	}
 
-	public void setSendingTimeOfResponseAtClient(Long sendingTimeOfResponseAtClient)
+	public void setSendingTimeOfResponseAtServer(Long sendingTimeOfResponseAtServer)
 	{
-		this.sendingTimeOfResponseAtClient = sendingTimeOfResponseAtClient;
+		this.sendingTimeOfResponseAtServer = sendingTimeOfResponseAtServer;
 	}
 
-	public Long getSendingTimeOfReuestAtClient()
+	public Long getSendingTimeOfRequestAtClient()
 	{
-		return sendingTimeOfReuestAtClient;
+		return sendingTimeOfRequestAtClient;
 	}
 
-	public void setSendingTimeOfReuestAtClient(Long sendingTimeOfReuestAtClient)
+	public void setSendingTimeOfRequestAtClient(Long sendingTimeOfRequestAtClient)
 	{
-		this.sendingTimeOfReuestAtClient = sendingTimeOfReuestAtClient;
+		this.sendingTimeOfRequestAtClient = sendingTimeOfRequestAtClient;
 	}
 
 	public String getStatus()
@@ -162,14 +162,14 @@ public class Response
 		this.timeOfReceiptOfResponseAtClient = timeOfReceiptOfResponseAtClient;
 	}
 
-	public Long getTimeOfReceiptOfReuestAtServer()
+	public Long getTimeOfReceiptOfRequestAtServer()
 	{
-		return timeOfReceiptOfReuestAtServer;
+		return timeOfReceiptOfRequestAtServer;
 	}
 
-	public void setTimeOfReceiptOfReuestAtServer(Long timeOfReceiptOfReuestAtServer)
+	public void setTimeOfReceiptOfRequestAtServer(Long timeOfReceiptOfRequestAtServer)
 	{
-		this.timeOfReceiptOfReuestAtServer = timeOfReceiptOfReuestAtServer;
+		this.timeOfReceiptOfRequestAtServer = timeOfReceiptOfRequestAtServer;
 	}
 
 	public String getType()

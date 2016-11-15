@@ -1,41 +1,49 @@
 package ru.rusquant.client;
 
+import ru.rusquant.client.exceptions.MessageGrinderEmergencyAbortException;
+import ru.rusquant.client.timing.TimingManager;
 import ru.rusquant.connection.pipe.WindowsNamedPipe;
 import ru.rusquant.messages.MessagesManager;
 import ru.rusquant.messages.request.Request;
+import ru.rusquant.messages.request.RequestSubject;
+import ru.rusquant.messages.response.EndOfStreamResponse;
 import ru.rusquant.messages.response.Response;
 
 import java.io.IOException;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- *    Class implements all client-side logic of Windows Named Pipe server-client process
+ *    Class implements all client-side logic of Windows Named Pipe server-to-client process
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
 public class WindowsNamedPipeClient extends Client
 {
-	private WindowsNamedPipe pipe= new WindowsNamedPipe("\\\\.\\pipe\\RusquantToQuikPipe");
+	private final WindowsNamedPipe pipe = new WindowsNamedPipe("\\\\.\\pipe\\RusquantToQuikPipe");
 
-	private MessagesManager messagesManager = MessagesManager.getInstance();
+	private final MessagesManager messagesManager = MessagesManager.getInstance();
+	private final TimingManager timingManager = TimingManager.getInstance();
 
 	private Boolean isStopped = Boolean.FALSE;
 
 
 	/**
-	 *    Queues for producer - consumer scheme.
-	 *	  Client instance acts as producer. It populates queue of request and takes the requests come.
-	 *	  ClientThread acts as consumer. It takes requests, sends them to server and populate queue with responses.
-	 *	  So, ClientThread is some kind of meat grinder for requests. While Client is a control layer.
+	 *    Queues for double producer - consumer scheme.
+	 *	  Client acts as producer with respect to requests, while MessageGrinder acts as consumer of requests.
 	 **/
-	private LinkedBlockingQueue<Request> requests = new LinkedBlockingQueue<Request>();
-	private LinkedBlockingQueue<Response> responses = new LinkedBlockingQueue<Response>();
+	private final LinkedBlockingQueue<Request> requests = new LinkedBlockingQueue<Request>();
+
+	/**
+	 *    Queues for double producer - consumer scheme.
+	 *    MessageGrinder acts as producer with respect to responses, while Client acts as consumer of responses.
+	 **/
+	private final LinkedBlockingQueue<Response> responses = new LinkedBlockingQueue<Response>();
 
 
 	/**
-	 *    Inner message processor.
+	 *    Inner request-response processor.
 	 **/
-	private MessageGrinder grinder = new MessageGrinder();
+	private MessageGrinder grinder;
 
 
 	/**
@@ -44,7 +52,18 @@ public class WindowsNamedPipeClient extends Client
 
 	public WindowsNamedPipeClient()
 	{
-		grinder.setName("MessageGrinder");
+
+	}
+
+
+	public String getPipeError()
+	{
+		String errorMessage;
+		synchronized (pipe)
+		{
+			errorMessage = pipe.getErrorMessage();
+		}
+		return errorMessage;
 	}
 
 
@@ -59,20 +78,12 @@ public class WindowsNamedPipeClient extends Client
 
 
 	@Override
-	public void disconnect()
+	public void disconnect() throws IOException
 	{
 		synchronized (pipe)
 		{
-			try
-			{
-				pipe.disconnect();
-				this.isConnected = Boolean.FALSE;
-				System.out.println("Disconnected from pipe!");
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
+			pipe.disconnect();
+			this.isConnected = Boolean.FALSE;
 		}
 	}
 
@@ -80,8 +91,11 @@ public class WindowsNamedPipeClient extends Client
 	@Override
 	public void run()
 	{
-		isStopped = Boolean.FALSE;
+		timingManager.reset();
+		grinder = new MessageGrinder();
+		grinder.setName("MessageGrinder");
 		grinder.start();
+		isStopped = Boolean.FALSE;
 	}
 
 
@@ -102,8 +116,13 @@ public class WindowsNamedPipeClient extends Client
 	/**
 	 *    Producer's method to populate queue of requests
 	 **/
-	public void postRequest(Request request) throws InterruptedException
+	public void postRequest(Request request) throws MessageGrinderEmergencyAbortException, InterruptedException
 	{
+		if(grinder.isEmergencyAborted())
+		{
+			Exception error = grinder.getError();
+			throw new MessageGrinderEmergencyAbortException(error.getMessage(), error);
+		}
 		requests.put(request);
 	}
 
@@ -112,9 +131,15 @@ public class WindowsNamedPipeClient extends Client
 	 *    Producer's method to get the result of the request.
 	 *    Actually, in this case Client class acts as consumer of responses.
 	 **/
-	public Response getResponse(Request request) throws InterruptedException
+	public Response getResponse() throws MessageGrinderEmergencyAbortException, InterruptedException
 	{
 		Response response = responses.take();
+		if(response instanceof EndOfStreamResponse)
+		{
+			Exception error = grinder.getError();
+			throw new MessageGrinderEmergencyAbortException(error.getMessage(), error);
+		}
+		timingManager.addTimingDataRow(response);
 		return response;
 	}
 
@@ -123,6 +148,34 @@ public class WindowsNamedPipeClient extends Client
 	{
 		return isStopped;
 	}
+
+
+	/**
+	 *    Access to time statistics of response-request data flow process.
+	 **/
+	public Float getAvgShippingDurationOfRequest(RequestSubject subject)
+	{
+		return timingManager.getAvgShippingDurationOfRequest(subject);
+	}
+
+	public Float getAvgDurationOfRequestProcessing(RequestSubject subject)
+	{
+		return timingManager.getAvgDurationOfRequestProcessing(subject);
+	}
+
+	public Float getAvgShippingDurationOfResponse(RequestSubject subject)
+	{
+		return timingManager.getAvgShippingDurationOfResponse(subject);
+	}
+
+	public Float getAvgRequestResponseLatency(RequestSubject subject)
+	{
+		return timingManager.getAvgRequestResponseLatency(subject);
+	}
+
+
+
+
 
 	/**
 	 *     MessageGrinder class takes care about request - response processing between client and server.
@@ -170,7 +223,7 @@ public class WindowsNamedPipeClient extends Client
 		/**
 		 *	   In order to know what's happens.
 		 **/
-		private IOException error;
+		private Exception error;
 
 
 		/**
@@ -180,11 +233,18 @@ public class WindowsNamedPipeClient extends Client
 		 **/
 		private Boolean isLastResponseReceived = Boolean.TRUE;
 
+		private static final String END_OF_SESSION_MESSAGE = "CLIENT_OFF";
 
 
-		public IOException getError()
+		public synchronized Boolean isEmergencyAborted()
 		{
-			return error;
+			return isEmergencyAborted;
+		}
+
+
+		public synchronized Exception getError()
+		{
+			return new Exception(error);
 		}
 
 
@@ -227,12 +287,13 @@ public class WindowsNamedPipeClient extends Client
 
 		private Request executeWriteStep() throws InterruptedException, IOException
 		{
-			Request request = null;
+			Request request;
 			request = requests.take();
 			if(request == null) return null;
-			request.fixSendingTime();
 
+			request.fixSendingTime();
 			String rawJSONRequest = messagesManager.serializeRequest(request);
+
 			if(rawJSONRequest != null && !rawJSONRequest.isEmpty())
 			{
 				writeMessage(rawJSONRequest);
@@ -254,13 +315,39 @@ public class WindowsNamedPipeClient extends Client
 				{
 					response.setTimeOfReceiptOfResponseAtClient(System.currentTimeMillis());
 					responses.put(response);
-
 					isLastResponseReceived = Boolean.TRUE;
 					clientMode = 1;
 				}
 			}
 		}
 
+
+		/**
+		 *     ACHTUNG!!!
+		 *
+		 *     This is important!
+		 *     One need to handle sudden server's shut down in some way.
+		 *     This cause exceptions on the MessageGrinder side, which break execution of read-write loop.
+		 *	   If this happens before client posts the request, there is no reason to worry.
+		 *	   postRequest() method of client throws exception in this case.
+		 *	   if server stops working after received the request, the response might not yet be prepared.
+		 *	   Then, due to the empty responses queue, call of responses.take() at client side will waite forever.
+		 *
+		 *	   In order to notify responses.take() at client side about termination of the MessageGrinder thread execution (no responses anymore)
+		 *	   docs for BlockingQueue suggest to add some king of end-of-stream object to awake take() from waiting.
+		 *
+		 *	   signalEmergencyAbort() method add special subtype of Response class to queue in situation of emergency termination of MessageGrinder.
+		 *	   Since, this is the situation of emergency termination there is no need to care about InterruptedException
+		 *
+		 **/
+		private void signalEmergencyAbort()
+		{
+			try
+			{
+				responses.put( new EndOfStreamResponse() );
+			}
+			catch (InterruptedException ignore) {}
+		}
 
 
 		@Override
@@ -286,17 +373,15 @@ public class WindowsNamedPipeClient extends Client
 					catch (InterruptedException e)
 					{
 						MessageGrinder.this.isInterrupted = true;
-						System.out.println("Message grinder thread has been interrupted!");
 					}
 				}
-
-				writeMessage("CLIENT_OFF");
-
+				writeMessage(END_OF_SESSION_MESSAGE);
 			}
-			catch (IOException e)
+			catch (Exception e)
 			{
 				MessageGrinder.this.isEmergencyAborted = Boolean.TRUE;
 				error = e;
+				signalEmergencyAbort();
 			}
 		}
 	}

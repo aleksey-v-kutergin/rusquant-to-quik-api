@@ -6,6 +6,7 @@ import ru.rusquant.connector.JavaToQuikPipeConnector;
 import ru.rusquant.data.quik.Echo;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
+import ru.rusquant.messages.request.RequestSubject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,37 +24,63 @@ public class TestConnectorUser
 
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		JavaToQuikConnector connector = new JavaToQuikPipeConnector();
-		connector.connect();
-		if(connector.isConnected())
-		{
-			BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-			boolean isExit = false;
-			while(!isExit)
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Enter any key to try to connect or type exit");
+
+			String command = reader.readLine();
+			if("exit".equals(command))
 			{
-				System.out.println();
-				System.out.println("Select the test type: manual or auto or exit");
-				String test = reader.readLine();
-				if("manual".equals(test))
+				isExit = true;
+			}
+			else
+			{
+				connector.connect();
+				if(connector.isConnected())
 				{
-					runManualTest(connector, reader);
-				}
-				else if("auto".equals(test))
-				{
-					runAutoTest(connector);
-				}
-				else if("exit".equals(test))
-				{
-					isExit = true;
+					showTestsMenu(connector, reader);
 				}
 				else
 				{
-					System.out.println("Invalid test type!");
+					System.out.println(connector.getConnectorError().getErrorMessage());
 				}
 			}
+		}
 
-			reader.close();
+		reader.close();
+	}
+
+
+	private static void showTestsMenu(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Select the test type: manual or auto or exit");
+			String test = reader.readLine();
+			if("manual".equals(test))
+			{
+				runManualTest(connector, reader);
+			}
+			else if("auto".equals(test))
+			{
+				runAutoTest(connector);
+			}
+			else if("exit".equals(test))
+			{
+				isExit = true;
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
 		}
 		connector.disconnect();
 	}
@@ -101,7 +128,7 @@ public class TestConnectorUser
 
 	private static void runAutoTest(JavaToQuikConnector connector)
 	{
-		System.out.println("Running auto test...");
+		System.out.println("Running auto echo test...");
 		System.out.println();
 
 		long startTime = System.currentTimeMillis();
@@ -139,6 +166,10 @@ public class TestConnectorUser
 		}
 		long endTime = System.currentTimeMillis();
 		System.out.println("\nConnector process " + count + " of messages in " + (endTime - startTime) + " milliseconds");
+		System.out.println("With average shipping duration of request: " 	+ connector.getAvgShippingDurationOfRequest(RequestSubject.ECHO));
+		System.out.println("With average duration of request processing: " 	+ connector.getAvgDurationOfRequestProcessing(RequestSubject.ECHO));
+		System.out.println("With average shipping duration of response: " 	+ connector.getAvgShippingDurationOfResponse(RequestSubject.ECHO));
+		System.out.println("With average request response latency: " 		+ connector.getAvgRequestResponseLatency(RequestSubject.ECHO));
 		System.out.println();
 	}
 

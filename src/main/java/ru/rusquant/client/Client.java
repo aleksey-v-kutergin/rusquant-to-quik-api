@@ -1,5 +1,7 @@
 package ru.rusquant.client;
 
+import java.io.IOException;
+
 /**
  *    Base class for all rusquant to QUIK clients
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
@@ -16,7 +18,7 @@ public abstract class Client
 
 	public abstract void connect();
 
-	public abstract void disconnect();
+	public abstract void disconnect() throws IOException;
 
 	public abstract void run();
 

@@ -31,38 +31,23 @@ public class MessagesManager
 	}
 
 
-	public String serializeRequest(Request request)
+	public String serializeRequest(Request request) throws IOException
 	{
 		if(request == null) return null;
-		try
-		{
-			StringWriter writer = new StringWriter();
-			mapper.writeValue(writer, request);
-			return writer.toString();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 
-		return null;
+		StringWriter writer = new StringWriter();
+		mapper.writeValue(writer, request);
+		return writer.toString();
 	}
 
 
 
-	public Response deserializeResponse(String rawJsonResponse)
+	public Response deserializeResponse(String rawJsonResponse) throws IOException
 	{
-		try
-		{
-			StringReader reader = new StringReader(rawJsonResponse);
-			Response response = mapper.readValue(reader, Response.class);
-			return response;
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
+		if(rawJsonResponse == null || rawJsonResponse.isEmpty()) return null;
 
-		return null;
+		StringReader reader = new StringReader(rawJsonResponse);
+		Response response = mapper.readValue(reader, Response.class);
+		return response;
 	}
 }
