@@ -12,6 +12,7 @@ import ru.rusquant.messages.request.RequestType;
 import ru.rusquant.messages.request.body.RequestBody;
 import ru.rusquant.messages.response.Response;
 import ru.rusquant.messages.response.ResponseStatus;
+import ru.rusquant.messages.response.body.ConnectionSateResponseBody;
 import ru.rusquant.messages.response.body.EchoResponseBody;
 
 import java.io.IOException;
@@ -66,13 +67,13 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 		if(client.isConnected())
 		{
-			isConnected = Boolean.TRUE;
+			isConnectedToServer = Boolean.TRUE;
 			client.run();
 		}
 		else
 		{
 			connectorError = new ErrorObject(client.getPipeError());
-			isConnected = Boolean.FALSE;
+			isConnectedToServer = Boolean.FALSE;
 		}
 	}
 
@@ -88,7 +89,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 				if(client.isStopped())
 				{
 					client.disconnect();
-					isConnected = Boolean.FALSE;
+					isConnectedToServer = Boolean.FALSE;
 					requestFactory.resetRequestIdSequence();
 				}
 			}
@@ -157,14 +158,41 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 				}
 			}
 		}
-		catch (MessageGrinderEmergencyAbortException e)
-		{
-			( (ErrorObject) result ).setErrorMessage(e.getMessage());
-		}
-		catch (InterruptedException e)
+		catch (Exception e)
 		{
 			( (ErrorObject) result ).setErrorMessage(e.getMessage());
 		}
 		return result;
+	}
+
+
+	public QuikDataObject isConnected()
+	{
+		QuikDataObject result = new ErrorObject();
+		String[] args = {};
+
+		RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.CONNECTION_SATE, args);
+		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.CONNECTION_SATE, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if(ResponseStatus.SUCCESS.toString().equals(response.getStatus()))
+				{
+					return ( (ConnectionSateResponseBody) response.getBody() ).getConnectionState();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of isConnected() failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return null;
 	}
 }

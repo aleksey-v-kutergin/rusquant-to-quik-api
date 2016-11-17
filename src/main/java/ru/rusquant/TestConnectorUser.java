@@ -3,6 +3,7 @@ package ru.rusquant;
 
 import ru.rusquant.connector.JavaToQuikConnector;
 import ru.rusquant.connector.JavaToQuikPipeConnector;
+import ru.rusquant.data.quik.ConnectionState;
 import ru.rusquant.data.quik.Echo;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
@@ -42,7 +43,7 @@ public class TestConnectorUser
 			else
 			{
 				connector.connect();
-				if(connector.isConnected())
+				if(connector.isConnectedToServer())
 				{
 					showTestsMenu(connector, reader);
 				}
@@ -95,6 +96,75 @@ public class TestConnectorUser
 		while(!isExit)
 		{
 			System.out.println();
+			System.out.println("Select the type of information:");
+			System.out.println("\techo (get echo from server)");
+			System.out.println("\tinfo (get info about terminal)");
+			System.out.println("\tisconnected (status of connection between terminal and QUIK-server)");
+			System.out.println("\texit");
+			System.out.println();
+
+			String message = reader.readLine();
+			if(message != null && !message.isEmpty())
+			{
+				if("exit".equals(message))
+				{
+					isExit = true;
+				}
+				else if("echo".equals(message))
+				{
+					runEchoTest(connector, reader);
+				}
+				else if("info".equals(message))
+				{
+
+				}
+				else if("isconnected".equals(message))
+				{
+					QuikDataObject result = connector.isConnected();
+					if(result instanceof ErrorObject)
+					{
+						System.out.println( ((ErrorObject) result).getErrorMessage() );
+						isExit = true;
+					}
+					else
+					{
+						if(((ConnectionState) result).isConnected().equals(1))
+						{
+							System.out.println();
+							System.out.println("Terminal is connected to QUIK-server");
+							System.out.println();
+						}
+						else
+						{
+							System.out.println();
+							System.out.println("Terminal is not connected to QUIK-server");
+							System.out.println();
+						}
+					}
+				}
+				else
+				{
+					System.out.println("Invalid type of request!");
+				}
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
+		}
+
+	}
+
+
+	private static void runEchoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		System.out.println("Running echo test...");
+		System.out.println();
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
 			System.out.println("Enter not empty message message or type exit:");
 			String message = reader.readLine();
 			if(message != null && !message.isEmpty())
@@ -122,7 +192,6 @@ public class TestConnectorUser
 				System.out.println("Invalid test type!");
 			}
 		}
-
 	}
 
 

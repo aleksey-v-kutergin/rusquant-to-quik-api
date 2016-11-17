@@ -8,5 +8,6 @@ package ru.rusquant.messages.request;
 public enum RequestSubject
 {
 	ECHO,
-	ORDER
+	ORDER,
+	CONNECTION_SATE
 }

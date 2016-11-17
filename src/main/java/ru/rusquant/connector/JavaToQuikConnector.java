@@ -10,13 +10,13 @@ import ru.rusquant.messages.request.RequestSubject;
  */
 public abstract class JavaToQuikConnector implements JavaToQuikAPI
 {
-	protected Boolean isConnected = Boolean.FALSE;
+	protected Boolean isConnectedToServer = Boolean.FALSE;
 
 	protected ErrorObject connectorError;
 
-	public Boolean isConnected()
+	public Boolean isConnectedToServer()
 	{
-		return isConnected;
+		return isConnectedToServer;
 	}
 
 	public ErrorObject getConnectorError()

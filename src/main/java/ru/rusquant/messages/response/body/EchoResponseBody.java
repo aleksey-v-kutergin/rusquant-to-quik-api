@@ -20,9 +20,4 @@ public class EchoResponseBody extends ResponseBody
 	{
 		return echo;
 	}
-
-	public void setEcho(Echo echo)
-	{
-		this.echo = echo;
-	}
 }

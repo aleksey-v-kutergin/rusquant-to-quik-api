@@ -36,4 +36,7 @@ public interface JavaToQuikAPI
 	 *    Just say hello world!:)
 	 **/
 	QuikDataObject getEcho(String message);
+
+
+	QuikDataObject isConnected();
 }

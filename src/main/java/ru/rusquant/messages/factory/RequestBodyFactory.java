@@ -1,6 +1,7 @@
 package ru.rusquant.messages.factory;
 
 import ru.rusquant.messages.request.RequestSubject;
+import ru.rusquant.messages.request.body.ConnectionStateRequestBody;
 import ru.rusquant.messages.request.body.EchoRequestBody;
 import ru.rusquant.messages.request.body.RequestBody;
 
@@ -22,6 +23,10 @@ public class RequestBodyFactory
 					return new EchoRequestBody(args[0]);
 				}
 				else { return null; }
+			}
+			case CONNECTION_SATE:
+			{
+				return new ConnectionStateRequestBody();
 			}
 			default:
 			{
