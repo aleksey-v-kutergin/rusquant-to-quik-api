@@ -9,5 +9,6 @@ public enum RequestSubject
 {
 	ECHO,
 	ORDER,
-	CONNECTION_SATE
+	CONNECTION_SATE,
+	INFO_PARAMETER
 }

@@ -1,12 +1,10 @@
-package ru.rusquant;
+package ru.rusquant.demo;
 
 
 import ru.rusquant.connector.JavaToQuikConnector;
 import ru.rusquant.connector.JavaToQuikPipeConnector;
-import ru.rusquant.data.quik.ConnectionState;
-import ru.rusquant.data.quik.Echo;
-import ru.rusquant.data.quik.ErrorObject;
-import ru.rusquant.data.quik.QuikDataObject;
+import ru.rusquant.data.quik.*;
+import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.messages.request.RequestSubject;
 
 import java.io.BufferedReader;
@@ -116,7 +114,7 @@ public class TestConnectorUser
 				}
 				else if("info".equals(message))
 				{
-
+					runInfoTest(connector);
 				}
 				else if("isconnected".equals(message))
 				{
@@ -195,6 +193,33 @@ public class TestConnectorUser
 	}
 
 
+	private static void runInfoTest(JavaToQuikConnector connector) throws IOException
+	{
+		System.out.println("Running info test...");
+		System.out.println();
+		System.out.println("Name of the parameter: current value (NA - Not Available)");
+		System.out.println("-----------------------------------------------------------");
+		System.out.println();
+
+		for(InfoParamType type : InfoParamType.values())
+		{
+			String parameterName = type.toString();
+			QuikDataObject result = connector.getInfoParam(parameterName);
+			if(result instanceof ErrorObject)
+			{
+				System.out.println( ((ErrorObject) result).getErrorMessage() );
+				break;
+			}
+			else
+			{
+				InfoParameter parameter = (InfoParameter) result;
+				System.out.println("\t" +  parameter.getParameterName() + ": " + parameter.getParameterValue());
+			}
+		}
+		System.out.println();
+	}
+
+
 	private static void runAutoTest(JavaToQuikConnector connector)
 	{
 		System.out.println("Running auto echo test...");
@@ -247,5 +272,4 @@ public class TestConnectorUser
 	{
 		return new BigInteger(130, random).toString();
 	}
-
 }

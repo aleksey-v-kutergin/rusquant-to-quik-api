@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = Echo.class, name = "Echo"),
 		@JsonSubTypes.Type(value = ConnectionState.class, name = "ConnectionState"),
+		@JsonSubTypes.Type(value = InfoParameter.class, name = "InfoParameter"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject

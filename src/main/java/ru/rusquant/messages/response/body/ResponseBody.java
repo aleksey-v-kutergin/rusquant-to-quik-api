@@ -13,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = EchoResponseBody.class, name = "EchoResponseBody"),
-		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, name = "ConnectionSateResponseBody")
+		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, name = "ConnectionSateResponseBody"),
+		@JsonSubTypes.Type(value = InfoParameterResponseBody.class, name = "InfoParameterResponseBody")
 })
 public abstract class ResponseBody
 {

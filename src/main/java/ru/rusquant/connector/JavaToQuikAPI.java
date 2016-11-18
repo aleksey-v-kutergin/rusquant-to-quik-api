@@ -38,5 +38,21 @@ public interface JavaToQuikAPI
 	QuikDataObject getEcho(String message);
 
 
+	/**
+	 *    Returns the state of connection between QUIK terminal and QUIK (Broker) server.
+	 *    @return:
+	 *    1 - if terminal is connected
+	 *    0 - otherwise
+	 **/
 	QuikDataObject isConnected();
+
+
+
+	/**
+	 *    Returns values of the parameters listed in QUIK-terminal info window (System/About/Information window)
+	 *    Available parameters can be found in QLUA specification and in InfoParamType class.
+	 *    If value of some parameter is not a available in terminal (for instance terminal is not connected),
+	 *    function set value of such parameter to empty string.
+	 **/
+	QuikDataObject getInfoParam(String paramName);
 }

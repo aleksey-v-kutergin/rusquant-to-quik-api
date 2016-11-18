@@ -1,7 +1,6 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
-import ru.rusquant.client.exceptions.MessageGrinderEmergencyAbortException;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.messages.factory.RequestBodyFactory;
@@ -14,6 +13,7 @@ import ru.rusquant.messages.response.Response;
 import ru.rusquant.messages.response.ResponseStatus;
 import ru.rusquant.messages.response.body.ConnectionSateResponseBody;
 import ru.rusquant.messages.response.body.EchoResponseBody;
+import ru.rusquant.messages.response.body.InfoParameterResponseBody;
 
 import java.io.IOException;
 
@@ -51,12 +51,10 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	private RequestFactory requestFactory = new RequestFactory();
 
 
-
 	public JavaToQuikPipeConnector()
 	{
 
 	}
-
 
 
 	@Override
@@ -137,7 +135,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	{
 		QuikDataObject result = new ErrorObject();
 		if(message == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
-		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
+		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive empty message parameter. Message cannot be empty!"); }
 
 		String[] args = {message};
 		RequestBody echoBody =  requestBodyFactory.createRequestBody(RequestSubject.ECHO, args);
@@ -164,6 +162,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		}
 		return result;
 	}
+
 
 
 	public QuikDataObject isConnected()
@@ -194,5 +193,38 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 			( (ErrorObject) result ).setErrorMessage(e.getMessage());
 		}
 		return null;
+	}
+
+
+	public QuikDataObject getInfoParam(String paramName)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(paramName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for paramName parameter. Name of info parameter cannot be null!"); }
+		else if(paramName.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive empty paramName parameter. Name of info parameter cannot be empty string!"); }
+
+		String[] args = {paramName.toUpperCase()};
+		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.INFO_PARAMETER, args);
+		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.INFO_PARAMETER, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (InfoParameterResponseBody) response.getBody() ).getInfoParameter();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of getInfoParam() with paramName: " + paramName.toUpperCase() + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
 	}
 }
