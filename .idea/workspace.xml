@@ -2,11 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4836ef1-99cb-4cfe-bc2e-779facf210fe" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/buildNumber.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RusquantToQuikAPI.iml" afterPath="$PROJECT_DIR$/RusquantToQuikAPI.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\compiler.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_annotations_2_8_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_core_2_8_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__com_fasterxml_jackson_core_jackson_databind_2_8_3.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__commons_lang_commons_lang_2_6.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__junit_junit_3_8_1.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__net_java_dev_jna_jna_4_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\libraries\Maven__net_java_dev_jna_jna_platform_4_0_0.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\Development\desktop\rusquant\rusquant-to-quik-api\RusquantToQuikAPI.iml" afterPath="" />
     </list>
     <ignored path="RusquantToQuikAPI.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +47,6 @@
               <caret line="361" column="23" selection-start-line="361" selection-start-column="23" selection-end-line="361" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="false" />
-                <element signature="e#1317#1326#0" expanded="false" />
-                <element signature="e#1585#1595#0" expanded="false" />
                 <element signature="e#3506#3507#0" expanded="false" />
                 <element signature="e#3529#3530#0" expanded="false" />
                 <element signature="e#6430#6431#0" expanded="false" />
@@ -50,11 +58,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24837662">
-              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RusquantToQuikAPI.iml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RusquantToQuikAPI.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.81145585">
+              <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -66,6 +84,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="19" column="30" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="30" />
               <folding>
+                <element signature="imports" expanded="false" />
                 <element signature="e#6957#6958#0" expanded="false" />
                 <element signature="e#7009#7010#0" expanded="false" />
               </folding>
@@ -87,6 +106,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -251,7 +275,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -386,6 +409,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
     </panes>
@@ -398,7 +422,7 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="project.structure.last.edited" value="Project" />
@@ -737,7 +761,11 @@
       <workItem from="1479289626946" duration="2211000" />
       <workItem from="1479358224031" duration="25768000" />
       <workItem from="1479804973736" duration="2947000" />
-      <workItem from="1479808813039" duration="8690000" />
+      <workItem from="1479808813039" duration="8928000" />
+      <workItem from="1479901630800" duration="2097000" />
+      <workItem from="1479966313041" duration="638000" />
+      <workItem from="1479966993483" duration="76000" />
+      <workItem from="1480078735610" duration="2479000" />
     </task>
     <task id="LOCAL-00001" summary="/* Done project settings and add com.sun.jna lib to project */">
       <created>1471503593968</created>
@@ -817,11 +845,17 @@
       <option name="project" value="LOCAL" />
       <updated>1479449598523</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="/* Set build section of pom.xml to produce standalone  jar with all dependencies (uber jar) and add build numbering.  */">
+      <created>1479881145035</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1479881145035</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="458126000" />
+    <option name="totallyTimeSpent" value="463654000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -829,27 +863,27 @@
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30378377" sideWeight="0.39925373" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5172786" sideWeight="0.41257995" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15671642" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30378377" sideWeight="0.6007463" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42054054" sideWeight="0.8454158" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17926566" sideWeight="0.66684437" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09221748" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5172786" sideWeight="0.58742005" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38444924" sideWeight="0.65618336" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24946696" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18176973" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="LuaJ" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47675675" sideWeight="0.83102345" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32972974" sideWeight="0.4914712" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21297297" sideWeight="0.8390192" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1718919" sideWeight="0.4552239" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47675675" sideWeight="0.83102345" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -876,7 +910,8 @@
     <MESSAGE value="/* Just finished first version of connector architecture.  */" />
     <MESSAGE value="/* Add isConnected() function from QLUA specification.  */" />
     <MESSAGE value="/* Add getInfoParam() function from QLUA specification.  */" />
-    <option name="LAST_COMMIT_MESSAGE" value="/* Add getInfoParam() function from QLUA specification.  */" />
+    <MESSAGE value="/* Set build section of pom.xml to produce standalone  jar with all dependencies (uber jar) and add build numbering.  */" />
+    <option name="LAST_COMMIT_MESSAGE" value="/* Set build section of pom.xml to produce standalone  jar with all dependencies (uber jar) and add build numbering.  */" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -889,13 +924,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://C:/Program Files/Java/jdk1.7.0_75/src.zip!/java/lang/Throwable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.292599">
-          <caret line="476" column="0" selection-start-line="476" selection-start-column="0" selection-end-line="481" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/net/java/dev/jna/jna-platform/4.0.0/jna-platform-4.0.0.jar!/com/sun/jna/platform/win32/Kernel32.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.08">
@@ -1026,12 +1054,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="118" column="27" selection-start-line="118" selection-start-column="27" selection-end-line="118" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#850#865#0" expanded="false" />
-            <element signature="e#965#988#0" expanded="false" />
-            <element signature="e#5027#5042#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1230,8 +1252,6 @@
           <caret line="361" column="23" selection-start-line="361" selection-start-column="23" selection-end-line="361" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#1317#1326#0" expanded="false" />
-            <element signature="e#1585#1595#0" expanded="false" />
             <element signature="e#3506#3507#0" expanded="false" />
             <element signature="e#3529#3530#0" expanded="false" />
             <element signature="e#6430#6431#0" expanded="false" />
@@ -1247,6 +1267,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="30" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="30" />
           <folding>
+            <element signature="imports" expanded="false" />
             <element signature="e#6957#6958#0" expanded="false" />
             <element signature="e#7009#7010#0" expanded="false" />
           </folding>
@@ -1257,14 +1278,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24837662">
-          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="156" column="21" selection-start-line="156" selection-start-column="21" selection-end-line="156" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RusquantToQuikAPI.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.81145585">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
           <folding />
         </state>
       </provider>
