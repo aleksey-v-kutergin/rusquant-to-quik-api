@@ -12,6 +12,14 @@
 
       <properties>
           <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+          <junit.version>3.8.1</junit.version>
+          <jna.version>4.0.0</jna.version>
+          <jna.platform.version>4.0.0</jna.platform.version>
+          <jackson.version>2.8.3</jackson.version>
+          <commons.lang.version>2.6</commons.lang.version>
+          <jdk.version>1.7</jdk.version>
+          <maven.compiler.plugin.version>2.3.2</maven.compiler.plugin.version>
+          <maven.shade.plugin.version>2.3</maven.shade.plugin.version>
       </properties>
 
       <dependencies>
@@ -19,15 +27,150 @@
           <dependency>
               <groupId>junit</groupId>
               <artifactId>junit</artifactId>
-              <version>3.8.1</version>
+              <version>${junit.version}</version>
               <scope>test</scope>
           </dependency>
 
           <dependency>
-              <groupId>com.sun.jna</groupId>
+              <groupId>net.java.dev.jna</groupId>
               <artifactId>jna</artifactId>
-              <version>3.0.9</version>
+              <version>${jna.version}</version>
+          </dependency>
+
+
+          <dependency>
+              <groupId>net.java.dev.jna</groupId>
+              <artifactId>jna-platform</artifactId>
+              <version>${jna.platform.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>${jackson.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-core</artifactId>
+              <version>${jackson.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-annotations</artifactId>
+              <version>${jackson.version}</version>
+          </dependency>
+
+          <dependency>
+              <groupId>commons-lang</groupId>
+              <artifactId>commons-lang</artifactId>
+              <version>${commons.lang.version}</version>
           </dependency>
 
       </dependencies>
+
+      <!-- Settings of connection to VCS for buildnumber-maven-plugin -->
+      <scm>
+          <!-- Dummy connection in order to avoid: "The scm url cannot be null" -->
+          <connection>scm:svn:http://127.0.0.1/dummy</connection>
+          <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
+          <tag>HEAD</tag>
+          <url>http://127.0.0.1/dummy</url>
+      </scm>
+
+
+      <!-- This build section produces  -->
+      <build>
+
+          <!-- The name of the resulting jar -->
+          <!-- Output: -->
+          <!-- rusquant-to-quik-api.jar - Project and dependency classes in a single jar file -->
+          <!-- original-rusquant-to-quik-api.jar - Only project classes -->
+          <!-- dependency-reduced-pom.xml - is for reference only, just ignore it. -->
+
+          <plugins>
+
+              <!-- Generate build-number  -->
+              <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>buildnumber-maven-plugin</artifactId>
+                  <version>1.4</version>
+
+                  <executions>
+                      <execution>
+                          <phase>validate</phase>
+                          <goals>
+                              <goal>create</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+
+                  <configuration>
+                      <!-- If this is made true, we check for modified files, and if there are any, we fail the build. -->
+                      <doCheck>false</doCheck>
+                      <!-- If this is made true, then the revision will be updated to the latest in the repo, otherwise it will remain what it is locally. -->
+                      <doUpdate>false</doUpdate>
+
+                      <!-- Config revisionOnScmFailure = true allows buildnumber-maven-plugin be independent for connections to VCS  -->
+                      <revisionOnScmFailure>true</revisionOnScmFailure>
+                      <format>{0,number}</format>
+                      <items>
+                          <item>buildNumber</item>
+                      </items>
+
+                  </configuration>
+
+              </plugin>
+
+
+              <!-- Set compiler -->
+              <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                    </configuration>
+
+              </plugin>
+
+              <!-- Set compiler -->
+              <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-shade-plugin</artifactId>
+                  <version>${maven.shade.plugin.version}</version>
+
+                  <executions>
+                      <!-- Run shade goal on package phase -->
+                      <execution>
+                          <phase>package</phase>
+                          <goals>
+                              <goal>shade</goal>
+                          </goals>
+
+                          <configuration>
+                              <transformers>
+                                  <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                      <!-- Add main class to manifest file of the app -->
+                                      <!-- This is necessary if the target is standalone executable jar, which could be executed via: java -jar rusquant-to-quik-api.jar in command line -->
+                                      <!-- This is not necessary if the target is standalone library of classes -->
+                                      <mainClass>ru.rusquant.demo.TestConnectorUser</mainClass>
+                                  </transformer>
+                              </transformers>
+                          </configuration>
+
+                      </execution>
+                  </executions>
+
+              </plugin>
+
+          </plugins>
+
+          <finalName>rusquant-to-quik-api-${buildNumber}</finalName>
+
+      </build>
+
 </project>
