@@ -16,6 +16,8 @@ import ru.rusquant.messages.response.body.EchoResponseBody;
 import ru.rusquant.messages.response.body.InfoParameterResponseBody;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *    Implementation of java to quik connector based on windows named pipe client.
@@ -131,44 +133,10 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 	/** ========================================================= API implementation ========================================================= **/
 
-	public QuikDataObject getEcho(String message)
-	{
-		QuikDataObject result = new ErrorObject();
-		if(message == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
-		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive empty message parameter. Message cannot be empty!"); }
-
-		String[] args = {message};
-		RequestBody echoBody =  requestBodyFactory.createRequestBody(RequestSubject.ECHO, args);
-		Request echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
-		try
-		{
-			client.postRequest(echoRequest);
-			Response response = client.getResponse();
-			if(response != null)
-			{
-				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
-				{
-					result = ( (EchoResponseBody) response.getBody() ).getEcho();
-				}
-				else
-				{
-					( (ErrorObject) result ).setErrorMessage("Call of getEcho() with message: " + message + " failed with error: " + response.getError());
-				}
-			}
-		}
-		catch (Exception e)
-		{
-			( (ErrorObject) result ).setErrorMessage(e.getMessage());
-		}
-		return result;
-	}
-
-
-
 	public QuikDataObject isConnected()
 	{
 		QuikDataObject result = new ErrorObject();
-		String[] args = {};
+		List<Object> args = new ArrayList<>();
 
 		RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.CONNECTION_SATE, args);
 		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.CONNECTION_SATE, body);
@@ -196,13 +164,48 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	}
 
 
+	public QuikDataObject getEcho(String message)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(message == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for message parameter. Message cannot be null!"); }
+		else if(message.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive empty message parameter. Message cannot be empty!"); }
+
+		List<String> args = new ArrayList<>();
+		args.add(message);
+		RequestBody echoBody =  requestBodyFactory.createRequestBody(RequestSubject.ECHO, args);
+		Request echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
+		try
+		{
+			client.postRequest(echoRequest);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (EchoResponseBody) response.getBody() ).getEcho();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of getEcho() with message: " + message + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
+	}
+
+
 	public QuikDataObject getInfoParam(String paramName)
 	{
 		QuikDataObject result = new ErrorObject();
 		if(paramName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for paramName parameter. Name of info parameter cannot be null!"); }
 		else if(paramName.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive empty paramName parameter. Name of info parameter cannot be empty string!"); }
 
-		String[] args = {paramName.toUpperCase()};
+		List<String> args = new ArrayList<>();
+		args.add(paramName.toUpperCase());
 		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.INFO_PARAMETER, args);
 		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.INFO_PARAMETER, body);
 		try
