@@ -1,5 +1,6 @@
 package ru.rusquant.data.quik;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rusquant.data.quik.types.*;
 
 /**
@@ -9,29 +10,77 @@ import ru.rusquant.data.quik.types.*;
  */
 public class Transaction extends QuikDataObject
 {
+    @JsonProperty("TRANS_ID")
     private Long                transId;        /** User's defined id of the transaction. **/
+
+    @JsonProperty("ACTION")
     private ActionType          action;         /** Aim of the transaction **/
+
+    @JsonProperty("STATUS")
     private TransactionStatus   status;         /** Resulting status of the transaction **/
+
+    @JsonProperty("RESULT_MSG")
     private String              resultMsg;      /** Message **/
+
+    @JsonProperty("TIME")
     private Long                time;           /** Date-Time in Unix-format **/
+
+    @JsonProperty("UID")
     private Long                uid;
+
+    @JsonProperty("FLAGS")
     private Integer             flags;          /** Flags of the transaction (temporally not used). **/
+
+    @JsonProperty("SERVER_TRANS_ID")
     private Long                serverTransId;  /** Id of the transaction, assigned at server **/
+
+    @JsonProperty("ORDER_NUM")
     private Long                orderNum;       /** Number of order **/
+
+    @JsonProperty("PRICE")
     private Double              price;
+
+    @JsonProperty("QUANTITY")
     private Double              quantity;
+
+    @JsonProperty("BALANCE")
     private Double              balance;
+
+    @JsonProperty("FIRM_ID")
     private String              firmId;         /** Id of the company **/
+
+    @JsonProperty("ACCOUNT")
     private String              account;        /** Trading account **/
+
+    @JsonProperty("CLIENT_CODE")
     private String              clientCode;
+
+    @JsonProperty("BROKERREF")
     private String              brokerRef;      /** Assignment **/
+
+    @JsonProperty("CLASSCODE")
     private String              classCode;      /** Code of security class **/
+
+    @JsonProperty("SECCODE")
     private String              secCode;        /** Security code **/
+
+    @JsonProperty("OPERATION")
     private OperationType       operation;      /** Type of operation. For order Buy or Sell  **/
+
+    @JsonProperty("TYPE")
     private OrderType           type;           /** Market or Limit **/
+
+    @JsonProperty("EXCHANGE_CODE")
     private String              exchangeCode;   /** Exchange number of order **/
+
+    @JsonProperty("COMMENT")
     private String              comment;
-    private TransactionMode mode;               /** Execution mode for sendTransaction() server-side wrapper **/
+
+    @JsonProperty("MODE")
+    private TransactionMode     mode;           /** Execution mode for sendTransaction() server-side wrapper **/
+
+    @JsonProperty("DATETIME")
+    private DateTime dateTime;
 
     public Transaction()
     {
@@ -266,5 +315,15 @@ public class Transaction extends QuikDataObject
     public void setMode(TransactionMode mode)
     {
         this.mode = mode;
+    }
+
+    public DateTime getDateTime()
+    {
+        return dateTime;
+    }
+
+    public void setDateTime(DateTime dateTime)
+    {
+        this.dateTime = dateTime;
     }
 }

@@ -3,6 +3,7 @@ package ru.rusquant.connector;
 import ru.rusquant.client.WindowsNamedPipeClient;
 import ru.rusquant.data.quik.ErrorObject;
 import ru.rusquant.data.quik.QuikDataObject;
+import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.messages.factory.RequestBodyFactory;
 import ru.rusquant.messages.factory.RequestFactory;
 import ru.rusquant.messages.request.Request;
@@ -14,6 +15,7 @@ import ru.rusquant.messages.response.ResponseStatus;
 import ru.rusquant.messages.response.body.ConnectionSateResponseBody;
 import ru.rusquant.messages.response.body.EchoResponseBody;
 import ru.rusquant.messages.response.body.InfoParameterResponseBody;
+import ru.rusquant.messages.response.body.TransactionResponseBody;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -172,6 +174,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 		List<String> args = new ArrayList<>();
 		args.add(message);
+
 		RequestBody echoBody =  requestBodyFactory.createRequestBody(RequestSubject.ECHO, args);
 		Request echoRequest = requestFactory.createRequest(RequestType.GET, RequestSubject.ECHO, echoBody);
 		try
@@ -206,7 +209,9 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 		List<String> args = new ArrayList<>();
 		args.add(paramName.toUpperCase());
+
 		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.INFO_PARAMETER, args);
+		if(paramName.isEmpty()) { ( (ErrorObject) result ).setErrorMessage("Receive invalid paramName parameter!"); }
 		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.INFO_PARAMETER, body);
 		try
 		{
@@ -221,6 +226,41 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 				else
 				{
 					( (ErrorObject) result ).setErrorMessage("Call of getInfoParam() with paramName: " + paramName.toUpperCase() + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
+	}
+
+
+	public QuikDataObject sendTransaction(Transaction transaction)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(transaction == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for transaction parameter. Transaction cannot be null!"); }
+
+		List<Transaction> args = new ArrayList<>();
+		args.add(transaction);
+
+		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TRANSACTION, args);
+		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Receive invalid transaction!"); }
+		Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.TRANSACTION, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (TransactionResponseBody) response.getBody() ).getTransactionReplay();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of sendTransaction() with transaction: " + transaction.toString() + " failed with error: " + response.getError());
 				}
 			}
 		}

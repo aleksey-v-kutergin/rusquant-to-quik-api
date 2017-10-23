@@ -1,6 +1,7 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.data.quik.QuikDataObject;
+import ru.rusquant.data.quik.Transaction;
 
 /**
  *    Interface contains prototypes for all methods to work with QUIK terminal.
@@ -55,4 +56,10 @@ public interface JavaToQuikAPI
 	 *    function set value of such parameter to empty string.
 	 **/
 	QuikDataObject getInfoParam(String paramName);
+
+
+	/**
+	 *    Java-implementation of sendTransaction() function, specified in QLua docs
+	 **/
+	QuikDataObject sendTransaction(Transaction transaction);
 }

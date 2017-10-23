@@ -1,6 +1,5 @@
 package ru.rusquant.messages.response.body;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -12,9 +11,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = EchoResponseBody.class, name = "EchoResponseBody"),
-		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, name = "ConnectionSateResponseBody"),
-		@JsonSubTypes.Type(value = InfoParameterResponseBody.class, name = "InfoParameterResponseBody")
+		@JsonSubTypes.Type(value = EchoResponseBody.class, 				name = "EchoResponseBody"),
+		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, 	name = "ConnectionSateResponseBody"),
+		@JsonSubTypes.Type(value = InfoParameterResponseBody.class, 	name = "InfoParameterResponseBody"),
+		@JsonSubTypes.Type(value = TransactionResponseBody.class, 		name = "TransactionResponseBody")
 })
 public abstract class ResponseBody
 {

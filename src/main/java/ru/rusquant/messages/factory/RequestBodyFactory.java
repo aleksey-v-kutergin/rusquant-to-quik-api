@@ -3,10 +3,7 @@ package ru.rusquant.messages.factory;
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.messages.request.RequestSubject;
-import ru.rusquant.messages.request.body.ConnectionStateRequestBody;
-import ru.rusquant.messages.request.body.EchoRequestBody;
-import ru.rusquant.messages.request.body.InfoParameterRequestBody;
-import ru.rusquant.messages.request.body.RequestBody;
+import ru.rusquant.messages.request.body.*;
 
 import java.util.List;
 
@@ -43,9 +40,9 @@ public class RequestBodyFactory
 			}
 			case TRANSACTION:
 			{
-				if(isValidTransaction(null))
+				if(isValidTransactionArgs(args))
 				{
-
+					return new TransactionRequestBody( (Transaction) args.get(0) );
 				}
 			}
 			default:
@@ -92,9 +89,22 @@ public class RequestBodyFactory
 	}
 
 
-	private boolean isValidTransactionaArgs(List<?> args)
+	private boolean isValidTransactionArgs(List<?> args)
 	{
 		boolean isValid = true;
+		Object arg;
+		for(int i = 0; i < args.size(); i++)
+		{
+			arg = args.get(i);
+			if(arg instanceof Transaction)
+			{
+				isValid = isValidTransaction( (Transaction) arg );
+			}
+			else
+			{
+				isValid = false;
+			}
+		}
 		return isValid;
 	}
 

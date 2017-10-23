@@ -4,7 +4,7 @@ package ru.rusquant.demo;
 import ru.rusquant.connector.JavaToQuikConnector;
 import ru.rusquant.connector.JavaToQuikPipeConnector;
 import ru.rusquant.data.quik.*;
-import ru.rusquant.data.quik.types.InfoParamType;
+import ru.rusquant.data.quik.types.*;
 import ru.rusquant.messages.request.RequestSubject;
 
 import java.io.BufferedReader;
@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.util.Date;
 
 /**
  * Just for testing
@@ -98,6 +99,7 @@ public class TestConnectorUser
 			System.out.println("\techo (get echo from server)");
 			System.out.println("\tinfo (get info about terminal)");
 			System.out.println("\tisconnected (status of connection between terminal and QUIK-server)");
+			System.out.println("\tsendtrans (send test transaction to QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -115,6 +117,10 @@ public class TestConnectorUser
 				else if("info".equals(message))
 				{
 					runInfoTest(connector);
+				}
+				else if("sendtrans".equals(message))
+				{
+					runSendTransactionTest(connector, reader);
 				}
 				else if("isconnected".equals(message))
 				{
@@ -265,6 +271,83 @@ public class TestConnectorUser
 		System.out.println("With average shipping duration of response: " 	+ connector.getAvgShippingDurationOfResponse(RequestSubject.ECHO));
 		System.out.println("With average request response latency: " 		+ connector.getAvgRequestResponseLatency(RequestSubject.ECHO));
 		System.out.println();
+	}
+
+
+	private static void runSendTransactionTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		System.out.println("Running send transaction test test...");
+		System.out.println();
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Enter not empty message message or type exit:");
+			String message = reader.readLine();
+			if(message != null && !message.isEmpty())
+			{
+				if("exit".equals(message))
+				{
+					isExit = true;
+				}
+				else
+				{
+					Transaction transaction = new Transaction();
+					transaction.setAccount("NL0011100043");
+					transaction.setTransId(1500014677L);
+					transaction.setAction(ActionType.NEW_ORDER);
+					transaction.setClassCode("QJSIM");
+					transaction.setSecCode("RTKM");
+					transaction.setOperation(OperationType.BUY);
+					transaction.setType(OrderType.MARKET);
+					transaction.setQuantity(1.0);
+					transaction.setPrice(0.0);
+					transaction.setComment("Test transaction");
+					transaction.setMode(TransactionMode.ON_TRANS_REPLAY);
+
+					QuikDataObject result = connector.sendTransaction(transaction);
+					if(result instanceof ErrorObject)
+					{
+						System.out.println( ((ErrorObject) result).getErrorMessage() );
+						isExit = true;
+					}
+					else
+					{
+						Transaction replay = (Transaction) result;
+						String msg = "Replay for transaction: ";
+						msg += "\n\t\tTransaction id: " 		+ replay.getTransId();
+						msg += "\n\t\tAction: " 				+ replay.getAction();
+						msg += "\n\t\tStatus: " 				+ replay.getStatus();
+						msg += "\n\t\tResult message: " 		+ replay.getResultMsg();
+						msg += "\n\t\tTime: " 					+ replay.getTime();
+						msg += "\n\t\tUID: " 					+ replay.getUid();
+						msg += "\n\t\tServer trans id: " 		+ replay.getServerTransId();
+						msg += "\n\t\tOrder num: " 				+ replay.getOrderNum();
+						msg += "\n\t\tPrice: " 					+ replay.getPrice();
+						msg += "\n\t\tQuantity: " 				+ replay.getQuantity();
+						msg += "\n\t\tBalance: " 				+ replay.getBalance();
+						msg += "\n\t\tFirm id: " 				+ replay.getFirmId();
+						msg += "\n\t\tAccount: " 				+ replay.getAccount();
+						msg += "\n\t\tClient code: " 			+ replay.getClientCode();
+						msg += "\n\t\tBroker ref: " 			+ replay.getBrokerRef();
+						msg += "\n\t\tClass code: " 			+ replay.getClassCode();
+						msg += "\n\t\tSec code: " 				+ replay.getSecCode();
+						msg += "\n\t\tExchange code: " 			+ replay.getExchangeCode();
+						msg += "\n\t\tOperation: " 				+ replay.getOperation();
+						msg += "\n\t\tType: " 					+ replay.getType();
+						msg += "\n\t\tComment: " 				+ replay.getComment();
+						msg += "\n\t\tMode: " 					+ replay.getMode();
+						System.out.println( msg );
+						isExit = true;
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
+		}
 	}
 
 
