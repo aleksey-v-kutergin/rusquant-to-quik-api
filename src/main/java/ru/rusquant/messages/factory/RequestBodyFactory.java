@@ -45,12 +45,20 @@ public class RequestBodyFactory
 					return new TransactionRequestBody( (Transaction) args.get(0) );
 				}
 			}
+			case ORDER:
+			{
+				if(isValidOrderArgs(args))
+				{
+					return new OrderRequestBody((Long) args.get(0));
+				}
+			}
 			default:
 			{
 				return null;
 			}
 		}
 	}
+
 
 
 	private boolean isValidEchoArgs(List<?> args)
@@ -122,6 +130,17 @@ public class RequestBodyFactory
 		isValid = isValid && transaction.getPrice() 	!= null;
 		isValid = isValid && transaction.getComment() 	!= null;
 		isValid = isValid && transaction.getMode() 		!= null;
+		return isValid;
+	}
+
+
+	private boolean isValidOrderArgs(List<?> args)
+	{
+		boolean isValid = true;
+		isValid = isValid && args != null;
+		isValid = isValid && args.size() == 1;
+		isValid = isValid && args.get(0) != null;
+		isValid = isValid && args.get(0) instanceof Long;
 		return isValid;
 	}
 }

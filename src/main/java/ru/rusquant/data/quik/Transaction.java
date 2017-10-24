@@ -1,5 +1,6 @@
 package ru.rusquant.data.quik;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rusquant.data.quik.types.*;
 
@@ -8,6 +9,7 @@ import ru.rusquant.data.quik.types.*;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction extends QuikDataObject
 {
     @JsonProperty("TRANS_ID")
@@ -85,6 +87,35 @@ public class Transaction extends QuikDataObject
     public Transaction()
     {
 
+    }
+
+    @Override
+    public String toString()
+    {
+        String str = "Replay for transaction: ";
+        str += "\n\t\tTransaction id: " 		+ transId;
+        str += "\n\t\tAction: " 				+ action;
+        str += "\n\t\tStatus: " 				+ status;
+        str += "\n\t\tResult message: " 		+ resultMsg;
+        str += "\n\t\tTime: " 					+ time;
+        str += "\n\t\tUID: " 					+ uid;
+        str += "\n\t\tServer trans id: " 		+ serverTransId;
+        str += "\n\t\tOrder num: " 				+ orderNum;
+        str += "\n\t\tPrice: " 					+ price;
+        str += "\n\t\tQuantity: " 				+ quantity;
+        str += "\n\t\tBalance: " 				+ balance;
+        str += "\n\t\tFirm id: " 				+ firmId;
+        str += "\n\t\tAccount: " 				+ account;
+        str += "\n\t\tClient code: " 			+ clientCode;
+        str += "\n\t\tBroker ref: " 			+ brokerRef;
+        str += "\n\t\tClass code: " 			+ classCode;
+        str += "\n\t\tSec code: " 				+ secCode;
+        str += "\n\t\tExchange code: " 			+ exchangeCode;
+        str += "\n\t\tOperation: " 				+ operation;
+        str += "\n\t\tType: " 					+ type;
+        str += "\n\t\tComment: " 				+ comment;
+        str += "\n\t\tMode: " 					+ mode;
+        return str;
     }
 
     public Long getTransId()

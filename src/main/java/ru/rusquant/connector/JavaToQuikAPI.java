@@ -62,4 +62,8 @@ public interface JavaToQuikAPI
 	 *    Java-implementation of sendTransaction() function, specified in QLua docs
 	 **/
 	QuikDataObject sendTransaction(Transaction transaction);
+
+
+	/** Returns object, received in OnOrder(order) callback  **/
+	QuikDataObject getOrder(Long orderNumber);
 }

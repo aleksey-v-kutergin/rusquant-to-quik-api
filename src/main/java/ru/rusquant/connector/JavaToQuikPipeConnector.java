@@ -12,10 +12,7 @@ import ru.rusquant.messages.request.RequestType;
 import ru.rusquant.messages.request.body.RequestBody;
 import ru.rusquant.messages.response.Response;
 import ru.rusquant.messages.response.ResponseStatus;
-import ru.rusquant.messages.response.body.ConnectionSateResponseBody;
-import ru.rusquant.messages.response.body.EchoResponseBody;
-import ru.rusquant.messages.response.body.InfoParameterResponseBody;
-import ru.rusquant.messages.response.body.TransactionResponseBody;
+import ru.rusquant.messages.response.body.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -135,6 +132,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 	/** ========================================================= API implementation ========================================================= **/
 
+	@Override
 	public QuikDataObject isConnected()
 	{
 		QuikDataObject result = new ErrorObject();
@@ -166,6 +164,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	}
 
 
+	@Override
 	public QuikDataObject getEcho(String message)
 	{
 		QuikDataObject result = new ErrorObject();
@@ -201,6 +200,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	}
 
 
+	@Override
 	public QuikDataObject getInfoParam(String paramName)
 	{
 		QuikDataObject result = new ErrorObject();
@@ -237,6 +237,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	}
 
 
+	@Override
 	public QuikDataObject sendTransaction(Transaction transaction)
 	{
 		QuikDataObject result = new ErrorObject();
@@ -261,6 +262,43 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 				else
 				{
 					( (ErrorObject) result ).setErrorMessage("Call of sendTransaction() with transaction: " + transaction.toString() + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
+	}
+
+
+
+	@Override
+	public QuikDataObject getOrder(Long orderNumber)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(orderNumber == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for order number parameter. Order number cannot be null!"); }
+
+		List<Long> args = new ArrayList<>();
+		args.add(orderNumber);
+
+		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.ORDER, args);
+		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Receive invalid transaction!"); }
+		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.ORDER, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (OrderResponseBody) response.getBody() ).getOrder();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of getOrder() with order number: " + orderNumber + " failed with error: " + response.getError());
 				}
 			}
 		}

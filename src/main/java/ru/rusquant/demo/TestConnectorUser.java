@@ -100,6 +100,7 @@ public class TestConnectorUser
 			System.out.println("\tinfo (get info about terminal)");
 			System.out.println("\tisconnected (status of connection between terminal and QUIK-server)");
 			System.out.println("\tsendtrans (send test transaction to QUIK-server)");
+			System.out.println("\tgetorder (get order from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -121,6 +122,10 @@ public class TestConnectorUser
 				else if("sendtrans".equals(message))
 				{
 					runSendTransactionTest(connector, reader);
+				}
+				else if("getorder".equals(message))
+				{
+					runGetOrderTest(connector, reader);
 				}
 				else if("isconnected".equals(message))
 				{
@@ -315,31 +320,54 @@ public class TestConnectorUser
 					else
 					{
 						Transaction replay = (Transaction) result;
-						String msg = "Replay for transaction: ";
-						msg += "\n\t\tTransaction id: " 		+ replay.getTransId();
-						msg += "\n\t\tAction: " 				+ replay.getAction();
-						msg += "\n\t\tStatus: " 				+ replay.getStatus();
-						msg += "\n\t\tResult message: " 		+ replay.getResultMsg();
-						msg += "\n\t\tTime: " 					+ replay.getTime();
-						msg += "\n\t\tUID: " 					+ replay.getUid();
-						msg += "\n\t\tServer trans id: " 		+ replay.getServerTransId();
-						msg += "\n\t\tOrder num: " 				+ replay.getOrderNum();
-						msg += "\n\t\tPrice: " 					+ replay.getPrice();
-						msg += "\n\t\tQuantity: " 				+ replay.getQuantity();
-						msg += "\n\t\tBalance: " 				+ replay.getBalance();
-						msg += "\n\t\tFirm id: " 				+ replay.getFirmId();
-						msg += "\n\t\tAccount: " 				+ replay.getAccount();
-						msg += "\n\t\tClient code: " 			+ replay.getClientCode();
-						msg += "\n\t\tBroker ref: " 			+ replay.getBrokerRef();
-						msg += "\n\t\tClass code: " 			+ replay.getClassCode();
-						msg += "\n\t\tSec code: " 				+ replay.getSecCode();
-						msg += "\n\t\tExchange code: " 			+ replay.getExchangeCode();
-						msg += "\n\t\tOperation: " 				+ replay.getOperation();
-						msg += "\n\t\tType: " 					+ replay.getType();
-						msg += "\n\t\tComment: " 				+ replay.getComment();
-						msg += "\n\t\tMode: " 					+ replay.getMode();
-						System.out.println( msg );
+						System.out.println( replay );
 						isExit = true;
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
+		}
+	}
+
+
+	private static void runGetOrderTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		System.out.println("Running echo test...");
+		System.out.println();
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Enter number of oder or type exit:");
+			String message = reader.readLine();
+			if(message != null && !message.isEmpty())
+			{
+				if("exit".equals(message))
+				{
+					isExit = true;
+				}
+				else
+				{
+					try
+					{
+						QuikDataObject result = connector.getOrder(Long.parseLong(message));
+						if(result instanceof ErrorObject)
+						{
+							System.out.println( ((ErrorObject) result).getErrorMessage() );
+							isExit = true;
+						}
+						else
+						{
+							System.out.println( (Order) result );
+						}
+					}
+					catch (NumberFormatException e)
+					{
+						System.out.println("Invalid order number! Enter valid number!");
 					}
 				}
 			}

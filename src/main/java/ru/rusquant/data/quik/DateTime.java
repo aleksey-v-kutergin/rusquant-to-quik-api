@@ -26,6 +26,12 @@ public class DateTime extends QuikDataObject
 
     }
 
+    @Override
+    public String toString()
+    {
+        return day + "." + month + "." + year + " " + hour + ":" + min + ":" + sec + "." + ms + "/" + mcs;
+    }
+
     public Integer getDay()
     {
         return day;
