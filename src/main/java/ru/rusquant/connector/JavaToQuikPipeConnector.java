@@ -344,4 +344,40 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		}
 		return result;
 	}
+
+
+	@Override
+	public QuikDataObject getNumberOfRows(String tableName)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(tableName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for order number parameter. Order number cannot be null!"); }
+
+		List<String> args = new ArrayList<>();
+		args.add(tableName);
+
+		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TABLE_INFO, args);
+		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + tableName + " not yet supported!"); }
+		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TABLE_INFO, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (QuikTableInfoResponseBody) response.getBody() ).getTableInfo();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of getNumberOfRows with table name: " + tableName + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
+	}
 }

@@ -70,4 +70,11 @@ public interface JavaToQuikAPI
 
 	/** Return trades for order **/
 	QuikDataObject getTrades(Long orderNumber);
+
+
+	/**
+	 *   Implementation of getNumberOf(STRING TableName) function.
+	 *   Returns the number of rows for table <tableName>
+	 **/
+	QuikDataObject getNumberOfRows(String tableName);
 }

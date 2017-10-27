@@ -2,6 +2,7 @@ package ru.rusquant.messages.factory;
 
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.InfoParamType;
+import ru.rusquant.data.quik.types.QuikTableType;
 import ru.rusquant.messages.request.RequestSubject;
 import ru.rusquant.messages.request.body.*;
 
@@ -59,13 +60,20 @@ public class RequestBodyFactory
 					return new TradesRequestBody((Long) args.get(0));
 				}
 			}
+			case TABLE_INFO:
+			{
+				if(isValidTableInfoArgs(args))
+				{
+					String tableName = (String) args.get(0);
+					return new QuikTableInfoRequestBody( QuikTableType.forValue(tableName) );
+				}
+			}
 			default:
 			{
 				return null;
 			}
 		}
 	}
-
 
 
 	private boolean isValidEchoArgs(List<?> args)
@@ -159,6 +167,16 @@ public class RequestBodyFactory
 		isValid = isValid && args != null;
 		isValid = isValid && args.size() == 1;
 		isValid = isValid && args.get(0) != null;
+		return isValid;
+	}
+
+
+	private boolean isValidTableInfoArgs(List<?> args)
+	{
+		boolean isValid = true;
+		isValid = isValid && isValidArg(args);
+		isValid = isValid && args.get(0) instanceof String;
+		isValid = isValid && QuikTableType.forValue((String) args.get(0)) != null;
 		return isValid;
 	}
 }

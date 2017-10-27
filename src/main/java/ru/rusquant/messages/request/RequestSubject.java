@@ -12,5 +12,6 @@ public enum RequestSubject
 	CONNECTION_SATE,
 	INFO_PARAMETER,
 	TRANSACTION,
-	TRADE
+	TRADE,
+	TABLE_INFO
 }

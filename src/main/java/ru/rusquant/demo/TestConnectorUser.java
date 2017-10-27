@@ -101,6 +101,7 @@ public class TestConnectorUser
 			System.out.println("\tsendtrans (send test transaction to QUIK-server)");
 			System.out.println("\tgetorder (get order from QUIK-server)");
 			System.out.println("\tgettrades (get trades for order from QUIK-server)");
+			System.out.println("\tgetnumberof (get info about quik table from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -131,6 +132,10 @@ public class TestConnectorUser
 				{
 					runGetTradesTest(connector, reader);
 				}
+                else if("getnumberof".equals(message))
+                {
+                    runQuikTableInfoTest(connector, reader);
+                }
 				else if("isconnected".equals(message))
 				{	QuikDataObject result = connector.isConnected();
 					if(result instanceof ErrorObject)
@@ -417,6 +422,45 @@ public class TestConnectorUser
 					catch (NumberFormatException e)
 					{
 						System.out.println("Invalid order number! Enter valid number!");
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
+		}
+	}
+
+
+	private static void runQuikTableInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		System.out.println("Running Quik table info test...");
+		System.out.println();
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Enter name of quik table or type exit:");
+			String message = reader.readLine();
+			if(message != null && !message.isEmpty())
+			{
+				if("exit".equals(message))
+				{
+					isExit = true;
+				}
+				else
+				{
+					QuikDataObject result = connector.getNumberOfRows(message);
+					if(result instanceof ErrorObject)
+					{
+						System.out.println( ((ErrorObject) result).getErrorMessage() );
+						isExit = true;
+					}
+					else
+					{
+						System.out.println(result);
 					}
 				}
 			}
