@@ -284,7 +284,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		args.add(orderNumber);
 
 		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.ORDER, args);
-		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Receive invalid transaction!"); }
+		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Receive invalid order number!"); }
 		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.ORDER, body);
 		try
 		{
@@ -299,6 +299,42 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 				else
 				{
 					( (ErrorObject) result ).setErrorMessage("Call of getOrder() with order number: " + orderNumber + " failed with error: " + response.getError());
+				}
+			}
+		}
+		catch (Exception e)
+		{
+			( (ErrorObject) result ).setErrorMessage(e.getMessage());
+		}
+		return result;
+	}
+
+
+	@Override
+	public QuikDataObject getTrades(Long orderNumber)
+	{
+		QuikDataObject result = new ErrorObject();
+		if(orderNumber == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for order number parameter. Order number cannot be null!"); }
+
+		List<Long> args = new ArrayList<>();
+		args.add(orderNumber);
+
+		RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TRADE, args);
+		if(body == null) { ( (ErrorObject) result ).setErrorMessage("Receive invalid order number!"); }
+		Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TRADE, body);
+		try
+		{
+			client.postRequest(request);
+			Response response = client.getResponse();
+			if(response != null)
+			{
+				if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+				{
+					result = ( (TradesResponseBody) response.getBody() ).getTradesDataFrame();
+				}
+				else
+				{
+					( (ErrorObject) result ).setErrorMessage("Call of getTrades() with order number: " + orderNumber + " failed with error: " + response.getError());
 				}
 			}
 		}

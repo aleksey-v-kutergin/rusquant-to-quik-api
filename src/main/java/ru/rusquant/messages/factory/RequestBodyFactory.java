@@ -52,6 +52,13 @@ public class RequestBodyFactory
 					return new OrderRequestBody((Long) args.get(0));
 				}
 			}
+			case TRADE:
+			{
+				if(isValidTradeArgs(args))
+				{
+					return new TradesRequestBody((Long) args.get(0));
+				}
+			}
 			default:
 			{
 				return null;
@@ -64,9 +71,7 @@ public class RequestBodyFactory
 	private boolean isValidEchoArgs(List<?> args)
 	{
 		boolean isValid = true;
-		isValid = isValid && args != null;
-		isValid = isValid && args.size() == 1;
-		isValid = isValid && args.get(0) != null;
+		isValid = isValid && isValidArg(args);
 		isValid = isValid && args.get(0) instanceof String;
 		return isValid;
 	}
@@ -75,9 +80,7 @@ public class RequestBodyFactory
 	private boolean isValidInfoParamArgs(List<?> args)
 	{
 		boolean isValid = true;
-		isValid = isValid && args != null;
-		isValid = isValid && args.size() == 1;
-		isValid = isValid && args.get(0) != null;
+		isValid = isValid && isValidArg(args);
 		isValid = isValid && args.get(0) instanceof String;
 
 		if(isValid)
@@ -137,10 +140,25 @@ public class RequestBodyFactory
 	private boolean isValidOrderArgs(List<?> args)
 	{
 		boolean isValid = true;
+		isValid = isValid && isValidArg(args);
+		isValid = isValid && args.get(0) instanceof Long;
+		return isValid;
+	}
+
+
+	private boolean isValidTradeArgs(List<?> args)
+	{
+		boolean isValid = true;
+		isValid = isValid && isValidArg(args);
+		isValid = isValid && args.get(0) instanceof Long;
+		return isValid;
+	}
+
+	private boolean isValidArg(List<?> args) {
+		boolean isValid = true;
 		isValid = isValid && args != null;
 		isValid = isValid && args.size() == 1;
 		isValid = isValid && args.get(0) != null;
-		isValid = isValid && args.get(0) instanceof Long;
 		return isValid;
 	}
 }

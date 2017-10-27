@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.SecureRandom;
-import java.util.Date;
 
 /**
  * Just for testing
@@ -101,6 +100,7 @@ public class TestConnectorUser
 			System.out.println("\tisconnected (status of connection between terminal and QUIK-server)");
 			System.out.println("\tsendtrans (send test transaction to QUIK-server)");
 			System.out.println("\tgetorder (get order from QUIK-server)");
+			System.out.println("\tgettrades (get trades for order from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -127,9 +127,12 @@ public class TestConnectorUser
 				{
 					runGetOrderTest(connector, reader);
 				}
-				else if("isconnected".equals(message))
+				else if("gettrades".equals(message))
 				{
-					QuikDataObject result = connector.isConnected();
+					runGetTradesTest(connector, reader);
+				}
+				else if("isconnected".equals(message))
+				{	QuikDataObject result = connector.isConnected();
 					if(result instanceof ErrorObject)
 					{
 						System.out.println( ((ErrorObject) result).getErrorMessage() );
@@ -363,6 +366,52 @@ public class TestConnectorUser
 						else
 						{
 							System.out.println( (Order) result );
+						}
+					}
+					catch (NumberFormatException e)
+					{
+						System.out.println("Invalid order number! Enter valid number!");
+					}
+				}
+			}
+			else
+			{
+				System.out.println("Invalid test type!");
+			}
+		}
+	}
+
+
+	private static void runGetTradesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	{
+		System.out.println("Running get trades test...");
+		System.out.println();
+
+		boolean isExit = false;
+		while(!isExit)
+		{
+			System.out.println();
+			System.out.println("Enter number of oder or type exit:");
+			String message = reader.readLine();
+			if(message != null && !message.isEmpty())
+			{
+				if("exit".equals(message))
+				{
+					isExit = true;
+				}
+				else
+				{
+					try
+					{
+						QuikDataObject result = connector.getTrades(Long.parseLong(message));
+						if(result instanceof ErrorObject)
+						{
+							System.out.println( ((ErrorObject) result).getErrorMessage() );
+							isExit = true;
+						}
+						else
+						{
+							System.out.println( ( (TradesDataFrame) result ).toString() );
 						}
 					}
 					catch (NumberFormatException e)

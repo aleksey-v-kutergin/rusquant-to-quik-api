@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Java implementation for OnOrder(order) qlua callback argument.
+ * Java implementation for orders table item.
  * Data types for fields according to qlua docs.
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
@@ -191,44 +191,49 @@ public class Order extends QuikDataObject
     @Override
     public String toString()
     {
-        String str = "Order: ";
-        str += "\n\t\torder_num: " + orderNum;
-        str += "\n\t\tflags: " + flags;
-        str += "\n\t\tbrokerref: " + brokerref;
-        str += "\n\t\tuserid: " + userId;
-        str += "\n\t\tfirmid: " + firmId;
-        str += "\n\t\taccount: " + account;
-        str += "\n\t\tprice: " + price;
-        str += "\n\t\tqty: " + qty;
-        str += "\n\t\tbalance: " + balance;
-        str += "\n\t\tvalue: " + value;
-        str += "\n\t\taccruedint: " + accruedCouponYield;
-        str += "\n\t\tyield: " + yield;
-        str += "\n\t\ttrans_id: " + transId;
-        str += "\n\t\tclient_code: " + clientCode;
-        str += "\n\t\tprice2: " + redemptionPrice;
-        str += "\n\t\tsettlecode: " + paymentCode;
-        str += "\n\t\tuid: " + uid;
-        str += "\n\t\texchange_code: " + exchangeCode;
-        str += "\n\t\tactivation_time: " + activationTime;
-        str += "\n\t\tlinkedorder: " + linkedOrder;
-        str += "\n\t\texpiry: " + expiry;
-        str += "\n\t\tsec_code: " + securityCode;
-        str += "\n\t\tclass_code: " + classCode;
-        str += "\n\t\tdatetime: " + dateTime;
-        str += "\n\t\twithdraw_datetime: " + withdrawDatetime;
-        str += "\n\t\tbank_acc_id: " + bankAccId;
-        str += "\n\t\tvalue_entry_type: " + valueEntryType;
-        str += "\n\t\trepoterm: " + repoTerm;
-        str += "\n\t\trepovalue: " + repoValue;
-        str += "\n\t\trepo2value: " + repoVolume;
-        str += "\n\t\trepo_value_balance: " + repoValueBalance;
-        str += "\n\t\tstart_discount: " + startDiscount;
-        str += "\n\t\treject_reason: " + rejectReason;
-        str += "\n\t\text_order_flags: " + extOrderFlags;
-        str += "\n\t\tmin_qty: " + minQty;
-        str += "\n\t\tvisible: " + visible;
-        return str;
+        return "Order: \n\t\t{" +
+                "orderNum=" + orderNum +
+                ", flags=" + flags +
+                ", brokerref='" + brokerref + '\'' +
+                ", userId='" + userId + '\'' +
+                ", firmId='" + firmId + '\'' +
+                ", account='" + account + '\'' +
+                ", price=" + price +
+                ", qty=" + qty +
+                ", balance=" + balance +
+                ", value=" + value +
+                ", accruedCouponYield=" + accruedCouponYield +
+                ", yield=" + yield +
+                ", transId=" + transId +
+                ", clientCode=" + clientCode +
+                ", redemptionPrice=" + redemptionPrice +
+                ", paymentCode='" + paymentCode + '\'' +
+                ", uid=" + uid +
+                ", exchangeCode='" + exchangeCode + '\'' +
+                ", activationTime=" + activationTime +
+                ", linkedOrder=" + linkedOrder +
+                ", expiry=" + expiry +
+                ", securityCode='" + securityCode + '\'' +
+                ", classCode='" + classCode + '\'' +
+                ", dateTime=" + dateTime +
+                ", withdrawDatetime=" + withdrawDatetime +
+                ", bankAccId='" + bankAccId + '\'' +
+                ", valueEntryType=" + valueEntryType +
+                ", repoTerm=" + repoTerm +
+                ", repoValue=" + repoValue +
+                ", repoVolume=" + repoVolume +
+                ", repoValueBalance=" + repoValueBalance +
+                ", startDiscount=" + startDiscount +
+                ", rejectReason='" + rejectReason + '\'' +
+                ", extOrderFlags=" + extOrderFlags +
+                ", minQty=" + minQty +
+                ", visible=" + visible +
+                ", execType=" + execType +
+                ", sideQualifier=" + sideQualifier +
+                ", acntType=" + acntType +
+                ", capacity=" + capacity +
+                ", passiveOnlyOrder=" + passiveOnlyOrder +
+                '}';
     }
 
     public Long getOrderNum()

@@ -3,6 +3,7 @@ package ru.rusquant.connector;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.data.quik.Transaction;
 
+
 /**
  *    Interface contains prototypes for all methods to work with QUIK terminal.
  *    Each class, willing to act as connector to terminal has to implement this interface.
@@ -48,7 +49,6 @@ public interface JavaToQuikAPI
 	QuikDataObject isConnected();
 
 
-
 	/**
 	 *    Returns values of the parameters listed in QUIK-terminal info window (System/About/Information window)
 	 *    Available parameters can be found in QLUA specification and in InfoParamType class.
@@ -66,4 +66,8 @@ public interface JavaToQuikAPI
 
 	/** Returns object, received in OnOrder(order) callback  **/
 	QuikDataObject getOrder(Long orderNumber);
+
+
+	/** Return trades for order **/
+	QuikDataObject getTrades(Long orderNumber);
 }
