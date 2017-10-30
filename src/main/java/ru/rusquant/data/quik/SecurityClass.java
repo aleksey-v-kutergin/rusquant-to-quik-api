@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
-public class SecurityClass
+public class SecurityClass extends QuikDataObject
 {
     /** Firm identifier **/
     @JsonProperty("firmid")
