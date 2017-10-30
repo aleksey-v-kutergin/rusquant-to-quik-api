@@ -30,7 +30,7 @@ public class AccountPosition extends QuikDataObject
 
     /** Incoming balance **/
     @JsonProperty("openbal")
-    private Double openBallance;
+    private Double openBalance;
 
     /** Current balance **/
     @JsonProperty("currentpos")
@@ -62,7 +62,7 @@ public class AccountPosition extends QuikDataObject
 
     /** Planned position **/
     @JsonProperty("plannedbal")
-    private Double plannedBallance;
+    private Double plannedBalance;
 
     /** Debit **/
     @JsonProperty("debit")
@@ -82,7 +82,7 @@ public class AccountPosition extends QuikDataObject
 
     /** Planned position after settlement **/
     @JsonProperty("settlebal")
-    private Double settleBallance;
+    private Double settleBalance;
 
     public AccountPosition()
     {
@@ -97,7 +97,7 @@ public class AccountPosition extends QuikDataObject
                 ", currencyCode='" + currencyCode + '\'' +
                 ", tag='" + tag + '\'' +
                 ", description='" + description + '\'' +
-                ", openBallance=" + openBallance +
+                ", openBalance=" + openBalance +
                 ", currentPosition=" + currentPosition +
                 ", plannedPosition=" + plannedPosition +
                 ", limit1=" + limit1 +
@@ -105,12 +105,12 @@ public class AccountPosition extends QuikDataObject
                 ", positionInBuyOrders=" + positionInBuyOrders +
                 ", positionInSellOrders=" + positionInSellOrders +
                 ", netPosition=" + netPosition +
-                ", plannedBallance=" + plannedBallance +
+                ", plannedBalance=" + plannedBalance +
                 ", debit=" + debit +
                 ", credit=" + credit +
                 ", bankAccountId='" + bankAccountId + '\'' +
                 ", margincall=" + margincall +
-                ", settleBallance=" + settleBallance +
+                ", settleBalance=" + settleBalance +
                 '}';
     }
 
@@ -154,14 +154,14 @@ public class AccountPosition extends QuikDataObject
         this.description = description;
     }
 
-    public Double getOpenBallance()
+    public Double getOpenBalance()
     {
-        return openBallance;
+        return openBalance;
     }
 
-    public void setOpenBallance(Double openBallance)
+    public void setOpenBalance(Double openBalance)
     {
-        this.openBallance = openBallance;
+        this.openBalance = openBalance;
     }
 
     public Double getCurrentPosition()
@@ -234,14 +234,14 @@ public class AccountPosition extends QuikDataObject
         this.netPosition = netPosition;
     }
 
-    public Double getPlannedBallance()
+    public Double getPlannedBalance()
     {
-        return plannedBallance;
+        return plannedBalance;
     }
 
-    public void setPlannedBallance(Double plannedBallance)
+    public void setPlannedBalance(Double plannedBalance)
     {
-        this.plannedBallance = plannedBallance;
+        this.plannedBalance = plannedBalance;
     }
 
     public Double getDebit()
@@ -284,13 +284,13 @@ public class AccountPosition extends QuikDataObject
         this.margincall = margincall;
     }
 
-    public Double getSettleBallance()
+    public Double getSettleBalance()
     {
-        return settleBallance;
+        return settleBalance;
     }
 
-    public void setSettleBallance(Double settleBallance)
+    public void setSettleBalance(Double settleBalance)
     {
-        this.settleBallance = settleBallance;
+        this.settleBalance = settleBalance;
     }
 }
