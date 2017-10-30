@@ -191,7 +191,7 @@ public class Order extends QuikDataObject
     @Override
     public String toString()
     {
-        return "Order: \n\t\t{" +
+        return "Order: {" +
                 "orderNum=" + orderNum +
                 ", flags=" + flags +
                 ", brokerref='" + brokerref + '\'' +

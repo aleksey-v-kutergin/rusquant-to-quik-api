@@ -425,4 +425,40 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
         }
         return result;
     }
+
+
+    @Override
+    public QuikDataObject getItems(String tableName)
+    {
+        QuikDataObject result = new ErrorObject();
+        if(tableName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<String> args = new ArrayList<>();
+        args.add(tableName);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TABLE_ITEMS, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + tableName + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TABLE_ITEMS, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (QuikTableItemsResponseBody) response.getBody() ).getItems();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
 }

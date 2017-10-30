@@ -77,6 +77,14 @@ public class RequestBodyFactory
                     return new QuikTableItemRequestBody( QuikTableType.forValue(tableName), index );
                 }
             }
+            case TABLE_ITEMS:
+            {
+                if(isValidTableInfoArgs(args))
+                {
+                    String tableName = (String) args.get(0);
+                    return new QuikTableItemsRequestBody( QuikTableType.forValue(tableName) );
+                }
+            }
 			default:
 			{
 				return null;

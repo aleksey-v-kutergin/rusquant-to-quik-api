@@ -205,7 +205,7 @@ public class Trade extends QuikDataObject
     @Override
     public String toString()
     {
-        return "Trade{" +
+        return "Trade: {" +
                 "transId=" + transId +
                 ", uid=" + uid +
                 ", tradeNumber=" + tradeNumber +

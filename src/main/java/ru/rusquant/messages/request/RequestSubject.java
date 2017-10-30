@@ -14,5 +14,6 @@ public enum RequestSubject
 	TRANSACTION,
 	TRADE,
 	TABLE_INFO,
-    TABLE_ITEM
+    TABLE_ITEM,
+    TABLE_ITEMS
 }

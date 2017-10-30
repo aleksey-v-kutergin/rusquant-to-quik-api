@@ -85,4 +85,11 @@ public interface JavaToQuikAPI
      *   index belongs to range [0, rowsCount], where rowsCount - result of getNumberOfRows(tableName).
      **/
     QuikDataObject getItem(String tableName, Integer index);
+
+
+    /**
+     *   QLua specification does not contains such function, but it is convenient
+     *   to have an ability to get all items of table in a single request
+     **/
+    QuikDataObject getItems(String tableName);
 }
