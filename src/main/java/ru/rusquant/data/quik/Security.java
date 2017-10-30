@@ -1,5 +1,6 @@
 package ru.rusquant.data.quik;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Security extends QuikDataObject
 {
     /** Code of asset **/
