@@ -77,4 +77,12 @@ public interface JavaToQuikAPI
 	 *   Returns the number of rows for table <tableName>
 	 **/
 	QuikDataObject getNumberOfRows(String tableName);
+
+
+    /**
+     *   Implementation of TABLE getItem (STRING TableName, DOUBLE Index) function.
+     *   Returns a row with rowNumber = index and name = tableName.
+     *   index belongs to range [0, rowsCount], where rowsCount - result of getNumberOfRows(tableName).
+     **/
+    QuikDataObject getItem(String tableName, Integer index);
 }

@@ -132,6 +132,14 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
 	/** ========================================================= API implementation ========================================================= **/
 
+    //TODO: Сделать следующую вещь:
+    //TODO: Создаем класс исключение вроде InvalidArgumentException
+    //TODO: Всю валидацию аргументов и сообщения об ощибках выносим в соответсвующие методы валицдации фабрикм
+    //TODO: В реализации методов API просто формируем список параметров и ловим исключение  InvalidArgumentException
+    //TODO: чтобы уведомить пользователя о невалидности параметров
+
+
+
 	@Override
 	public QuikDataObject isConnected()
 	{
@@ -350,7 +358,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 	public QuikDataObject getNumberOfRows(String tableName)
 	{
 		QuikDataObject result = new ErrorObject();
-		if(tableName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for order number parameter. Order number cannot be null!"); }
+		if(tableName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
 
 		List<String> args = new ArrayList<>();
 		args.add(tableName);
@@ -380,4 +388,41 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 		}
 		return result;
 	}
+
+
+    @Override
+    public QuikDataObject getItem(String tableName, Integer index)
+    {
+        QuikDataObject result = new ErrorObject();
+        if(tableName == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<Object> args = new ArrayList<>();
+        args.add(tableName);
+        args.add(index);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TABLE_ITEM, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + tableName + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TABLE_ITEM, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (QuikTableItemResponseBody) response.getBody() ).getItem();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
 }

@@ -68,6 +68,15 @@ public class RequestBodyFactory
 					return new QuikTableInfoRequestBody( QuikTableType.forValue(tableName) );
 				}
 			}
+            case TABLE_ITEM:
+            {
+                if(isValidTableItemArgs(args))
+                {
+                    String tableName = (String) args.get(0);
+                    Integer index = (Integer) args.get(1);
+                    return new QuikTableItemRequestBody( QuikTableType.forValue(tableName), index );
+                }
+            }
 			default:
 			{
 				return null;
@@ -179,4 +188,18 @@ public class RequestBodyFactory
 		isValid = isValid && QuikTableType.forValue((String) args.get(0)) != null;
 		return isValid;
 	}
+
+
+    private boolean isValidTableItemArgs(List<?> args)
+    {
+        boolean isValid = true;
+        isValid = isValid && args != null;
+        isValid = isValid && args.size() == 2;
+        isValid = isValid && args.get(0) != null;
+        isValid = isValid && args.get(0) instanceof String;
+        isValid = isValid && args.get(1) != null;
+        isValid = isValid && args.get(1) instanceof Integer;
+        isValid = isValid && (Integer) args.get(1) >= 0;
+        return isValid;
+    }
 }

@@ -102,6 +102,7 @@ public class TestConnectorUser
 			System.out.println("\tgetorder (get order from QUIK-server)");
 			System.out.println("\tgettrades (get trades for order from QUIK-server)");
 			System.out.println("\tgetnumberof (get info about quik table from QUIK-server)");
+			System.out.println("\tgettableitem (get item of specified quik table from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -135,6 +136,10 @@ public class TestConnectorUser
                 else if("getnumberof".equals(message))
                 {
                     runQuikTableInfoTest(connector, reader);
+                }
+                else if("gettableitem".equals(message))
+                {
+                    runQuikTableItemTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{	QuikDataObject result = connector.isConnected();
@@ -470,6 +475,51 @@ public class TestConnectorUser
 			}
 		}
 	}
+
+
+    private static void runQuikTableItemTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik table item test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter name of quik table or type exit:");
+            String tableName = reader.readLine();
+
+            System.out.println("Enter row index in range [0, rowsCount - 1]:");
+            String indexStr = reader.readLine();
+
+            boolean isValid = tableName != null && !tableName.isEmpty();
+            isValid = isValid && ( indexStr != null && !indexStr.isEmpty() );
+            if(isValid)
+            {
+                if("exit".equals(tableName) || "exit".equals(indexStr))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getItem(tableName, Integer.parseInt(indexStr));
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
 
 
 	private static String getRandomString()
