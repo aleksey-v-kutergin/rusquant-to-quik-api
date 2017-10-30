@@ -10,7 +10,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class Firm extends QuikDataObject
 {
-
     /** Firm identifier **/
     @JsonProperty("firmid")
     private String firmId;
