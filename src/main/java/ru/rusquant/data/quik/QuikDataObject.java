@@ -31,6 +31,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = FirmHolding.class, name = "FirmHolding"),
 		@JsonSubTypes.Type(value = AccountBalance.class, name = "AccountBalance"),
 		@JsonSubTypes.Type(value = CppPosition.class, name = "CppPosition"),
+		@JsonSubTypes.Type(value = CppHolding.class, name = "CppHolding"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject
