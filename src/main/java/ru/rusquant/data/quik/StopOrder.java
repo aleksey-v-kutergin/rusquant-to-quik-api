@@ -181,6 +181,18 @@ public class StopOrder extends QuikDataObject
     @JsonProperty("condition_class_code")
     private String conditionClassCode;
 
+    /** ID of the user who withdrew the stop order **/
+    @JsonProperty("canceled_uid")
+    private Long canceledUserid;
+
+    /** Date and time to put a stop order **/
+    @JsonProperty("order_date_time")
+    private DateTime orderDateTime;
+
+    /** Withdraw date and of stop order **/
+    @JsonProperty("withdraw_datetime")
+    private DateTime withdrawDatetime;
+
     public StopOrder()
     {
 
@@ -189,7 +201,7 @@ public class StopOrder extends QuikDataObject
     @Override
     public String toString()
     {
-        return "StopOrder: {" +
+        return "StopOrder{" +
                 "orderNumber=" + orderNumber +
                 ", orderTime=" + orderTime +
                 ", flags=" + flags +
@@ -223,6 +235,9 @@ public class StopOrder extends QuikDataObject
                 ", classCode='" + classCode + '\'' +
                 ", conditionSecurityCode='" + conditionSecurityCode + '\'' +
                 ", conditionClassCode='" + conditionClassCode + '\'' +
+                ", canceledUserid=" + canceledUserid +
+                ", orderDateTime=" + orderDateTime +
+                ", withdrawDatetime=" + withdrawDatetime +
                 '}';
     }
 
@@ -554,5 +569,35 @@ public class StopOrder extends QuikDataObject
     public void setConditionClassCode(String conditionClassCode)
     {
         this.conditionClassCode = conditionClassCode;
+    }
+
+    public Long getCanceledUserid()
+    {
+        return canceledUserid;
+    }
+
+    public void setCanceledUserid(Long canceledUserid)
+    {
+        this.canceledUserid = canceledUserid;
+    }
+
+    public DateTime getOrderDateTime()
+    {
+        return orderDateTime;
+    }
+
+    public void setOrderDateTime(DateTime orderDateTime)
+    {
+        this.orderDateTime = orderDateTime;
+    }
+
+    public DateTime getWithdrawDatetime()
+    {
+        return withdrawDatetime;
+    }
+
+    public void setWithdrawDatetime(DateTime withdrawDatetime)
+    {
+        this.withdrawDatetime = withdrawDatetime;
     }
 }

@@ -33,6 +33,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = CppPosition.class, name = "CppPosition"),
 		@JsonSubTypes.Type(value = CppHolding.class, name = "CppHolding"),
 		@JsonSubTypes.Type(value = StopOrder.class, name = "StopOrder"),
+		@JsonSubTypes.Type(value = NegDeal.class, name = "NegDeal"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject
