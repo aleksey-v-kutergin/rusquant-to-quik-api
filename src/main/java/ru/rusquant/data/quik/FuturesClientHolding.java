@@ -60,11 +60,11 @@ public class FuturesClientHolding extends QuikDataObject
 
     /** Estimation of current net positions **/
     @JsonProperty("cbplused")
-    private Double cbPlused;
+    private Double cbplUsed;
 
     /** Planned net positions **/
     @JsonProperty("cbplplanned")
-    private Double cbPlusedPlanned;
+    private Double cbplUsedPlanned;
 
     /** Variation Margin **/
     @JsonProperty("varmargin")
@@ -125,8 +125,8 @@ public class FuturesClientHolding extends QuikDataObject
                 ", totalNet=" + totalNet +
                 ", openBuys=" + openBuys +
                 ", openSells=" + openSells +
-                ", cbPlused=" + cbPlused +
-                ", cbPlusedPlanned=" + cbPlusedPlanned +
+                ", cbplUsed=" + cbplUsed +
+                ", cbplUsedPlanned=" + cbplUsedPlanned +
                 ", varMargin=" + varMargin +
                 ", avrPosnPrice=" + avrPosnPrice +
                 ", positionValue=" + positionValue +
@@ -256,24 +256,24 @@ public class FuturesClientHolding extends QuikDataObject
         this.openSells = openSells;
     }
 
-    public Double getCbPlused()
+    public Double getCbplUsed()
     {
-        return cbPlused;
+        return cbplUsed;
     }
 
-    public void setCbPlused(Double cbPlused)
+    public void setCbplUsed(Double cbplUsed)
     {
-        this.cbPlused = cbPlused;
+        this.cbplUsed = cbplUsed;
     }
 
-    public Double getCbPlusedPlanned()
+    public Double getCbplUsedPlanned()
     {
-        return cbPlusedPlanned;
+        return cbplUsedPlanned;
     }
 
-    public void setCbPlusedPlanned(Double cbPlusedPlanned)
+    public void setCbplUsedPlanned(Double cbplUsedPlanned)
     {
-        this.cbPlusedPlanned = cbPlusedPlanned;
+        this.cbplUsedPlanned = cbplUsedPlanned;
     }
 
     public Double getVarMargin()
