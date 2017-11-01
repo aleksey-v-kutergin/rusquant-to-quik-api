@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = SecurityClass.class, name = "SecurityClass"),
 		@JsonSubTypes.Type(value = Security.class, name = "Security"),
 		@JsonSubTypes.Type(value = TradingAccount.class, name = "TradingAccount"),
+		@JsonSubTypes.Type(value = ClientCode.class, name = "ClientCode"),
 		@JsonSubTypes.Type(value = AnonymousTrade.class, name = "AnonymousTrade"),
 		@JsonSubTypes.Type(value = AccountPosition.class, name = "AccountPosition"),
 		@JsonSubTypes.Type(value = MoneyLimit.class, name = "MoneyLimit"),

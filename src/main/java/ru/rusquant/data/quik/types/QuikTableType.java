@@ -12,15 +12,53 @@ import java.util.Map;
  */
 public enum  QuikTableType
 {
-    ORDERS_TABLE,
-    TRADES_TABLE;
+    FIRMS,
+    CLASSES,
+    SECURITIES,
+    TRADE_ACCOUNTS,
+    CLIENT_CODES,
+    ALL_TRADES,
+    ACCOUNT_POSITIONS,
+    ORDERS,
+    FUTURES_CLIENT_HOLDING,
+    FUTURES_CLIENT_LIMITS,
+    MONEY_LIMITS,
+    DEPO_LIMITS,
+    TRADES,
+    STOP_ORDERS,
+    NEG_DEALS,
+    NEG_TRADES,
+    NEG_DEAL_REPORTS,
+    FIRM_HOLDING,
+    ACCOUNT_BALANCE,
+    CPP_POSITIONS,
+    CPP_HOLDINGS;
 
     private static Map<String, QuikTableType> namesMap = new HashMap<>();
 
     static
     {
-        namesMap.put("orders", QuikTableType.ORDERS_TABLE);
-        namesMap.put("trades", QuikTableType.TRADES_TABLE);
+        namesMap.put("firms",                   QuikTableType.FIRMS);
+        namesMap.put("classes",                 QuikTableType.CLASSES);
+        namesMap.put("securities",              QuikTableType.SECURITIES);
+        namesMap.put("trade_accounts",          QuikTableType.TRADE_ACCOUNTS);
+        namesMap.put("client_codes",            QuikTableType.CLIENT_CODES);
+        namesMap.put("all_trades",              QuikTableType.ALL_TRADES);
+        namesMap.put("account_positions",       QuikTableType.ACCOUNT_POSITIONS);
+        namesMap.put("orders",                  QuikTableType.ORDERS);
+        namesMap.put("futures_client_holding",  QuikTableType.FUTURES_CLIENT_HOLDING);
+        namesMap.put("futures_client_limits",   QuikTableType.FUTURES_CLIENT_LIMITS);
+        namesMap.put("money_limits",            QuikTableType.MONEY_LIMITS);
+        namesMap.put("depo_limits",             QuikTableType.DEPO_LIMITS);
+        namesMap.put("trades",                  QuikTableType.TRADES);
+        namesMap.put("stop_orders",             QuikTableType.STOP_ORDERS);
+        namesMap.put("neg_deals",               QuikTableType.NEG_DEALS);
+        namesMap.put("neg_trades",              QuikTableType.NEG_TRADES);
+        namesMap.put("neg_deal_reports",        QuikTableType.NEG_DEAL_REPORTS);
+        namesMap.put("firm_holding",            QuikTableType.FIRM_HOLDING);
+        namesMap.put("account_balance",         QuikTableType.ACCOUNT_BALANCE);
+        namesMap.put("ccp_positions",           QuikTableType.CPP_POSITIONS);
+        namesMap.put("ccp_holdings",            QuikTableType.CPP_HOLDINGS);
     }
 
 
