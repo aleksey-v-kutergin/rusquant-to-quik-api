@@ -1,6 +1,6 @@
 package ru.rusquant.messages.response.body;
 
-import ru.rusquant.data.quik.QuikDataFrame;
+import ru.rusquant.data.quik.dataframe.QuikDataFrame;
 
 /**
  *   Response contains a collection of rows for requested table.

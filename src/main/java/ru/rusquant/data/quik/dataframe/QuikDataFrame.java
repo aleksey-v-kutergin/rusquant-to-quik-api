@@ -1,7 +1,8 @@
-package ru.rusquant.data.quik;
+package ru.rusquant.data.quik.dataframe;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import ru.rusquant.data.quik.QuikDataObject;
 
 import java.util.ArrayList;
 import java.util.List;

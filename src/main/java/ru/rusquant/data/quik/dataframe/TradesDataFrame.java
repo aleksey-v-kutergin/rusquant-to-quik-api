@@ -1,4 +1,4 @@
-package ru.rusquant.data.quik;
+package ru.rusquant.data.quik.dataframe;
 
 /**
  * Data frame for trades

@@ -1,6 +1,6 @@
 package ru.rusquant.messages.response.body;
 
-import ru.rusquant.data.quik.TradesDataFrame;
+import ru.rusquant.data.quik.dataframe.TradesDataFrame;
 
 
 /**
