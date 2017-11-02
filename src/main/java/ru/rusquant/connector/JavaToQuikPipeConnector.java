@@ -2,8 +2,10 @@ package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
 import ru.rusquant.data.quik.ErrorObject;
+import ru.rusquant.data.quik.OHLCDatasource;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.data.quik.Transaction;
+import ru.rusquant.data.quik.types.TimeScale;
 import ru.rusquant.messages.factory.RequestBodyFactory;
 import ru.rusquant.messages.factory.RequestFactory;
 import ru.rusquant.messages.request.Request;
@@ -460,5 +462,156 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
             ( (ErrorObject) result ).setErrorMessage(e.getMessage());
         }
         return result;
+    }
+
+
+    @Override
+    public QuikDataObject getParamEx(String classCode, String securityCode, String paramName)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject searchItems(String tableName, Long startIndex, Long endIndex, String params)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getClassesList()
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getClassInfo(String classCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getClassSecurities(String classCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getMoney(String clientCode, String firmId, String tag, String currencyCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getMoneyEx(String clientCode, String firmId, String tag, String currencyCode, Integer limitKind)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getDepo(String clientCode, String firmId, String tag, String account)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getDepoEx(String clientCode, String firmId, String tag, String account, Integer limitKind)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getFuturesLimit(String firmId, String accountId, Integer limitType, String currencyCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getFuturesHolding(String firmId, String accountId, String securityCode, Integer posType)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getSecurityInfo(String classCode, String securityCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getTradeDate()
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getQuoteLevel2(String classCode, String securityCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getParamEx2(String classCode, String securityCode, String paramName)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, Double price, Boolean isBuy, Boolean isMarket)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getPortfolioInfo(String firmId, String clientCode)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getPortfolioInfoEx(String firmId, String clientCode, Integer limitKind)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getBuySellInfo(String firmId, String clientCode, String classCode, String securityCode, Double price)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getBuySellInfoEx(String firmId, String clientCode, String classCode, String securityCode, Double price)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject createDataSource(String classCode, String securityCode, TimeScale timeScale, String parameter)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getOHLCPrice(OHLCDatasource datasource, Long index)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getOHLCPrices(OHLCDatasource datasource)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject getDatasourceSize(OHLCDatasource datasource)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
+    }
+
+    @Override
+    public QuikDataObject closeDatasource(OHLCDatasource datasource)
+    {
+        return new ErrorObject("Not supported operation! Function not yet implemented!");
     }
 }

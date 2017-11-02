@@ -42,6 +42,7 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = FuturesClientHolding.class, name = "FuturesClientHolding"),
 		@JsonSubTypes.Type(value = FuturesClientLimit.class, name = "FuturesClientLimit"),
 		@JsonSubTypes.Type(value = Candle.class, name = "Candle"),
+		@JsonSubTypes.Type(value = OHLCDatasource.class, name = "OHLCDatasource"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject
