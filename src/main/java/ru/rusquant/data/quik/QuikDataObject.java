@@ -2,6 +2,7 @@ package ru.rusquant.data.quik;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.rusquant.data.quik.table.*;
 
 /**
  *    Base class for all QUIK data structures

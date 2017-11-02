@@ -1,6 +1,6 @@
 package ru.rusquant.messages.response.body;
 
-import ru.rusquant.data.quik.Order;
+import ru.rusquant.data.quik.table.Order;
 
 public class OrderResponseBody extends ResponseBody
 {

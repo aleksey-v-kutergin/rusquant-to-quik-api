@@ -4,6 +4,7 @@ package ru.rusquant.demo;
 import ru.rusquant.connector.JavaToQuikConnector;
 import ru.rusquant.connector.JavaToQuikPipeConnector;
 import ru.rusquant.data.quik.*;
+import ru.rusquant.data.quik.table.Order;
 import ru.rusquant.data.quik.types.*;
 import ru.rusquant.messages.request.RequestSubject;
 

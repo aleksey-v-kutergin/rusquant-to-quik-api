@@ -1,6 +1,8 @@
-package ru.rusquant.data.quik;
+package ru.rusquant.data.quik.table;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import ru.rusquant.data.quik.DateTime;
+import ru.rusquant.data.quik.QuikDataObject;
 
 /**
  * Java implementation for stop_orders table item.
