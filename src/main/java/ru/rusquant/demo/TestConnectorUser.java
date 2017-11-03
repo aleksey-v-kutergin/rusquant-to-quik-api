@@ -107,6 +107,7 @@ public class TestConnectorUser
 			System.out.println("\tgettableitem (get item of specified quik table from QUIK-server)");
 			System.out.println("\tgettableitems (get all items of specified quik table from QUIK-server)");
 			System.out.println("\tgetparamext (get trading parameter of quik current tradings table from QUIK-server)");
+			System.out.println("\tgettradedate (get trade date from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -153,8 +154,13 @@ public class TestConnectorUser
                 {
                     runTradingParameterTest(connector, reader);
                 }
+                else if("gettradedate".equals(message))
+                {
+                    runTradeDateTest(connector);
+                }
 				else if("isconnected".equals(message))
-				{	QuikDataObject result = connector.isConnected();
+				{
+                    QuikDataObject result = connector.isConnected();
 					if(result instanceof ErrorObject)
 					{
 						System.out.println( ((ErrorObject) result).getErrorMessage() );
@@ -611,6 +617,20 @@ public class TestConnectorUser
             {
                 System.out.println("Invalid test type!");
             }
+        }
+    }
+
+
+    private static void runTradeDateTest(JavaToQuikConnector connector)
+    {
+        QuikDataObject result = connector.getTradeDate();
+        if(result instanceof ErrorObject)
+        {
+            System.out.println( ((ErrorObject) result).getErrorMessage() );
+        }
+        else
+        {
+            System.out.println(result);
         }
     }
 

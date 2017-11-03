@@ -97,6 +97,10 @@ public class RequestBodyFactory
                     return new TradingParameterRequestBody(classCode, securityCode, parameter, version);
                 }
             }
+            case TRADE_DATE:
+            {
+                return new TradeDateRequestBody();
+            }
 			default:
 			{
 				return null;

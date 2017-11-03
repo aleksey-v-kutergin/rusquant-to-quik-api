@@ -584,7 +584,32 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     @Override
     public QuikDataObject getTradeDate()
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+
+        RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.TRADE_DATE, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TRADE_DATE, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if(ResponseStatus.SUCCESS.toString().equals(response.getStatus()))
+                {
+                    result =  ( (TradeDateResponseBody) response.getBody() ).getTradeDate();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage("Call of isConnected() failed with error: " + response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 
     @Override
