@@ -93,7 +93,8 @@ public class RequestBodyFactory
                     String classCode = (String) args.get(0);
                     String securityCode = (String) args.get(1);
                     ParameterType parameter = ParameterType.valueOf(ParameterType.class, (String) args.get(2));
-                    return new TradingParameterRequestBody(classCode, securityCode, parameter);
+                    String version = (String) args.get(3);
+                    return new TradingParameterRequestBody(classCode, securityCode, parameter, version);
                 }
             }
 			default:

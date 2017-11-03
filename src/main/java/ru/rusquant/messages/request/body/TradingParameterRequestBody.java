@@ -13,17 +13,19 @@ public class TradingParameterRequestBody extends RequestBody
     private String classCode;
     private String securityCode;
     private ParameterType parameter;
+    private String version;
 
     public TradingParameterRequestBody()
     {
 
     }
 
-    public TradingParameterRequestBody(String classCode, String securityCode, ParameterType parameter)
+    public TradingParameterRequestBody(String classCode, String securityCode, ParameterType parameter, String version)
     {
         this.classCode = classCode;
         this.securityCode = securityCode;
         this.parameter = parameter;
+        this.version = version;
     }
 
     public String getClassCode()
@@ -54,5 +56,15 @@ public class TradingParameterRequestBody extends RequestBody
     public void setParameter(ParameterType parameter)
     {
         this.parameter = parameter;
+    }
+
+    public String getVersion()
+    {
+        return version;
+    }
+
+    public void setVersion(String version)
+    {
+        this.version = version;
     }
 }

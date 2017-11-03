@@ -468,6 +468,18 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     @Override
     public QuikDataObject getParamEx(String classCode, String securityCode, String paramName)
     {
+        return getParamExByVersion("EX1", classCode, securityCode, paramName);
+    }
+
+    @Override
+    public QuikDataObject getParamEx2(String classCode, String securityCode, String paramName)
+    {
+        return getParamExByVersion("EX2", classCode, securityCode, paramName);
+    }
+
+
+    private QuikDataObject getParamExByVersion(String version, String classCode, String securityCode, String paramName)
+    {
         QuikDataObject result = new ErrorObject();
         if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
 
@@ -475,6 +487,7 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
         args.add(classCode);
         args.add(securityCode);
         args.add(paramName);
+        args.add(version);
 
         RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.TRADING_PARAMETER, args);
         if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
@@ -576,12 +589,6 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
 
     @Override
     public QuikDataObject getQuoteLevel2(String classCode, String securityCode)
-    {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
-    }
-
-    @Override
-    public QuikDataObject getParamEx2(String classCode, String securityCode, String paramName)
     {
         return new ErrorObject("Not supported operation! Function not yet implemented!");
     }
