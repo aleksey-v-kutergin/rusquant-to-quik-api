@@ -1,6 +1,6 @@
 package ru.rusquant.data.quik.types;
 
-public enum  TimeScale
+public enum TimeScale
 {
     /** Tick data **/
     INTERVAL_TICK,
@@ -26,14 +26,14 @@ public enum  TimeScale
     INTERVAL_M30,
     /** 1 hour data **/
     INTERVAL_H1,
-    /** 2 hour data */
+    /** 2 hour data **/
     INTERVAL_H2,
-    /** 4 hour data */
+    /** 4 hour data **/
     INTERVAL_H4,
-    /** 1 day data */
+    /** 1 day data **/
     INTERVAL_D1,
-    /** 1 week data */
+    /** 1 week data **/
     INTERVAL_W1,
-    /** 1 month data */
+    /** 1 month data **/
     INTERVAL_MN1
 }

@@ -106,6 +106,7 @@ public class TestConnectorUser
 			System.out.println("\tgetnumberof (get info about quik table from QUIK-server)");
 			System.out.println("\tgettableitem (get item of specified quik table from QUIK-server)");
 			System.out.println("\tgettableitems (get all items of specified quik table from QUIK-server)");
+			System.out.println("\tgetparamext (get trading parameter of quik current tradings table from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -147,6 +148,10 @@ public class TestConnectorUser
                 else if("gettableitems".equals(message))
                 {
                     runAllQuikTableItemsTest(connector, reader);
+                }
+                else if("getparamext".equals(message))
+                {
+                    runTradingParameterTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{	QuikDataObject result = connector.isConnected();
@@ -549,6 +554,48 @@ public class TestConnectorUser
                 else
                 {
                     QuikDataObject result = connector.getItems(message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+
+    private static void runTradingParameterTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik table info test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter parameter name or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    String classCode = "QJSIM";
+                    String secCode = "RTKM";
+                    QuikDataObject result = connector.getParamEx(classCode, secCode, message);
                     if(result instanceof ErrorObject)
                     {
                         System.out.println( ((ErrorObject) result).getErrorMessage() );

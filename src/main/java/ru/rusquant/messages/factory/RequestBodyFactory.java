@@ -2,6 +2,7 @@ package ru.rusquant.messages.factory;
 
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.InfoParamType;
+import ru.rusquant.data.quik.types.ParameterType;
 import ru.rusquant.data.quik.types.QuikTableType;
 import ru.rusquant.messages.request.RequestSubject;
 import ru.rusquant.messages.request.body.*;
@@ -83,6 +84,16 @@ public class RequestBodyFactory
                 {
                     String tableName = (String) args.get(0);
                     return new QuikTableItemsRequestBody( QuikTableType.forValue(tableName) );
+                }
+            }
+            case TRADING_PARAMETER:
+            {
+                if(isValidTradingParameterArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    ParameterType parameter = ParameterType.valueOf(ParameterType.class, (String) args.get(2));
+                    return new TradingParameterRequestBody(classCode, securityCode, parameter);
                 }
             }
 			default:
@@ -209,5 +220,11 @@ public class RequestBodyFactory
         isValid = isValid && args.get(1) instanceof Integer;
         isValid = isValid && (Integer) args.get(1) >= 0;
         return isValid;
+    }
+
+
+    private boolean isValidTradingParameterArgs(List<?> args)
+    {
+        return true;
     }
 }
