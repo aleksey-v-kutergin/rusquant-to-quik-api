@@ -1,10 +1,7 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
-import ru.rusquant.data.quik.ErrorObject;
-import ru.rusquant.data.quik.OHLCDatasource;
-import ru.rusquant.data.quik.QuikDataObject;
-import ru.rusquant.data.quik.Transaction;
+import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.types.TimeScale;
 import ru.rusquant.messages.factory.RequestBodyFactory;
 import ru.rusquant.messages.factory.RequestFactory;
@@ -649,9 +646,44 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     }
 
     @Override
-    public QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, Double price, Boolean isBuy, Boolean isMarket)
+    public QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, String account, Double price, Boolean isBuy, Boolean isMarket)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<Object> args = new ArrayList<>();
+        args.add(classCode);
+        args.add(securityCode);
+        args.add(clientCode);
+        args.add(account);
+        args.add(price);
+        args.add(isBuy);
+        args.add(isMarket);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.MAX_LOT_COUNT, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.MAX_LOT_COUNT, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (MaxCountOfLotsResponseBody) response.getBody() ).getCountOfLots();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage("Call of getNumberOfRows with table name: " + classCode + " failed with error: " + response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 
     @Override

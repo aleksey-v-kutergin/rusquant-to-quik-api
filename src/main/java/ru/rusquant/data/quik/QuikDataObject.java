@@ -45,6 +45,7 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = TradingParameter.class, name = "TradingParameter"),
 		@JsonSubTypes.Type(value = OHLCDatasource.class, name = "OHLCDatasource"),
 		@JsonSubTypes.Type(value = TradeDate.class, name = "TradeDate"),
+		@JsonSubTypes.Type(value = CountOfLots.class, name = "CountOfLots"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject

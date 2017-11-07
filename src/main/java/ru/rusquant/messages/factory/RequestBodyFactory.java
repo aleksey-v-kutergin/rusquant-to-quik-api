@@ -110,6 +110,20 @@ public class RequestBodyFactory
                     return new SecurityInfoRequestBody(classCode, securityCode);
                 }
             }
+            case MAX_LOT_COUNT:
+            {
+                if(isValidMaxCountOfLotsArgs(args))
+                {
+                    String classCode =      (String)    args.get(0);
+                    String securityCode =   (String)    args.get(1);
+                    String clientCode =     (String)    args.get(2);
+                    String account =        (String)    args.get(3);
+                    Double price =          (Double)    args.get(4);
+                    Boolean isBuy =         (Boolean)   args.get(5);
+                    Boolean isMarket =      (Boolean)   args.get(6);
+                    return new MaxCountOfLotsRequestBody(classCode, securityCode, clientCode, account, price, isBuy, isMarket);
+                }
+            }
 			default:
 			{
 				return null;
@@ -243,6 +257,11 @@ public class RequestBodyFactory
     }
 
     private boolean isValidSecurityInfoArgs(List<?> args)
+    {
+        return true;
+    }
+
+    private boolean isValidMaxCountOfLotsArgs(List<?> args)
     {
         return true;
     }

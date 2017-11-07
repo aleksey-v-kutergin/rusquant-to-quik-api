@@ -186,7 +186,7 @@ public interface JavaToQuikAPI
      *    Implementation of CalcBuySell function.
      *    The function is designed to calculate the maximum possible number of lots in the application.
      **/
-    QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, Double price, Boolean isBuy, Boolean isMarket);
+    QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, String account, Double price, Boolean isBuy, Boolean isMarket);
 
     /**
      *     The function is designed to retrieve the values of the parameters of the "Customer Portfolio" table,

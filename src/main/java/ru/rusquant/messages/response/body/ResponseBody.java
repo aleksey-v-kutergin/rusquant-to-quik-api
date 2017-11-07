@@ -22,7 +22,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = QuikTableItemsResponseBody.class,        name = "QuikTableItemsResponseBody"),
 		@JsonSubTypes.Type(value = TradingParameterResponseBody.class,      name = "TradingParameterResponseBody"),
 		@JsonSubTypes.Type(value = TradeDateResponseBody.class,             name = "TradeDateResponseBody"),
-		@JsonSubTypes.Type(value = SecurityInfoResponseBody.class,          name = "SecurityInfoResponseBody")
+		@JsonSubTypes.Type(value = SecurityInfoResponseBody.class,          name = "SecurityInfoResponseBody"),
+		@JsonSubTypes.Type(value = MaxCountOfLotsResponseBody.class,        name = "MaxCountOfLotsResponseBody")
 })
 public abstract class ResponseBody
 {
