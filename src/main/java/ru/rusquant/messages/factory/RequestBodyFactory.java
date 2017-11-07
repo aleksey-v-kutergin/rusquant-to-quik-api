@@ -101,6 +101,15 @@ public class RequestBodyFactory
             {
                 return new TradeDateRequestBody();
             }
+            case SECURITY_INFO:
+            {
+                if(isValidSecurityInfoArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    return new SecurityInfoRequestBody(classCode, securityCode);
+                }
+            }
 			default:
 			{
 				return null;
@@ -229,6 +238,11 @@ public class RequestBodyFactory
 
 
     private boolean isValidTradingParameterArgs(List<?> args)
+    {
+        return true;
+    }
+
+    private boolean isValidSecurityInfoArgs(List<?> args)
     {
         return true;
     }

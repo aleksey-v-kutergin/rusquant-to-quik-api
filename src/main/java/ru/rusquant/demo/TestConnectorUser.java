@@ -108,6 +108,7 @@ public class TestConnectorUser
 			System.out.println("\tgettableitems (get all items of specified quik table from QUIK-server)");
 			System.out.println("\tgetparamext (get trading parameter of quik current tradings table from QUIK-server)");
 			System.out.println("\tgettradedate (get trade date from QUIK-server)");
+			System.out.println("\tgetsecurityinfo (get info about security from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -157,6 +158,10 @@ public class TestConnectorUser
                 else if("gettradedate".equals(message))
                 {
                     runTradeDateTest(connector);
+                }
+                else if("getsecurityinfo".equals(message))
+                {
+                    runSecurityInfoTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -635,7 +640,46 @@ public class TestConnectorUser
     }
 
 
-	private static String getRandomString()
+    private static void runSecurityInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running security info test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security code (class = QJSIM) or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getSecurityInfo("QJSIM", message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static String getRandomString()
 	{
 		return new BigInteger(130, random).toString();
 	}

@@ -17,5 +17,6 @@ public enum RequestSubject
     TABLE_ITEM,
     TABLE_ITEMS,
     TRADING_PARAMETER,
-    TRADE_DATE
+    TRADE_DATE,
+    SECURITY_INFO
 }
