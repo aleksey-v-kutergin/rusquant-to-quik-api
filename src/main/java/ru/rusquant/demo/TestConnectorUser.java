@@ -111,6 +111,7 @@ public class TestConnectorUser
 			System.out.println("\tgetsecurityinfo (get info about security from QUIK-server)");
 			System.out.println("\tgetmaxcountoflots (get max count of lots in order from QUIK-server)");
 			System.out.println("\tgetclassinfo (get security class info from QUIK-server)");
+			System.out.println("\tgetclasseslist (get list of security classes from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -172,6 +173,10 @@ public class TestConnectorUser
                 else if("getclassinfo".equals(message))
                 {
                     runSecurityClassInfoTest(connector, reader);
+                }
+                else if("getclasseslist".equals(message))
+                {
+                    runClassesListTest(connector);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -763,6 +768,20 @@ public class TestConnectorUser
             {
                 System.out.println("Invalid test type!");
             }
+        }
+    }
+
+
+    private static void runClassesListTest(JavaToQuikConnector connector)
+    {
+        QuikDataObject result = connector.getClassesList();
+        if(result instanceof ErrorObject)
+        {
+            System.out.println( ((ErrorObject) result).getErrorMessage() );
+        }
+        else
+        {
+            System.out.println(result);
         }
     }
 

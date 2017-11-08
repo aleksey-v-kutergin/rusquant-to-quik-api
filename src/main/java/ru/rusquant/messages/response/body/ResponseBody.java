@@ -24,7 +24,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = TradeDateResponseBody.class,             name = "TradeDateResponseBody"),
 		@JsonSubTypes.Type(value = SecurityInfoResponseBody.class,          name = "SecurityInfoResponseBody"),
 		@JsonSubTypes.Type(value = MaxCountOfLotsResponseBody.class,        name = "MaxCountOfLotsResponseBody"),
-		@JsonSubTypes.Type(value = SecurityClassInfoResponseBody.class,     name = "SecurityClassInfoResponseBody")
+		@JsonSubTypes.Type(value = SecurityClassInfoResponseBody.class,     name = "SecurityClassInfoResponseBody"),
+		@JsonSubTypes.Type(value = ClassesListResponseBody.class,           name = "ClassesListResponseBody")
 })
 public abstract class ResponseBody
 {

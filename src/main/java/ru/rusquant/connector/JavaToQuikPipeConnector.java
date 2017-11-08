@@ -521,7 +521,32 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     @Override
     public QuikDataObject getClassesList()
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+
+        RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.CLASSES_LIST, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.CLASSES_LIST, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if(ResponseStatus.SUCCESS.toString().equals(response.getStatus()))
+                {
+                    result =  ( (ClassesListResponseBody) response.getBody() ).getCodes();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage("Call of isConnected() failed with error: " + response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 
     @Override

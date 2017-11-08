@@ -132,6 +132,10 @@ public class RequestBodyFactory
                     return new SecurityClassInfoRequestBody(classCode);
                 }
             }
+            case CLASSES_LIST:
+            {
+                return new ClassesListRequestBody();
+            }
 			default:
 			{
 				return null;
