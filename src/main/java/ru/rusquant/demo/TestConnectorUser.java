@@ -112,6 +112,7 @@ public class TestConnectorUser
 			System.out.println("\tgetmaxcountoflots (get max count of lots in order from QUIK-server)");
 			System.out.println("\tgetclassinfo (get security class info from QUIK-server)");
 			System.out.println("\tgetclasseslist (get list of security classes from QUIK-server)");
+			System.out.println("\tgetclasssecs (get list of securities within class from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -177,6 +178,10 @@ public class TestConnectorUser
                 else if("getclasseslist".equals(message))
                 {
                     runClassesListTest(connector);
+                }
+                else if("getclasssecs".equals(message))
+                {
+                    runClassSecuritiesTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -782,6 +787,45 @@ public class TestConnectorUser
         else
         {
             System.out.println(result);
+        }
+    }
+
+
+    private static void runClassSecuritiesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik table info test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security class code or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getClassSecurities(message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
         }
     }
 

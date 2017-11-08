@@ -136,6 +136,14 @@ public class RequestBodyFactory
             {
                 return new ClassesListRequestBody();
             }
+            case CLASS_SECURITIES:
+            {
+                if(isValidClassSecuritiesArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    return new ClassSecuritiesRequestBody(classCode);
+                }
+            }
 			default:
 			{
 				return null;
@@ -275,6 +283,11 @@ public class RequestBodyFactory
 
 
     private boolean isValidClassInfoArgs(List<?> args)
+    {
+        return true;
+    }
+
+    private boolean isValidClassSecuritiesArgs(List<?> args)
     {
         return true;
     }
