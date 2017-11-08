@@ -124,6 +124,14 @@ public class RequestBodyFactory
                     return new MaxCountOfLotsRequestBody(classCode, securityCode, clientCode, account, price, isBuy, isMarket);
                 }
             }
+            case CLASS_INFO:
+            {
+                if(isValidClassInfoArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    return new SecurityClassInfoRequestBody(classCode);
+                }
+            }
 			default:
 			{
 				return null;
@@ -257,6 +265,12 @@ public class RequestBodyFactory
     }
 
     private boolean isValidSecurityInfoArgs(List<?> args)
+    {
+        return true;
+    }
+
+
+    private boolean isValidClassInfoArgs(List<?> args)
     {
         return true;
     }

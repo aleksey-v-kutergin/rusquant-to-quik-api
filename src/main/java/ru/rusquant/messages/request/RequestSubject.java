@@ -19,5 +19,6 @@ public enum RequestSubject
     TRADING_PARAMETER,
     TRADE_DATE,
     SECURITY_INFO,
-    MAX_LOT_COUNT
+    MAX_LOT_COUNT,
+    CLASS_INFO
 }

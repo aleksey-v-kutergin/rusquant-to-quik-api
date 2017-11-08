@@ -110,6 +110,7 @@ public class TestConnectorUser
 			System.out.println("\tgettradedate (get trade date from QUIK-server)");
 			System.out.println("\tgetsecurityinfo (get info about security from QUIK-server)");
 			System.out.println("\tgetmaxcountoflots (get max count of lots in order from QUIK-server)");
+			System.out.println("\tgetclassinfo (get security class info from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -167,6 +168,10 @@ public class TestConnectorUser
                 else if("getmaxcountoflots".equals(message))
                 {
                     runMaxCountOfLotsTest(connector, reader);
+                }
+                else if("getclassinfo".equals(message))
+                {
+                    runSecurityClassInfoTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -704,6 +709,45 @@ public class TestConnectorUser
                 else
                 {
                     QuikDataObject result = connector.getMaxCountOfLotsInOrder("BQUOTE", message, "Q3", "S01-00000F00", 10.0, Boolean.TRUE, Boolean.FALSE);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static void runSecurityClassInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik table info test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security class code or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getClassInfo(message);
                     if(result instanceof ErrorObject)
                     {
                         System.out.println( ((ErrorObject) result).getErrorMessage() );
