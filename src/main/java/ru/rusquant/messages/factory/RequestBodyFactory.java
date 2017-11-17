@@ -1,5 +1,6 @@
 package ru.rusquant.messages.factory;
 
+import ru.rusquant.data.quik.ParameterDescriptor;
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.data.quik.types.ParameterType;
@@ -95,6 +96,23 @@ public class RequestBodyFactory
                     ParameterType parameter = ParameterType.valueOf(ParameterType.class, (String) args.get(2));
                     String version = (String) args.get(3);
                     return new TradingParameterRequestBody(classCode, securityCode, parameter, version);
+                }
+            }
+            case SUBSCRIBE_TRADING_PARAMETER:
+            {
+                if(isValidTradingParameterArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    String parameterName = (String) args.get(2);
+                    return new SubscribeParameterRequestBody(classCode, securityCode, parameterName);
+                }
+            }
+            case UNSUBSCRIBE_TRADING_PARAMETER:
+            {
+                if(isValidTradingParameterArgs(args))
+                {
+                    return new UnsubscribeParameterRequestBody( (ParameterDescriptor) args.get(0) );
                 }
             }
             case TRADE_DATE:

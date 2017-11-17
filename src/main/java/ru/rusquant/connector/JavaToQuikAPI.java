@@ -1,6 +1,7 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.data.quik.OHLCDatasource;
+import ru.rusquant.data.quik.ParameterDescriptor;
 import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.TimeScale;
@@ -163,6 +164,16 @@ public interface JavaToQuikAPI
      *    With this function, you can get any of the values of the Current Trading Table for the given class and paper codes.
      **/
     QuikDataObject getParamEx(String classCode, String securityCode, String paramName);
+
+    /**
+     *   The function to subscribe the parameters of the Current Trading Table.
+     **/
+    QuikDataObject subscribeParameter(String classCode, String securityCode, String paramName);
+
+    /**
+     *  The function to unsubscribe the parameters of the Current Trading Table.
+     **/
+    QuikDataObject unsubscribeParameter(ParameterDescriptor descriptor);
 
     /**
      *     The function is designed to obtain the values of all the parameters of the exchange information from the Current Trading Table

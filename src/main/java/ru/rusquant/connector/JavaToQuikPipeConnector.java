@@ -475,6 +475,77 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     }
 
 
+    @Override
+    public QuikDataObject subscribeParameter(String classCode, String securityCode, String paramName)
+    {
+        QuikDataObject result = new ErrorObject();
+        if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<String> args = new ArrayList<>();
+        args.add(classCode);
+        args.add(securityCode);
+        args.add(paramName);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.SUBSCRIBE_TRADING_PARAMETER, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.SUBSCRIBE_TRADING_PARAMETER, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (SubscribeParameterResponseBody) response.getBody() ).getDescriptor();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+
+    @Override
+    public QuikDataObject unsubscribeParameter(ParameterDescriptor descriptor)
+    {
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(descriptor);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.UNSUBSCRIBE_TRADING_PARAMETER, args);
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.UNSUBSCRIBE_TRADING_PARAMETER, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (UnsubscribeParameterResponseBody) response.getBody() ).getResult();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+
     private QuikDataObject getParamExByVersion(String version, String classCode, String securityCode, String paramName)
     {
         QuikDataObject result = new ErrorObject();

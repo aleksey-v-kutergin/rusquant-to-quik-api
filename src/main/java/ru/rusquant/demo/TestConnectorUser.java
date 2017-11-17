@@ -23,6 +23,8 @@ public class TestConnectorUser
 {
 	private static SecureRandom random = new SecureRandom();
 
+    private static ParameterDescriptor descriptor;
+
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -107,6 +109,8 @@ public class TestConnectorUser
 			System.out.println("\tgettableitem (get item of specified quik table from QUIK-server)");
 			System.out.println("\tgettableitems (get all items of specified quik table from QUIK-server)");
 			System.out.println("\tgetparamext (get trading parameter of quik current tradings table from QUIK-server)");
+			System.out.println("\tsubscribeparameter (subscribe trading parameter of quik current tradings table on QUIK-server)");
+			System.out.println("\tunsubscribeparameter (unsubscribe trading parameter of quik current tradings table on QUIK-server)");
 			System.out.println("\tgettradedate (get trade date from QUIK-server)");
 			System.out.println("\tgetsecurityinfo (get info about security from QUIK-server)");
 			System.out.println("\tgetmaxcountoflots (get max count of lots in order from QUIK-server)");
@@ -158,6 +162,14 @@ public class TestConnectorUser
                 else if("getparamext".equals(message))
                 {
                     runTradingParameterTest(connector, reader);
+                }
+                else if("subscribeparameter".equals(message))
+                {
+                    runSubscribeParameterTest(connector, reader);
+                }
+                else if("unsubscribeparameter".equals(message))
+                {
+                    runUnsubscribeParameterTest(connector);
                 }
                 else if("gettradedate".equals(message))
                 {
@@ -642,6 +654,74 @@ public class TestConnectorUser
             {
                 System.out.println("Invalid test type!");
             }
+        }
+    }
+
+
+
+    private static void runSubscribeParameterTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik subscribe trading parameter test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter parameter name or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    String classCode = "QJSIM";
+                    String secCode = "RTKM";
+                    QuikDataObject result = connector.subscribeParameter(classCode, secCode, message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        TestConnectorUser.descriptor = (ParameterDescriptor) result;
+                        System.out.println(result);
+                        isExit = true;
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static void runUnsubscribeParameterTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running Quik unsubscribe trading parameter test...");
+        System.out.println();
+
+        if(TestConnectorUser.descriptor != null)
+        {
+            QuikDataObject result = connector.unsubscribeParameter(TestConnectorUser.descriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Parameter descriptor is unset. Subscribe parameter first! Exiting...");
         }
     }
 
