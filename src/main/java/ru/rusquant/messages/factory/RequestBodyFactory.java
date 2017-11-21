@@ -1,6 +1,7 @@
 package ru.rusquant.messages.factory;
 
 import ru.rusquant.data.quik.ParameterDescriptor;
+import ru.rusquant.data.quik.QuotesDescriptor;
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.data.quik.types.ParameterType;
@@ -162,6 +163,29 @@ public class RequestBodyFactory
                     return new ClassSecuritiesRequestBody(classCode);
                 }
             }
+            case SUBSCRIBE_QUOTES:
+            {
+                if(isValidQuotesArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    return new SubscribeQuotesRequestBody(classCode, securityCode);
+                }
+            }
+            case UNSUBSCRIBE_QUOTES:
+            {
+                if(isValidQuotesArgs(args))
+                {
+                    return new UnsubscribeQuotesRequestBody( (QuotesDescriptor) args.get(0) );
+                }
+            }
+            case IS_SUBSCRIBED_QUOTES:
+            {
+                if(isValidQuotesArgs(args))
+                {
+                    return new IsSubscribeQuotesRequestBody( (QuotesDescriptor) args.get(0) );
+                }
+            }
 			default:
 			{
 				return null;
@@ -290,6 +314,11 @@ public class RequestBodyFactory
 
 
     private boolean isValidTradingParameterArgs(List<?> args)
+    {
+        return true;
+    }
+
+    private boolean isValidQuotesArgs(List<?> args)
     {
         return true;
     }

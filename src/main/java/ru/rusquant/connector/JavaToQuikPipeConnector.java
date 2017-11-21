@@ -800,6 +800,106 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     }
 
     @Override
+    public QuikDataObject subscribeQuotes(String classCode, String securityCode)
+    {
+        QuikDataObject result = new ErrorObject();
+        if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<String> args = new ArrayList<>();
+        args.add(classCode);
+        args.add(securityCode);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.SUBSCRIBE_QUOTES, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.SUBSCRIBE_QUOTES, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (SubscribeQuotesResponseBody) response.getBody() ).getDescriptor();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public QuikDataObject unsubscribeQuotes(QuotesDescriptor descriptor)
+    {
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(descriptor);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.UNSUBSCRIBE_QUOTES, args);
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.UNSUBSCRIBE_QUOTES, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (UnsubscribeQuotesResponseBody) response.getBody() ).getResult();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public QuikDataObject isSubscribedToQuotes(QuotesDescriptor descriptor)
+    {
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(descriptor);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.IS_SUBSCRIBED_QUOTES, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.IS_SUBSCRIBED_QUOTES, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (IsSubscribeQuotesResponseBody) response.getBody() ).getResult();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
     public QuikDataObject getMaxCountOfLotsInOrder(String classCode, String securityCode, String clientCode, String account, Double price, Boolean isBuy, Boolean isMarket)
     {
         QuikDataObject result = new ErrorObject();

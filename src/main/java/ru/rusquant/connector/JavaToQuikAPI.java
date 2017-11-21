@@ -1,9 +1,6 @@
 package ru.rusquant.connector;
 
-import ru.rusquant.data.quik.OHLCDatasource;
-import ru.rusquant.data.quik.ParameterDescriptor;
-import ru.rusquant.data.quik.QuikDataObject;
-import ru.rusquant.data.quik.Transaction;
+import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.types.TimeScale;
 
 
@@ -158,6 +155,21 @@ public interface JavaToQuikAPI
      *    The function is designed to get a glass of the specified class and paper.
      **/
     QuikDataObject getQuoteLevel2(String classCode, String securityCode);
+
+    /**
+     *   The function to subscribe the quotes (order book) data at quik server.
+     **/
+    QuikDataObject subscribeQuotes(String classCode, String securityCode);
+
+    /**
+     *  The function to unsubscribe the quotes (order book) data at quik server.
+     **/
+    QuikDataObject unsubscribeQuotes(QuotesDescriptor descriptor);
+
+    /**
+     *  The function to check status of the subscription to quotes (order book) data at quik server.
+     **/
+    QuikDataObject isSubscribedToQuotes(QuotesDescriptor descriptor);
 
     /**
      *    The function is designed to obtain the values of all the parameters of the exchange information from the Current Trading Table.

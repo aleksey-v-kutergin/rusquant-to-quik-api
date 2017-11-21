@@ -23,7 +23,8 @@ public class TestConnectorUser
 {
 	private static SecureRandom random = new SecureRandom();
 
-    private static ParameterDescriptor descriptor;
+    private static ParameterDescriptor parameterDescriptor;
+    private static QuotesDescriptor quotesDescriptor;
 
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
@@ -117,6 +118,9 @@ public class TestConnectorUser
 			System.out.println("\tgetclassinfo (get security class info from QUIK-server)");
 			System.out.println("\tgetclasseslist (get list of security classes from QUIK-server)");
 			System.out.println("\tgetclasssecs (get list of securities within class from QUIK-server)");
+            System.out.println("\tsubscribequotes (subscribe for quotes (order book) data on QUIK-server)");
+            System.out.println("\tissubscribedquotes (check the status of the subscription for quotes (order book) data on QUIK-server)");
+            System.out.println("\tunsubscribequotes (subscribe for quotes (order book) data on QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -194,6 +198,18 @@ public class TestConnectorUser
                 else if("getclasssecs".equals(message))
                 {
                     runClassSecuritiesTest(connector, reader);
+                }
+                else if("subscribequotes".equals(message))
+                {
+                    runSubscribeQuotesTest(connector, reader);
+                }
+                else if("issubscribedquotes".equals(message))
+                {
+                    runIsSubscribedToQuotesTest(connector);
+                }
+                else if("unsubscribequotes".equals(message))
+                {
+                    runUnsubscribeQuotesTest(connector);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -688,7 +704,7 @@ public class TestConnectorUser
                     }
                     else
                     {
-                        TestConnectorUser.descriptor = (ParameterDescriptor) result;
+                        TestConnectorUser.parameterDescriptor = (ParameterDescriptor) result;
                         System.out.println(result);
                         isExit = true;
                     }
@@ -707,9 +723,9 @@ public class TestConnectorUser
         System.out.println("Running Quik unsubscribe trading parameter test...");
         System.out.println();
 
-        if(TestConnectorUser.descriptor != null)
+        if(TestConnectorUser.parameterDescriptor != null)
         {
-            QuikDataObject result = connector.unsubscribeParameter(TestConnectorUser.descriptor);
+            QuikDataObject result = connector.unsubscribeParameter(TestConnectorUser.parameterDescriptor);
             if(result instanceof ErrorObject)
             {
                 System.out.println( ((ErrorObject) result).getErrorMessage() );
@@ -721,7 +737,7 @@ public class TestConnectorUser
         }
         else
         {
-            System.out.println("Parameter descriptor is unset. Subscribe parameter first! Exiting...");
+            System.out.println("Parameter parameterDescriptor is unset. Subscribe parameter first! Exiting...");
         }
     }
 
@@ -906,6 +922,96 @@ public class TestConnectorUser
             {
                 System.out.println("Invalid test type!");
             }
+        }
+    }
+
+
+    private static void runSubscribeQuotesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik subscribe trading parameter test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security code or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    String classCode = "QJSIM";
+                    QuikDataObject result = connector.subscribeQuotes(classCode, message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        TestConnectorUser.quotesDescriptor = (QuotesDescriptor) result;
+                        System.out.println(result);
+                        isExit = true;
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static void runUnsubscribeQuotesTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running Quik unsubscribe trading parameter test...");
+        System.out.println();
+
+        if(TestConnectorUser.quotesDescriptor != null)
+        {
+            QuikDataObject result = connector.unsubscribeQuotes(TestConnectorUser.quotesDescriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Quotes descriptor is unset. Subscribe parameter first! Exiting...");
+        }
+    }
+
+
+    private static void runIsSubscribedToQuotesTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running Quik unsubscribe trading parameter test...");
+        System.out.println();
+
+        if(TestConnectorUser.quotesDescriptor != null)
+        {
+            QuikDataObject result = connector.isSubscribedToQuotes(TestConnectorUser.quotesDescriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Quotes descriptor is unset. Subscribe parameter first! Exiting...");
         }
     }
 

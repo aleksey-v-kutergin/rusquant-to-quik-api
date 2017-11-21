@@ -8,7 +8,7 @@ import ru.rusquant.data.quik.QuotesDescriptor;
  *   Company: Rusquant
  */
 @JsonAutoDetect
-public class IsSubscribeQuotesRequestBody
+public class IsSubscribeQuotesRequestBody extends RequestBody
 {
     private QuotesDescriptor descriptor;
 
