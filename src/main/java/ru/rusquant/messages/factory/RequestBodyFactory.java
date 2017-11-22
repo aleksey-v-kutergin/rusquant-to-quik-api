@@ -186,6 +186,15 @@ public class RequestBodyFactory
                     return new IsSubscribeQuotesRequestBody( (QuotesDescriptor) args.get(0) );
                 }
             }
+            case QUOTES:
+            {
+                if(isValidQuotesArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    return new QuotesRequestBody(classCode, securityCode);
+                }
+            }
 			default:
 			{
 				return null;

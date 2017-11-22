@@ -50,6 +50,8 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = ParameterDescriptor.class, name = "ParameterDescriptor"),
 		@JsonSubTypes.Type(value = QuotesDescriptor.class, name = "QuotesDescriptor"),
 		@JsonSubTypes.Type(value = BooleanResult.class, name = "BooleanResult"),
+		@JsonSubTypes.Type(value = OrderBookLevel.class, name = "OrderBookLevel"),
+		@JsonSubTypes.Type(value = OrderBook.class, name = "OrderBook"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject

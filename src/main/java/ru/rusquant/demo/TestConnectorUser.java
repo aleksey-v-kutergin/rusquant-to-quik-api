@@ -121,6 +121,7 @@ public class TestConnectorUser
             System.out.println("\tsubscribequotes (subscribe for quotes (order book) data on QUIK-server)");
             System.out.println("\tissubscribedquotes (check the status of the subscription for quotes (order book) data on QUIK-server)");
             System.out.println("\tunsubscribequotes (subscribe for quotes (order book) data on QUIK-server)");
+            System.out.println("\tgetquotes (get order book data from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -210,6 +211,10 @@ public class TestConnectorUser
                 else if("unsubscribequotes".equals(message))
                 {
                     runUnsubscribeQuotesTest(connector);
+                }
+                else if("getquotes".equals(message))
+                {
+                    runGetQuotesTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -742,6 +747,7 @@ public class TestConnectorUser
     }
 
 
+
     private static void runTradeDateTest(JavaToQuikConnector connector)
     {
         QuikDataObject result = connector.getTradeDate();
@@ -1012,6 +1018,46 @@ public class TestConnectorUser
         else
         {
             System.out.println("Quotes descriptor is unset. Subscribe parameter first! Exiting...");
+        }
+    }
+
+
+    private static void runGetQuotesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running get order book test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security code or type exit:");
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    String classCode = "QJSIM";
+                    QuikDataObject result = connector.getQuoteLevel2(classCode, message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
         }
     }
 

@@ -796,7 +796,37 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     @Override
     public QuikDataObject getQuoteLevel2(String classCode, String securityCode)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<String> args = new ArrayList<>();
+        args.add(classCode);
+        args.add(securityCode);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.QUOTES, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.QUOTES, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (QuotesResponseBody) response.getBody() ).getOrderBook();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 
     @Override

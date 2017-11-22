@@ -31,7 +31,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = UnsubscribeParameterResponseBody.class,  name = "UnsubscribeParameterResponseBody"),
 		@JsonSubTypes.Type(value = SubscribeQuotesResponseBody.class,       name = "SubscribeQuotesResponseBody"),
 		@JsonSubTypes.Type(value = UnsubscribeQuotesResponseBody.class,     name = "UnsubscribeQuotesResponseBody"),
-		@JsonSubTypes.Type(value = IsSubscribeQuotesResponseBody.class,     name = "IsSubscribeQuotesResponseBody")
+		@JsonSubTypes.Type(value = IsSubscribeQuotesResponseBody.class,     name = "IsSubscribeQuotesResponseBody"),
+		@JsonSubTypes.Type(value = QuotesResponseBody.class,                name = "QuotesResponseBody")
 })
 public abstract class ResponseBody
 {
