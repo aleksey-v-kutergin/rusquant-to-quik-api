@@ -2,6 +2,7 @@ package ru.rusquant.data.quik;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.rusquant.data.quik.dataframe.OhlcDataFrame;
 import ru.rusquant.data.quik.dataframe.TradesDataFrame;
 import ru.rusquant.data.quik.table.*;
 
@@ -20,6 +21,7 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = Order.class, name = "Order"),
 		@JsonSubTypes.Type(value = Trade.class, name = "Trade"),
 		@JsonSubTypes.Type(value = TradesDataFrame.class, name = "TradesDataFrame"),
+		@JsonSubTypes.Type(value = OhlcDataFrame.class, name = "OhlcDataFrame"),
 		@JsonSubTypes.Type(value = QuikTableInfo.class, name = "QuikTableInfo"),
 		@JsonSubTypes.Type(value = QuikDataObject.class, name = "QuikDataObject"),
 		@JsonSubTypes.Type(value = Firm.class, name = "Firm"),

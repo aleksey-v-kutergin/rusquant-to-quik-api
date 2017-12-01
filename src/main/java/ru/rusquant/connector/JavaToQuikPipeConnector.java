@@ -1108,12 +1108,65 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     @Override
     public QuikDataObject getOHLCPrice(DatasourceDescriptor datasource, Long index)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(datasource);
+        args.add(index);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.SINGLE_CANDLE, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.SINGLE_CANDLE, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (SingleCandleResponseBody) response.getBody() ).getCandle();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 
     @Override
     public QuikDataObject getOHLCPrices(DatasourceDescriptor datasource)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(datasource);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.ALL_CANDLES, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.ALL_CANDLES, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (AllCandlesResponseBody) response.getBody() ).getOhlcDataFrame();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
     }
 }

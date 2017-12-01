@@ -32,5 +32,6 @@ public enum RequestSubject
     CREATE_DATASOURCE,
     CLOSE_DATASOURCE,
     DATASOURCE_SIZE,
-    OHLC
+    ALL_CANDLES,
+    SINGLE_CANDLE
 }

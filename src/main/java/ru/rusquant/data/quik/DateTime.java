@@ -17,6 +17,7 @@ public class DateTime extends QuikDataObject
     private Integer ms;
     private Integer sec;
     private Integer year;
+    private Integer count;
 
     @JsonProperty("week_day")
     private Integer weekDay;
@@ -120,5 +121,15 @@ public class DateTime extends QuikDataObject
     public void setYear(Integer year)
     {
         this.year = year;
+    }
+
+    public Integer getCount()
+    {
+        return count;
+    }
+
+    public void setCount(Integer count)
+    {
+        this.count = count;
     }
 }

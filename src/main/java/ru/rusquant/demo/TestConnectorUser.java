@@ -126,6 +126,8 @@ public class TestConnectorUser
             System.out.println("\tcreateds (get create OHLC datasource at QUIK-server)");
             System.out.println("\tdssize (get current size of the OHLC datasource)");
             System.out.println("\tcloseds (get OHLC datasource at QUIK-server)");
+            System.out.println("\tgetohlcprice (get single OHLC ptice (Candle) from QUIK-server)");
+            System.out.println("\tgetohlcprices (get all OHLC ptices (Candle) from QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -231,6 +233,14 @@ public class TestConnectorUser
                 else if("closeds".equals(message))
                 {
                     runCloseDatasourceTest(connector);
+                }
+                else if("getohlcprice".equals(message))
+                {
+                    runSingleCandleTest(connector, reader);
+                }
+                else if("getohlcprices".equals(message))
+                {
+                    runAllCandlesTest(connector);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -1182,6 +1192,74 @@ public class TestConnectorUser
         }
     }
 
+    private static void runSingleCandleTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running single candle test...");
+        System.out.println();
+
+        if(TestConnectorUser.datasourceDescriptor != null)
+        {
+            boolean isExit = false;
+            while(!isExit)
+            {
+                System.out.println();
+                System.out.println("Enter valid candle index or type exit:");
+                String message = reader.readLine();
+                if(message != null && !message.isEmpty())
+                {
+                    if("exit".equals(message))
+                    {
+                        isExit = true;
+                    }
+                    else
+                    {
+                        QuikDataObject result = connector.getOHLCPrice(TestConnectorUser.datasourceDescriptor, Long.parseLong(message));
+                        if(result instanceof ErrorObject)
+                        {
+                            System.out.println( ((ErrorObject) result).getErrorMessage() );
+                            isExit = true;
+                        }
+                        else
+                        {
+                            System.out.println(result);
+                        }
+                    }
+                }
+                else
+                {
+                    System.out.println("Invalid test type!");
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+        }
+    }
+
+
+    private static void runAllCandlesTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running all candles test...");
+        System.out.println();
+
+        if(TestConnectorUser.datasourceDescriptor != null)
+        {
+            QuikDataObject result = connector.getOHLCPrices(TestConnectorUser.datasourceDescriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+        }
+    }
 
     private static String getRandomString()
 	{

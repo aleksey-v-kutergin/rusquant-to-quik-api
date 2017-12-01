@@ -35,7 +35,9 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = QuotesResponseBody.class,                name = "QuotesResponseBody"),
 		@JsonSubTypes.Type(value = CreateDatasourceResponseBody.class,      name = "CreateDatasourceResponseBody"),
 		@JsonSubTypes.Type(value = CloseDatasourceResponseBody.class,       name = "CloseDatasourceResponseBody"),
-		@JsonSubTypes.Type(value = DatasourceSizeResponseBody.class,        name = "DatasourceSizeResponseBody")
+		@JsonSubTypes.Type(value = DatasourceSizeResponseBody.class,        name = "DatasourceSizeResponseBody"),
+		@JsonSubTypes.Type(value = AllCandlesResponseBody.class,            name = "AllCandlesResponseBody"),
+		@JsonSubTypes.Type(value = SingleCandleResponseBody.class,          name = "SingleCandleResponseBody")
 })
 public abstract class ResponseBody
 {

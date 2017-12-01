@@ -223,6 +223,20 @@ public class RequestBodyFactory
                     return new DatasourceSizeRequestBody( (DatasourceDescriptor) args.get(0) );
                 }
             }
+            case SINGLE_CANDLE:
+            {
+                if(isValidDatasourceArgs(args))
+                {
+                    return new SingleCandleRequestBody( (DatasourceDescriptor) args.get(0), (Long) args.get(1) );
+                }
+            }
+            case ALL_CANDLES:
+            {
+                if(isValidDatasourceArgs(args))
+                {
+                    return new AllCandlesRequestBody( (DatasourceDescriptor) args.get(0) );
+                }
+            }
 			default:
 			{
 				return null;
