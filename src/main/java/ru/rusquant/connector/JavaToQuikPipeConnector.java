@@ -2,6 +2,7 @@ package ru.rusquant.connector;
 
 import ru.rusquant.client.WindowsNamedPipeClient;
 import ru.rusquant.data.quik.*;
+import ru.rusquant.data.quik.types.DSParameterType;
 import ru.rusquant.data.quik.types.TimeScale;
 import ru.rusquant.messages.factory.RequestBodyFactory;
 import ru.rusquant.messages.factory.RequestFactory;
@@ -995,31 +996,123 @@ public class JavaToQuikPipeConnector extends JavaToQuikConnector
     }
 
     @Override
-    public QuikDataObject createDataSource(String classCode, String securityCode, TimeScale timeScale, String parameter)
+    public QuikDataObject createDataSource(String classCode, String securityCode, String interval)
+    {
+        return createDataSource(classCode, securityCode, interval, null);
+    }
+
+    @Override
+    public QuikDataObject createDataSource(String classCode, String securityCode, String interval, String parameter)
+    {
+        QuikDataObject result = new ErrorObject();
+        if(classCode == null) { ( (ErrorObject) result ).setErrorMessage("Receive null for table name parameter. Name of table cannot be null!"); }
+
+        List<String> args = new ArrayList<>();
+        args.add(classCode);
+        args.add(securityCode);
+        args.add(interval);
+        if(parameter != null) {
+            args.add(parameter);
+        }
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.CREATE_DATASOURCE, args);
+        if(body == null) { ( (ErrorObject) result ).setErrorMessage("Table with name: " + classCode + " not yet supported!"); }
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.CREATE_DATASOURCE, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (CreateDatasourceResponseBody) response.getBody() ).getDescriptor();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public QuikDataObject closeDatasource(DatasourceDescriptor datasource)
+    {
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(datasource);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.CLOSE_DATASOURCE, args);
+        Request request = requestFactory.createRequest(RequestType.POST, RequestSubject.CLOSE_DATASOURCE, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (CloseDatasourceResponseBody) response.getBody() ).getResult();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public QuikDataObject getDatasourceSize(DatasourceDescriptor datasource)
+    {
+        QuikDataObject result = new ErrorObject();
+        List<Object> args = new ArrayList<>();
+        args.add(datasource);
+
+        RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.DATASOURCE_SIZE, args);
+        Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.DATASOURCE_SIZE, body);
+        try
+        {
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if(response != null)
+            {
+                if( ResponseStatus.SUCCESS.toString().equals(response.getStatus()) )
+                {
+                    result = ( (DatasourceSizeResponseBody) response.getBody() ).getResult();
+                }
+                else
+                {
+                    ( (ErrorObject) result ).setErrorMessage(response.getError());
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            ( (ErrorObject) result ).setErrorMessage(e.getMessage());
+        }
+        return result;
+    }
+
+    @Override
+    public QuikDataObject getOHLCPrice(DatasourceDescriptor datasource, Long index)
     {
         return new ErrorObject("Not supported operation! Function not yet implemented!");
     }
 
     @Override
-    public QuikDataObject getOHLCPrice(OHLCDatasource datasource, Long index)
-    {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
-    }
-
-    @Override
-    public QuikDataObject getOHLCPrices(OHLCDatasource datasource)
-    {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
-    }
-
-    @Override
-    public QuikDataObject getDatasourceSize(OHLCDatasource datasource)
-    {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
-    }
-
-    @Override
-    public QuikDataObject closeDatasource(OHLCDatasource datasource)
+    public QuikDataObject getOHLCPrices(DatasourceDescriptor datasource)
     {
         return new ErrorObject("Not supported operation! Function not yet implemented!");
     }

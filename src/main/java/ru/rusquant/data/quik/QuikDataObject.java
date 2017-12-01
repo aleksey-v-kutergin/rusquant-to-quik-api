@@ -43,7 +43,7 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = FuturesClientLimit.class, name = "FuturesClientLimit"),
 		@JsonSubTypes.Type(value = Candle.class, name = "Candle"),
 		@JsonSubTypes.Type(value = TradingParameter.class, name = "TradingParameter"),
-		@JsonSubTypes.Type(value = OHLCDatasource.class, name = "OHLCDatasource"),
+		@JsonSubTypes.Type(value = DatasourceDescriptor.class, name = "DatasourceDescriptor"),
 		@JsonSubTypes.Type(value = TradeDate.class, name = "TradeDate"),
 		@JsonSubTypes.Type(value = CountOfLots.class, name = "CountOfLots"),
 		@JsonSubTypes.Type(value = CodesArray.class, name = "CodesArray"),
@@ -52,6 +52,7 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = BooleanResult.class, name = "BooleanResult"),
 		@JsonSubTypes.Type(value = OrderBookLevel.class, name = "OrderBookLevel"),
 		@JsonSubTypes.Type(value = OrderBook.class, name = "OrderBook"),
+		@JsonSubTypes.Type(value = LongResult.class, name = "LongResult"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject

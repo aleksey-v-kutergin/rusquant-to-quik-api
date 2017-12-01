@@ -58,4 +58,11 @@ public class CodesArray extends QuikDataObject
     {
         this.codesString = codesString;
     }
+
+    /**
+     * Created by kutergin on 27.11.2017.
+     */
+    public static class LongResult extends QuikDataObject
+    {
+    }
 }

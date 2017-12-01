@@ -1,11 +1,10 @@
 package ru.rusquant.messages.factory;
 
+import ru.rusquant.data.quik.DatasourceDescriptor;
 import ru.rusquant.data.quik.ParameterDescriptor;
 import ru.rusquant.data.quik.QuotesDescriptor;
 import ru.rusquant.data.quik.Transaction;
-import ru.rusquant.data.quik.types.InfoParamType;
-import ru.rusquant.data.quik.types.ParameterType;
-import ru.rusquant.data.quik.types.QuikTableType;
+import ru.rusquant.data.quik.types.*;
 import ru.rusquant.messages.request.RequestSubject;
 import ru.rusquant.messages.request.body.*;
 
@@ -195,6 +194,35 @@ public class RequestBodyFactory
                     return new QuotesRequestBody(classCode, securityCode);
                 }
             }
+            case CREATE_DATASOURCE:
+            {
+                if(isValidDatasourceArgs(args))
+                {
+                    String classCode = (String) args.get(0);
+                    String securityCode = (String) args.get(1);
+                    TimeScale interval = TimeScale.valueOf(TimeScale.class, (String) args.get(2));
+                    if(args.size() == 3) {
+                        return new CreateDatasourceRequestBody(classCode, securityCode, interval);
+                    } else if (args.size() == 4) {
+                        DSParameterType parameter = DSParameterType.valueOf(DSParameterType.class, (String) args.get(3));
+                        return new CreateDatasourceRequestBody(classCode, securityCode, interval, parameter);
+                    }
+                }
+            }
+            case CLOSE_DATASOURCE:
+            {
+                if(isValidDatasourceArgs(args))
+                {
+                    return new CloseDatasourceRequestBody( (DatasourceDescriptor) args.get(0) );
+                }
+            }
+            case DATASOURCE_SIZE:
+            {
+                if(isValidDatasourceArgs(args))
+                {
+                    return new DatasourceSizeRequestBody( (DatasourceDescriptor) args.get(0) );
+                }
+            }
 			default:
 			{
 				return null;
@@ -349,6 +377,11 @@ public class RequestBodyFactory
     }
 
     private boolean isValidMaxCountOfLotsArgs(List<?> args)
+    {
+        return true;
+    }
+
+    private boolean isValidDatasourceArgs(List<?> args)
     {
         return true;
     }

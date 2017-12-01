@@ -25,6 +25,7 @@ public class TestConnectorUser
 
     private static ParameterDescriptor parameterDescriptor;
     private static QuotesDescriptor quotesDescriptor;
+    private static DatasourceDescriptor datasourceDescriptor;
 
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
@@ -122,6 +123,9 @@ public class TestConnectorUser
             System.out.println("\tissubscribedquotes (check the status of the subscription for quotes (order book) data on QUIK-server)");
             System.out.println("\tunsubscribequotes (subscribe for quotes (order book) data on QUIK-server)");
             System.out.println("\tgetquotes (get order book data from QUIK-server)");
+            System.out.println("\tcreateds (get create OHLC datasource at QUIK-server)");
+            System.out.println("\tdssize (get current size of the OHLC datasource)");
+            System.out.println("\tcloseds (get OHLC datasource at QUIK-server)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -215,6 +219,18 @@ public class TestConnectorUser
                 else if("getquotes".equals(message))
                 {
                     runGetQuotesTest(connector, reader);
+                }
+                else if("createds".equals(message))
+                {
+                    runCreateDatasourceTest(connector, reader);
+                }
+                else if("dssize".equals(message))
+                {
+                    runDatasourceSizeTest(connector);
+                }
+                else if("closeds".equals(message))
+                {
+                    runCloseDatasourceTest(connector);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -1060,6 +1076,112 @@ public class TestConnectorUser
             }
         }
     }
+
+
+    private static void runCreateDatasourceTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running Quik create OHLC datasource test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+
+            System.out.println("Enter time scale:");
+            String interval = reader.readLine();
+
+            System.out.println("Enter parameter name or type exit:");
+            String parameter = reader.readLine();
+
+            if(parameter != null && !parameter.isEmpty())
+            {
+                if("exit".equals(parameter))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    String classCode = "QJSIM";
+                    String secCode = "SBER";
+                    QuikDataObject result;
+                    if("without".equals(parameter))
+                    {
+                        result = connector.createDataSource(classCode, secCode, interval);
+                    }
+                    else
+                    {
+                        result = connector.createDataSource(classCode, secCode, interval, parameter);
+                    }
+
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        TestConnectorUser.datasourceDescriptor = (DatasourceDescriptor) result;
+                        System.out.println(result);
+                        isExit = true;
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static void runCloseDatasourceTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running close datasource test...");
+        System.out.println();
+
+        if(TestConnectorUser.datasourceDescriptor != null)
+        {
+            QuikDataObject result = connector.closeDatasource(TestConnectorUser.datasourceDescriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+        }
+    }
+
+
+    private static void runDatasourceSizeTest(JavaToQuikConnector connector)
+    {
+        System.out.println("Running datasource size test...");
+        System.out.println();
+
+        if(TestConnectorUser.datasourceDescriptor != null)
+        {
+            QuikDataObject result = connector.getDatasourceSize(TestConnectorUser.datasourceDescriptor);
+            if(result instanceof ErrorObject)
+            {
+                System.out.println( ((ErrorObject) result).getErrorMessage() );
+            }
+            else
+            {
+                System.out.println(result);
+            }
+        }
+        else
+        {
+            System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+        }
+    }
+
 
     private static String getRandomString()
 	{

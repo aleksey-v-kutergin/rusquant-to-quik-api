@@ -242,28 +242,29 @@ public interface JavaToQuikAPI
      *    The function is designed to create a table Lua and allows you to work with candles received from the QUIK server,
      *    and also to react to their modification.
      **/
-    QuikDataObject createDataSource(String classCode, String securityCode, TimeScale timeScale, String parameter);
+    QuikDataObject createDataSource(String classCode, String securityCode, String interval, String parameter);
+    QuikDataObject createDataSource(String classCode, String securityCode, String interval);
 
     /**
      *    Functions as a parameter take the candlestick index and return the corresponding value.
      *    Candlestick time returns to within milliseconds
      **/
-    QuikDataObject getOHLCPrice(OHLCDatasource datasource, Long index);
+    QuikDataObject getOHLCPrice(DatasourceDescriptor datasource, Long index);
 
     /**
      *    To get all currently available OHLC prices in one request.
      **/
-    QuikDataObject getOHLCPrices(OHLCDatasource datasource);
+    QuikDataObject getOHLCPrices(DatasourceDescriptor datasource);
 
     /**
      *    For getting current count of data in datasource;
      **/
-    QuikDataObject getDatasourceSize(OHLCDatasource datasource);
+    QuikDataObject getDatasourceSize(DatasourceDescriptor datasource);
 
     /**
      *    For closing data source at server;
      **/
-    QuikDataObject closeDatasource(OHLCDatasource datasource);
+    QuikDataObject closeDatasource(DatasourceDescriptor datasource);
 
 
 
