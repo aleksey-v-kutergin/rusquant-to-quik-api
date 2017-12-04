@@ -2,6 +2,7 @@ package ru.rusquant.messages.request;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.request.body.RequestBody;
+import ru.rusquant.messages.request.body.RequestSubject;
 
 /**
  *   Class encapsulated data, which are common for all Client requests.
@@ -28,17 +29,17 @@ public class Request
 
 	/**
 	 *    The type of request:
-	 *    1. GET - get some data from server (get quik server time, get order book snapshot and so on)
-	 *    2. POST - execute some operation at server side (Place order and so on)
+	 *    1. GET - get some data from server
+	 *    2. POST - execute some operation at server side
 	 **/
-	private String type;
+	private RequestType type;
 
 
 	/**
 	 *    Subject of request: subject of get or post operation.
 	 *    For example: GET ECHO, GET TIME, POST ORDER .. etc.
 	 **/
-	private String subject;
+	private RequestSubject subject;
 
 
 	/**
@@ -55,7 +56,7 @@ public class Request
 	}
 
 
-	public Request(Long id, String type, String subject, RequestBody body)
+	public Request(Long id, RequestType type, RequestSubject subject, RequestBody body)
 	{
 		this.id = id;
 		this.type = type;
@@ -73,23 +74,23 @@ public class Request
 		return id;
 	}
 
-	public String getType()
-	{
-		return type;
-	}
-
 	public Long getTime()
 	{
 		return time;
 	}
 
-	public String getSubject()
-	{
-		return subject;
-	}
-
 	public RequestBody getBody()
 	{
 		return body;
+	}
+
+	public RequestType getType()
+	{
+		return type;
+	}
+
+	public RequestSubject getSubject()
+	{
+		return subject;
 	}
 }

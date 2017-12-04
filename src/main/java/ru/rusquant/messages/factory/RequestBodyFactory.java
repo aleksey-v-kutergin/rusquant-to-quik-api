@@ -19,6 +19,7 @@ import java.util.List;
 public class RequestBodyFactory
 {
 	public RequestBody createRequestBody(RequestSubject subject, List<?> args)
+            throws IllegalArgumentException
 	{
 		switch (subject)
 		{
