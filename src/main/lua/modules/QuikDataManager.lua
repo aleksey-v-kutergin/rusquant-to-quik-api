@@ -740,7 +740,7 @@ function QuikDataManager : getCandle(descriptor, candleIndex)
             candle["datetime"] = dateTime;
 
             result["status"] = "SUCCESS";
-            result["status"] = candle;
+            result["candle"] = candle;
         end;
     else
         result["status"] = "FAILED";
@@ -775,6 +775,7 @@ function QuikDataManager : getAllCandles(descriptor)
 
         local candle;
         local dateTime;
+        if dsSize > 10 then dsSize = 10; end;
         for i = 1, dsSize, 1 do
             candle = {};
             candle["type"] = "Candle";

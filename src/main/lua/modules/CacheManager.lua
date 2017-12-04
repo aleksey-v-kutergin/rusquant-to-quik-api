@@ -257,7 +257,7 @@ end;
 
 
 local function getDatasource(datasourceId, remove)
-    local cacheItem = quotesDescriptorCache[datasourceId];
+    local cacheItem = datasourceCache[datasourceId];
     if cacheItem ~= nil then
         logger.writeToLog(this, "EXTRACT DATASOURCE FROM CACHE FOR ID: " .. datasourceId .."!");
         if remove == true then
