@@ -13,7 +13,7 @@ import ru.rusquant.data.quik.table.*;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = Echo.class, name = "Echo"),
+		@JsonSubTypes.Type(value = QuikEcho.class, name = "Echo"),
 		@JsonSubTypes.Type(value = ConnectionState.class, name = "ConnectionState"),
 		@JsonSubTypes.Type(value = InfoParameter.class, name = "InfoParameter"),
 		@JsonSubTypes.Type(value = Transaction.class, name = "Transaction"),
@@ -57,7 +57,4 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = LongResult.class, name = "LongResult"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
-public abstract class QuikDataObject
-{
-
-}
+public abstract class QuikDataObject { }

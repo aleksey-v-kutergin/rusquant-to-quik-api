@@ -97,7 +97,7 @@ local function getECHOResponse(request)
         response["status"] = "SUCCESS";
 
         local echo = {};
-        echo["type"] = "Echo";
+        echo["type"] = "QuikEcho";
         echo["echoAnswer"] = "@ECHO: " .. reuqestBody.echoMessage;
         responseBody["echo"] = echo;
     else

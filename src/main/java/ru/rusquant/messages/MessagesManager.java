@@ -25,11 +25,7 @@ public class MessagesManager
 		return instance;
 	}
 
-	private MessagesManager()
-	{
-
-	}
-
+	private MessagesManager() { }
 
 	public String serializeRequest(Request request) throws IOException
 	{
@@ -39,8 +35,6 @@ public class MessagesManager
 		mapper.writeValue(writer, request);
 		return writer.toString();
 	}
-
-
 
 	public Response deserializeResponse(String rawJsonResponse) throws IOException
 	{

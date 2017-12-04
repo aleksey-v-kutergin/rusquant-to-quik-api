@@ -1,6 +1,6 @@
 package ru.rusquant.client.timing;
 
-import ru.rusquant.messages.request.RequestSubject;
+import ru.rusquant.messages.request.body.RequestSubject;
 import ru.rusquant.messages.response.Response;
 import ru.rusquant.messages.response.ResponseStatus;
 

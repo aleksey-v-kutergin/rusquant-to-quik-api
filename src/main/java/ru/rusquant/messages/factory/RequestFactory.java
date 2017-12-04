@@ -2,6 +2,7 @@ package ru.rusquant.messages.factory;
 
 import ru.rusquant.messages.request.*;
 import ru.rusquant.messages.request.body.RequestBody;
+import ru.rusquant.messages.request.body.RequestSubject;
 
 /**
  * Factory for dealing with requests.

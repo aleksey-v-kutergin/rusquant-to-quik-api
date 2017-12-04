@@ -2,6 +2,7 @@ package ru.rusquant.messages.response.body;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.rusquant.messages.response.body.quik.*;
 
 /**
  *   Base class for response body.
@@ -39,7 +40,4 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = AllCandlesResponseBody.class,            name = "AllCandlesResponseBody"),
 		@JsonSubTypes.Type(value = SingleCandleResponseBody.class,          name = "SingleCandleResponseBody")
 })
-public abstract class ResponseBody
-{
-
-}
+public abstract class ResponseBody { }

@@ -6,10 +6,10 @@ import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.W32APIOptions;
+import ru.rusquant.channel.DataTransferChannel;
 import ru.rusquant.channel.pipe.exceptions.PipeErrorSource;
 import ru.rusquant.channel.pipe.exceptions.PipeErrorUtils;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -20,45 +20,47 @@ import java.nio.ByteBuffer;
  *    Company: Rusquant
  *    \\\\.\\pipe\\RusquantToQuikPipe
  */
-public class WindowsNamedPipe implements Closeable
+public class WindowsNamedPipe extends DataTransferChannel
 {
 	static
 	{
 		System.setProperty("jna.encoding", "Cp1251");
 	}
 
-	private static final WindowsNamedPipeAPI KERNEL32_INSTANCE = (WindowsNamedPipeAPI) Native.loadLibrary("kernel32", WindowsNamedPipeAPI.class, W32APIOptions.UNICODE_OPTIONS);
+	private static final WindowsNamedPipeAPI KERNEL32_INSTANCE =
+			(WindowsNamedPipeAPI) Native.loadLibrary("kernel32",
+														WindowsNamedPipeAPI.class,
+														W32APIOptions.UNICODE_OPTIONS);
 
 	private static final int IO_BUFFER_SIZE = 16 * 1024;
 
-	private static final int INITIAL_RETRY_COUNT = 20;
-
 	private String pipeName;
-
-	private String errorMessage;
-
 	private WinNT.HANDLE handle = WinNT.INVALID_HANDLE_VALUE;
+
+	public WindowsNamedPipe()
+	{
+		this.pipeName = "\\\\.\\pipe\\RusquantToQuikPipe";
+	}
 
 	public WindowsNamedPipe(String pipeName)
 	{
 		this.pipeName = pipeName;
 	}
 
-
-	public String getErrorMessage()
-	{
-		return errorMessage;
-	}
-
-
-	public Boolean connect()
+	@Override
+	public Boolean open()
 	{
 		if(this.pipeName == null || this.pipeName.isEmpty()) return Boolean.FALSE;
 		if(handle != WinNT.INVALID_HANDLE_VALUE) return Boolean.TRUE;
 
-		for(int retryCount = INITIAL_RETRY_COUNT; retryCount > 0; retryCount--)
+		for(int retryCount = OPEN_CHANNEL_RETRY_COUNT; retryCount > 0; retryCount--)
 		{
-			this.handle = KERNEL32_INSTANCE.CreateFile(this.pipeName, Kernel32.GENERIC_READ | Kernel32.GENERIC_WRITE, 0, null, Kernel32.OPEN_EXISTING, 0, null);
+			this.handle = KERNEL32_INSTANCE.CreateFile(this.pipeName,
+														Kernel32.GENERIC_READ | Kernel32.GENERIC_WRITE,
+														0,
+														null,
+														Kernel32.OPEN_EXISTING,
+														0, null);
 			int errorCode = KERNEL32_INSTANCE.GetLastError();
 
 			if(handle == WinNT.INVALID_HANDLE_VALUE)
@@ -74,9 +76,8 @@ public class WindowsNamedPipe implements Closeable
 		return Boolean.FALSE;
 	}
 
-
-
-	public void disconnect() throws IOException
+	@Override
+	public void close() throws IOException
 	{
 		if(!handle.equals(WinNT.INVALID_HANDLE_VALUE))
 		{
@@ -91,9 +92,8 @@ public class WindowsNamedPipe implements Closeable
 		}
 	}
 
-
-
-	public void write(String message) throws IOException
+	@Override
+	public void writeMessage(String message) throws IOException
 	{
 		if(message == null || message.length() == 0) return;
 
@@ -125,8 +125,8 @@ public class WindowsNamedPipe implements Closeable
 		}
 	}
 
-
-	public String read() throws IOException
+	@Override
+	public String readMessage() throws IOException
 	{
 		WinBase.OVERLAPPED overlapped = new WinBase.OVERLAPPED();
 		ByteBuffer buffer = ByteBuffer.allocate(IO_BUFFER_SIZE);
@@ -141,7 +141,8 @@ public class WindowsNamedPipe implements Closeable
 			{
 				if(lastError == WinNT.ERROR_IO_PENDING || lastError == WinNT.ERROR_MORE_DATA)
 				{
-					while(overlapped.Internal.intValue() == WinNT.ERROR_IO_PENDING || overlapped.Internal.intValue() == WinNT.ERROR_MORE_DATA) {}
+					while(overlapped.Internal.intValue() == WinNT.ERROR_IO_PENDING
+							|| overlapped.Internal.intValue() == WinNT.ERROR_MORE_DATA) {}
 				}
 				else
 				{
@@ -157,11 +158,5 @@ public class WindowsNamedPipe implements Closeable
 		}
 
 		return null;
-	}
-
-
-	public void close() throws IOException
-	{
-		this.disconnect();
 	}
 }

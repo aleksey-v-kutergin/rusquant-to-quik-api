@@ -5,8 +5,9 @@ import ru.rusquant.data.quik.ParameterDescriptor;
 import ru.rusquant.data.quik.QuotesDescriptor;
 import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.data.quik.types.*;
-import ru.rusquant.messages.request.RequestSubject;
-import ru.rusquant.messages.request.body.*;
+import ru.rusquant.messages.request.body.RequestSubject;
+import ru.rusquant.messages.request.body.RequestBody;
+import ru.rusquant.messages.request.body.quik.*;
 
 import java.util.List;
 
