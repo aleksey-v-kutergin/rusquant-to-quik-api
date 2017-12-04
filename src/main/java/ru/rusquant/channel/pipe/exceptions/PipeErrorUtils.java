@@ -1,4 +1,4 @@
-package ru.rusquant.connection.pipe.exceptions;
+package ru.rusquant.channel.pipe.exceptions;
 
 import com.sun.jna.platform.win32.Kernel32;
 
@@ -117,7 +117,7 @@ public class PipeErrorUtils
 		{
 			case Kernel32.ERROR_FILE_NOT_FOUND:
 			{
-				reason = "ERROR_FILE_NOT_FOUND. \n\tThis error means that server not yet opened connection. \n\tPleas, make sure that server script is running under QUIK terminal";
+				reason = "ERROR_FILE_NOT_FOUND. \n\tThis error means that server not yet opened channel. \n\tPleas, make sure that server script is running under QUIK terminal";
 				return reason;
 			}
 			case Kernel32.ERROR_PIPE_BUSY:

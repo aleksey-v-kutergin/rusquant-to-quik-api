@@ -1,4 +1,4 @@
-package ru.rusquant.connection.pipe.exceptions;
+package ru.rusquant.channel.pipe.exceptions;
 
 import java.io.IOException;
 

@@ -1,7 +1,6 @@
 package ru.rusquant.connector;
 
 import ru.rusquant.data.quik.*;
-import ru.rusquant.data.quik.types.TimeScale;
 
 
 /**
@@ -42,7 +41,7 @@ public interface JavaToQuikAPI
     QuikDataObject getEcho(String message);
 
     /**
-     *    Returns the state of connection between QUIK terminal and QUIK (Broker) server.
+     *    Returns the state of channel between QUIK terminal and QUIK (Broker) server.
      *    @return:
      *    1 - if terminal is connected
      *    0 - otherwise
@@ -265,11 +264,4 @@ public interface JavaToQuikAPI
      *    For closing data source at server;
      **/
     QuikDataObject closeDatasource(DatasourceDescriptor datasource);
-
-
-
-    /**====================== Access to Order Book data  ======================**/
-
-
-
 }

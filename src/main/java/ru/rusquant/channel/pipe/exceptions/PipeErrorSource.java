@@ -1,4 +1,4 @@
-package ru.rusquant.connection.pipe.exceptions;
+package ru.rusquant.channel.pipe.exceptions;
 
 /**
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>

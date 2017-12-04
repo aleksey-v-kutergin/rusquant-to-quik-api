@@ -2,7 +2,7 @@ package ru.rusquant.client;
 
 import ru.rusquant.client.exceptions.MessageGrinderEmergencyAbortException;
 import ru.rusquant.client.timing.TimingManager;
-import ru.rusquant.connection.pipe.WindowsNamedPipe;
+import ru.rusquant.channel.pipe.WindowsNamedPipe;
 import ru.rusquant.messages.MessagesManager;
 import ru.rusquant.messages.request.Request;
 import ru.rusquant.messages.request.RequestSubject;
@@ -191,7 +191,7 @@ public class WindowsNamedPipeClient extends Client
 	 *     So, scenario is as follows:
 	 *     1. If client successfully connects to server - start MessageGrinder thread
 	 *     2. MessageGrinder processes incoming requests
-	 *     3. If client looses connection or instructed to stop or end session:
+	 *     3. If client looses channel or instructed to stop or end session:
 	 *     		3.1. Interrupt thread
 	 *     		3.2. Main thread MUST wait until MessageGrinder thread finishes all operations
 	 *
@@ -200,7 +200,7 @@ public class WindowsNamedPipeClient extends Client
 	 *     	The hard link between request and response is considered.
 	 *		The situations when client cannot write\read\serialize\deserialize request or response,
 	 *		cannot receive valid (in sense of id) response for given request are considered as serious errors in message flow process.
-	 *		In such situations client aborts all operations, shut down the connection and clean pipe descriptor, notify at connector's level about error.
+	 *		In such situations client aborts all operations, shut down the channel and clean pipe descriptor, notify at connector's level about error.
 	 **/
 	private class MessageGrinder extends Thread
 	{

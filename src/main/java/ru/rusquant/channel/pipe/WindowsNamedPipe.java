@@ -1,4 +1,4 @@
-package ru.rusquant.connection.pipe;
+package ru.rusquant.channel.pipe;
 
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.Kernel32;
@@ -6,15 +6,15 @@ import com.sun.jna.platform.win32.WinBase;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.win32.W32APIOptions;
-import ru.rusquant.connection.pipe.exceptions.PipeErrorSource;
-import ru.rusquant.connection.pipe.exceptions.PipeErrorUtils;
+import ru.rusquant.channel.pipe.exceptions.PipeErrorSource;
+import ru.rusquant.channel.pipe.exceptions.PipeErrorUtils;
 
 import java.io.Closeable;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- *    Java representation of the Windows Named Pipe
+ *    Java-wrapper for Windows Named Pipe
  *    Class takes care for all native logic to work with client-side of the windows named pipe
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
@@ -29,7 +29,7 @@ public class WindowsNamedPipe implements Closeable
 
 	private static final WindowsNamedPipeAPI KERNEL32_INSTANCE = (WindowsNamedPipeAPI) Native.loadLibrary("kernel32", WindowsNamedPipeAPI.class, W32APIOptions.UNICODE_OPTIONS);
 
-	private static final int IO_BUFFER_SIZE = 4 * 1024;
+	private static final int IO_BUFFER_SIZE = 16 * 1024;
 
 	private static final int INITIAL_RETRY_COUNT = 20;
 

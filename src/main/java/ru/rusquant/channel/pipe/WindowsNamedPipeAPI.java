@@ -1,4 +1,4 @@
-package ru.rusquant.connection.pipe;
+package ru.rusquant.channel.pipe;
 
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.ptr.IntByReference;
@@ -6,7 +6,6 @@ import com.sun.jna.ptr.IntByReference;
 import java.nio.ByteBuffer;
 
 /**
- *    Java implementation for
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
