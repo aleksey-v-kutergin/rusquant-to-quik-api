@@ -83,4 +83,31 @@ public enum TimeScale
         if(value == null) return null;
         return namesMap.get(value);
     }
+
+
+    public static boolean contains(String timeScaleName)
+    {
+        for(TimeScale type : TimeScale.values())
+        {
+            if( type.toString().equalsIgnoreCase(timeScaleName) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getAvailableTimeScales()
+    {
+        String availableTimeScales = "[ ";
+        int counter = 1;
+        for(TimeScale type : TimeScale.values())
+        {
+            availableTimeScales += "\t\t" + type.toString().toUpperCase();
+            if(counter < TimeScale.values().length) { availableTimeScales += ", "; }
+            counter++;
+        }
+        availableTimeScales += " ]";
+        return availableTimeScales;
+    }
 }

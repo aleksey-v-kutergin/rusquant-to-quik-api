@@ -1,6 +1,9 @@
 package ru.rusquant.api;
 
 import ru.rusquant.data.quik.*;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
+import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
 
 
 /**

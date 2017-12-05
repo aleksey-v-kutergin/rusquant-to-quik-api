@@ -155,9 +155,9 @@ local function getInfoParameterResponse(request)
 
         local info = {};
         info["type"] = "InfoParameter";
-        info["parameterName"] = reuqestBody.infoParameterName;
+        info["parameterName"] = reuqestBody.infoParamType;
 
-        local value = getInfoParam(reuqestBody.infoParameterName);
+        local value = getInfoParam(reuqestBody.infoParamType);
         if value == "" then
             info["parameterValue"] = "NA";
         else

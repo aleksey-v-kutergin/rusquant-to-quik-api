@@ -1,6 +1,6 @@
 package ru.rusquant.messages.response.body.quik;
 
-import ru.rusquant.data.quik.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 /**

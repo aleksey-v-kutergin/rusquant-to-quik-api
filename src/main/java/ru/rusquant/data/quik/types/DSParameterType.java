@@ -59,4 +59,30 @@ public enum DSParameterType
     SEC_SCALE,              // Точность цены
     SETTLEPRICE,            // Расчетная цена
     PERCENTRATE;            // Агрегированная ставка
+
+    public static boolean contains(String parameter)
+    {
+        for(DSParameterType type : DSParameterType.values())
+        {
+            if( type.toString().equalsIgnoreCase(parameter) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getAvailableDSParameters()
+    {
+        String availableDSParameters = "[ ";
+        int counter = 1;
+        for(DSParameterType type : DSParameterType.values())
+        {
+            availableDSParameters += "\t\t" + type.toString().toUpperCase();
+            if(counter < DSParameterType.values().length) { availableDSParameters += ", "; }
+            counter++;
+        }
+        availableDSParameters += " ]";
+        return availableDSParameters;
+    }
 }

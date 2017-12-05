@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import ru.rusquant.data.quik.dataframe.OhlcDataFrame;
 import ru.rusquant.data.quik.dataframe.TradesDataFrame;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.Descriptor;
+import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
+import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
 import ru.rusquant.data.quik.table.*;
 
 /**
@@ -14,6 +18,7 @@ import ru.rusquant.data.quik.table.*;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = QuikEcho.class, name = "Echo"),
+		@JsonSubTypes.Type(value = Descriptor.class, name = "Descriptor"),
 		@JsonSubTypes.Type(value = ConnectionState.class, name = "ConnectionState"),
 		@JsonSubTypes.Type(value = InfoParameter.class, name = "InfoParameter"),
 		@JsonSubTypes.Type(value = Transaction.class, name = "Transaction"),

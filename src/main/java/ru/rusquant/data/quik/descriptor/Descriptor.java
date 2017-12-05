@@ -1,51 +1,50 @@
-package ru.rusquant.data.quik;
+package ru.rusquant.data.quik.descriptor;
+
+import ru.rusquant.data.quik.QuikDataObject;
 
 /**
- *    Class-descriptor to order the parameters of the current trading table.
+ *    Base class for descriptors.
  *    Since, one needs:
- *      1. Subscribe for parameter
+ *      1. Subscribe for something at server side: parameter\quote\OHCL prices
  *      2. Unsubscribe when work is done
  *
- *    To store a link to a server-cached subscription to a parameter on the client's side
+ *    To store a link to a server-cached subscription to a parameter\quote\datasource on the client's side
  *    and manipulate it (close), it's convenient to use the descriptor object.
  *
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-public class ParameterDescriptor extends QuikDataObject
+public class Descriptor extends QuikDataObject
 {
     /**
-     *   According to Fengshui, the identifier should be generated on the server when caching a subscription to a parameter.
-     *   However, with hashing in lloy all is difficult ... Therefore, as the identifier of the subscription in the cache,
+     *   According to Fengshui, the identifier should be generated on the server when caching a subscription to a server resource.
+     *   However, hashing in lua is difficult ... Therefore, as the identifier of the subscription in the cache,
      *   the hash code of the descriptor will be used. So it will be easy to check the duplication of subscriptions.
      *   If such hash is already there, then there is a subscription.
      **/
-    private Long id;
-    private String classCode;
-    private String securityCode;
-    private String parameterName;
+    protected Long id;
+    protected String classCode;
+    protected String securityCode;
 
-    public ParameterDescriptor()
+    public Descriptor()
     {
 
     }
 
-    public ParameterDescriptor(Long id, String classCode, String securityCode, String parameterName)
+    public Descriptor(Long id, String classCode, String securityCode)
     {
         this.id = id;
         this.classCode = classCode;
         this.securityCode = securityCode;
-        this.parameterName = parameterName;
     }
 
     @Override
     public String toString()
     {
-        return "ParameterDescriptor: {" +
+        return "Descriptor{" +
                 "id=" + id +
                 ", classCode='" + classCode + '\'' +
                 ", securityCode='" + securityCode + '\'' +
-                ", parameterName='" + parameterName + '\'' +
                 '}';
     }
 
@@ -77,15 +76,5 @@ public class ParameterDescriptor extends QuikDataObject
     public void setSecurityCode(String securityCode)
     {
         this.securityCode = securityCode;
-    }
-
-    public String getParameterName()
-    {
-        return parameterName;
-    }
-
-    public void setParameterName(String parameterName)
-    {
-        this.parameterName = parameterName;
     }
 }

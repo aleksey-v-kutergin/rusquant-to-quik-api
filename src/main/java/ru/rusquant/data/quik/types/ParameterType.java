@@ -139,5 +139,32 @@ public enum ParameterType
     SEC_FACE_UNIT,           /** Валюта номинала **/
     SEC_SCALE,               /** Точность цены **/
     SEC_PRICE_STEP,          /** Минимальный шаг цены **/
-    SECTYPE                  /** Тип инструмента **/
+    SECTYPE;                 /** Тип инструмента **/
+
+
+    public static boolean contains(String parameter)
+    {
+        for(ParameterType type : ParameterType.values())
+        {
+            if( type.toString().equalsIgnoreCase(parameter) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getAvailableParameters()
+    {
+        String availableParameters = "[ ";
+        int counter = 1;
+        for(ParameterType type : ParameterType.values())
+        {
+            availableParameters += "\t\t" + type.toString().toUpperCase();
+            if(counter < ParameterType.values().length) { availableParameters += ", "; }
+            counter++;
+        }
+        availableParameters += " ]";
+        return availableParameters;
+    }
 }

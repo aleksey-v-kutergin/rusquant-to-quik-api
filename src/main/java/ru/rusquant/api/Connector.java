@@ -20,17 +20,19 @@ public abstract class Connector
 	protected final RequestFactory requestFactory = new RequestFactory();
 	protected String connectErrorMessage;
 
-	public void connect()
+	public boolean connect()
 	{
 		connectErrorMessage = null;
 		client.connect();
 		if(client.isConnected())
 		{
 			client.run();
+			return true;
 		}
 		else
 		{
 			connectErrorMessage = client.getError();
+			return false;
 		}
 	}
 
@@ -52,6 +54,11 @@ public abstract class Connector
 		{
 			connectErrorMessage = e.getMessage();
 		}
+	}
+
+	public String getConnectErrorMessage()
+	{
+		return connectErrorMessage;
 	}
 
 	public Float getAvgShippingDurationOfRequest(RequestSubject subject)

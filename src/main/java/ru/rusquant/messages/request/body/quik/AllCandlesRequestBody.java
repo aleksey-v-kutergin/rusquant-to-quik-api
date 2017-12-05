@@ -1,7 +1,7 @@
 package ru.rusquant.messages.request.body.quik;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import ru.rusquant.data.quik.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**

@@ -1,4 +1,4 @@
-package ru.rusquant.data.quik;
+package ru.rusquant.data.quik.descriptor;
 
 import ru.rusquant.data.quik.types.DSParameterType;
 import ru.rusquant.data.quik.types.TimeScale;
@@ -8,11 +8,8 @@ import ru.rusquant.data.quik.types.TimeScale;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-public class DatasourceDescriptor extends QuikDataObject
+public class DatasourceDescriptor extends Descriptor
 {
-    private Long id;
-    private String classCode;
-    private String securityCode;
     private TimeScale interval;
     private DSParameterType parameter;
 
@@ -21,11 +18,13 @@ public class DatasourceDescriptor extends QuikDataObject
 
     }
 
-    public DatasourceDescriptor(Long id, String classCode, String securityCode, TimeScale interval, DSParameterType parameter)
+    public DatasourceDescriptor(Long id,
+                                String classCode,
+                                String securityCode,
+                                TimeScale interval,
+                                DSParameterType parameter)
     {
-        this.id = id;
-        this.classCode = classCode;
-        this.securityCode = securityCode;
+        super(id, classCode, securityCode);
         this.interval = interval;
         this.parameter = parameter;
     }
@@ -34,41 +33,12 @@ public class DatasourceDescriptor extends QuikDataObject
     public String toString()
     {
         return "DatasourceDescriptor{" +
+                "id=" + id +
                 "classCode='" + classCode + '\'' +
                 ", securityCode='" + securityCode + '\'' +
                 ", interval=" + interval +
                 ", parameter=" + parameter +
                 '}';
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public String getClassCode()
-    {
-        return classCode;
-    }
-
-    public void setClassCode(String classCode)
-    {
-        this.classCode = classCode;
-    }
-
-    public String getSecurityCode()
-    {
-        return securityCode;
-    }
-
-    public void setSecurityCode(String securityCode)
-    {
-        this.securityCode = securityCode;
     }
 
     public TimeScale getInterval()

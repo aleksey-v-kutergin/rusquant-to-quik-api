@@ -1,6 +1,7 @@
 package ru.rusquant.messages.request.body.quik;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
@@ -10,26 +11,25 @@ import ru.rusquant.messages.request.body.RequestBody;
 @JsonAutoDetect
 public class InfoParameterRequestBody extends RequestBody
 {
-	private String infoParameterName;
+	private InfoParamType infoParamType;
 
 	public InfoParameterRequestBody()
 	{
 
 	}
 
-	public InfoParameterRequestBody(String infoParameterName)
+	public InfoParameterRequestBody(InfoParamType infoParamType)
 	{
-		this.infoParameterName = infoParameterName;
+		this.infoParamType = infoParamType;
 	}
 
-
-	public String getInfoParameterName()
+	public InfoParamType getInfoParamType()
 	{
-		return infoParameterName;
+		return infoParamType;
 	}
 
-	public void setInfoParameterName(String infoParameterName)
+	public void setInfoParamType(InfoParamType infoParamType)
 	{
-		this.infoParameterName = infoParameterName;
+		this.infoParamType = infoParamType;
 	}
 }
