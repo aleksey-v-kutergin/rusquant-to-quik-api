@@ -1,13 +1,14 @@
 package ru.rusquant.demo;
 
-
-import ru.rusquant.connector.JavaToQuikConnector;
-import ru.rusquant.connector.JavaToQuikPipeConnector;
+import ru.rusquant.api.impl.JavaToQuikConnector;
 import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.dataframe.TradesDataFrame;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
+import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
 import ru.rusquant.data.quik.table.Order;
 import ru.rusquant.data.quik.types.*;
-import ru.rusquant.messages.request.RequestSubject;
+import ru.rusquant.messages.request.body.RequestSubject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class TestConnectorUser
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		JavaToQuikConnector connector = new JavaToQuikPipeConnector();
+		JavaToQuikConnector connector = new JavaToQuikConnector();
 
 
 		boolean isExit = false;
@@ -46,14 +47,13 @@ public class TestConnectorUser
 			}
 			else
 			{
-				connector.connect();
-				if(connector.isConnectedToServer())
+				if(connector.connect())
 				{
 					showTestsMenu(connector, reader);
 				}
 				else
 				{
-					System.out.println(connector.getConnectorError().getErrorMessage());
+					System.out.println(connector.getConnectErrorMessage());
 				}
 			}
 		}
@@ -307,7 +307,7 @@ public class TestConnectorUser
 					}
 					else
 					{
-						System.out.println( ((Echo) result).getEchoAnswer() );
+						System.out.println( ((QuikEcho) result).getEchoAnswer() );
 					}
 				}
 			}
@@ -366,7 +366,7 @@ public class TestConnectorUser
 				}
 				else
 				{
-					String answer = ((Echo) result).getEchoAnswer();
+					String answer = ((QuikEcho) result).getEchoAnswer();
 					if(!answer.contains(message))
 					{
 						System.out.println("Wrong answer received!");

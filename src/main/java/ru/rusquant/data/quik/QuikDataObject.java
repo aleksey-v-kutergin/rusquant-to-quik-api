@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import ru.rusquant.data.quik.dataframe.OhlcDataFrame;
 import ru.rusquant.data.quik.dataframe.TradesDataFrame;
+import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
+import ru.rusquant.data.quik.descriptor.Descriptor;
+import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
+import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
 import ru.rusquant.data.quik.table.*;
 
 /**
@@ -11,9 +15,10 @@ import ru.rusquant.data.quik.table.*;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = Echo.class, name = "Echo"),
+		@JsonSubTypes.Type(value = QuikEcho.class, name = "Echo"),
+		@JsonSubTypes.Type(value = Descriptor.class, name = "Descriptor"),
 		@JsonSubTypes.Type(value = ConnectionState.class, name = "ConnectionState"),
 		@JsonSubTypes.Type(value = InfoParameter.class, name = "InfoParameter"),
 		@JsonSubTypes.Type(value = Transaction.class, name = "Transaction"),
@@ -57,7 +62,4 @@ import ru.rusquant.data.quik.table.*;
 		@JsonSubTypes.Type(value = LongResult.class, name = "LongResult"),
 		@JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
-public abstract class QuikDataObject
-{
-
-}
+public abstract class QuikDataObject { }

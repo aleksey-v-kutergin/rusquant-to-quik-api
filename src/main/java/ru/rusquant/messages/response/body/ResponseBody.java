@@ -2,6 +2,7 @@ package ru.rusquant.messages.response.body;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import ru.rusquant.messages.response.body.quik.*;
 
 /**
  *   Base class for response body.
@@ -9,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *   Company: Rusquant
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = EchoResponseBody.class, 				    name = "EchoResponseBody"),
 		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, 	    name = "ConnectionSateResponseBody"),
@@ -39,7 +40,4 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 		@JsonSubTypes.Type(value = AllCandlesResponseBody.class,            name = "AllCandlesResponseBody"),
 		@JsonSubTypes.Type(value = SingleCandleResponseBody.class,          name = "SingleCandleResponseBody")
 })
-public abstract class ResponseBody
-{
-
-}
+public abstract class ResponseBody { }

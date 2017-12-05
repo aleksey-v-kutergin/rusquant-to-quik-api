@@ -107,5 +107,31 @@ public enum InfoParamType
 	MAXPINGTIME,
 
 	/** Min latency of data exchange between QUIK-terminal and QUIK (Broker) server **/
-	MAXPINGDURATION
+	MAXPINGDURATION;
+
+	public static boolean contains(String parameter)
+	{
+		for(InfoParamType type : InfoParamType.values())
+		{
+			if( type.toString().equalsIgnoreCase(parameter) )
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public static String getAvailableParameters()
+	{
+		String availableParameters = "[ ";
+		int counter = 1;
+		for(InfoParamType type : InfoParamType.values())
+		{
+			availableParameters += "\t\t" + type.toString().toUpperCase();
+			if(counter < InfoParamType.values().length) { availableParameters += ", "; }
+			counter++;
+		}
+		availableParameters += " ]";
+		return availableParameters;
+	}
 }

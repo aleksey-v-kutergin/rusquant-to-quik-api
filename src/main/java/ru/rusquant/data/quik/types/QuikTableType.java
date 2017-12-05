@@ -1,5 +1,6 @@
 package ru.rusquant.data.quik.types;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.HashMap;
@@ -75,6 +76,7 @@ public enum  QuikTableType
 
 
     /** For deserialization **/
+    @JsonCreator
     public static QuikTableType forValue(String value)
     {
         if(value == null) return  null;

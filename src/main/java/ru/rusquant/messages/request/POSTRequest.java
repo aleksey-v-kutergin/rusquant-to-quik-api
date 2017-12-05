@@ -2,6 +2,7 @@ package ru.rusquant.messages.request;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.request.body.RequestBody;
+import ru.rusquant.messages.request.body.RequestSubject;
 
 /**
  *   Class for POST request
@@ -16,8 +17,8 @@ public class POSTRequest extends Request
 
 	}
 
-	public POSTRequest(Long id, String subject, RequestBody body)
+	public POSTRequest(Long id, RequestSubject subject, RequestBody body)
 	{
-		super(id, "POST", subject, body);
+		super(id, RequestType.POST, subject, body);
 	}
 }

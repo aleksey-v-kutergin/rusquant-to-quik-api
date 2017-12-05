@@ -154,7 +154,7 @@ end;
 
 function QuikDataManager : sendTransaction(transaction)
     -- Remove class information from object
-    transaction["type"] = nil;
+    transaction["@class"] = nil;
     local args = prepareTransactionArgs(transaction);
     logger.writeToLog(this, "\nCALL SEND TRANSACTION WITH ARGS: " .. jsonParser: encode_pretty(args) .. "\n");
     local error = sendTransaction(args);
@@ -188,7 +188,7 @@ function QuikDataManager : sendTransaction(transaction)
         end;
     end;
 
-    mergedReplay["type"] = "Transaction";
+    mergedReplay["@class"] = "Transaction";
     result["transReplay"] = mergedReplay;
     logger.writeToLog(this, "\nFINAL TRANSACTION REPLAY: " .. jsonParser: encode_pretty(result) .. "\n");
     return result;
@@ -250,7 +250,7 @@ function QuikDataManager : getTrades(orderNumber)
 
     local trades = cacheManager.get(this, "TRADE", orderNumber, true);
     local tradesDataFrame = {};
-    tradesDataFrame["type"] = "TradesDataFrame";
+    tradesDataFrame["@class"] = "TradesDataFrame";
     tradesDataFrame["records"] = trades;
     result["tradesDataFrame"] = tradesDataFrame;
     logger.writeToLog(this, "\nFINAL TRADES LIST: " .. jsonParser: encode_pretty(tradesDataFrame) .. "\n");
@@ -272,7 +272,7 @@ function QuikDataManager : subscribeParameter(id, classCode, securityCode, param
         local subscribeResult = ParamRequest(classCode, securityCode, parameterName);
         if subscribeResult == true then
             local descriptor = {};
-            descriptor["type"] = "ParameterDescriptor";
+            descriptor["@class"] = "ParameterDescriptor";
             descriptor["id"] = id;
             descriptor["classCode"] = classCode;
             descriptor["securityCode"] = securityCode;
@@ -316,7 +316,7 @@ function QuikDataManager : unsubscribeParameter(descriptor)
         local cancelationResult = CancelParamRequest(classCode, securityCode, parameterName);
         if cancelationResult == true then
             local booleanResult = {};
-            booleanResult["type"] = "BooleanResult";
+            booleanResult["@class"] = "BooleanResult";
             booleanResult["value"] = true;
 
             cacheManager.get(this, "PARAMETER_DESCRIPTOR", id, true);
@@ -364,7 +364,7 @@ function QuikDataManager : getTradingParameter(classCode, securityCode, paramete
     if parameter ~= nil then
         if parameter.result == "1" then
             result["status"] = "SUCCESS";
-            parameter["type"] = "TradingParameter";
+            parameter["@class"] = "TradingParameter";
             result["tradingParameter"] = parameter;
         else
             result["status"] = "FAILED";
@@ -401,7 +401,7 @@ function QuikDataManager : subscribeQuotes(id, classCode, securityCode)
         local subscribeResult = Subscribe_Level_II_Quotes(classCode, securityCode);
         if subscribeResult == true then
             local descriptor = {};
-            descriptor["type"] = "QuotesDescriptor";
+            descriptor["@class"] = "QuotesDescriptor";
             descriptor["id"] = id;
             descriptor["classCode"] = classCode;
             descriptor["securityCode"] = securityCode;
@@ -441,7 +441,7 @@ function QuikDataManager : unsubscribeQuotes(descriptor)
         local cancelationResult = Unsubscribe_Level_II_Quotes(classCode, securityCode);
         if cancelationResult == true then
             local booleanResult = {};
-            booleanResult["type"] = "BooleanResult";
+            booleanResult["@class"] = "BooleanResult";
             booleanResult["value"] = true;
 
             cacheManager.get(this, "QUOTES_DESCRIPTOR", id, true);
@@ -477,7 +477,7 @@ function QuikDataManager : isSubscribedToQuotes(descriptor)
     local exitsInCache = cacheManager.contains(this, "QUOTES_DESCRIPTOR", id);
     if exitsInCache == true then
         local booleanResult = {};
-        booleanResult["type"] = "BooleanResult";
+        booleanResult["@class"] = "BooleanResult";
         booleanResult["value"] = IsSubscribed_Level_II_Quotes(classCode, securityCode);
 
         result["status"] = "SUCCESS";
@@ -501,7 +501,7 @@ local function processQuotes(depth, quotes)
 
     for i = 1, depth, 1 do
         orderBookLevel = {};
-        orderBookLevel["type"] = "OrderBookLevel";
+        orderBookLevel["@class"] = "OrderBookLevel";
 
         -- Number of the order book level
         orderBookLevel["number"] = i;
@@ -529,7 +529,7 @@ function QuikDataManager : getQuotes(classCode, securityCode)
     if quotesSnapshot ~= nil then
         logger.writeToLog(this, "\nSOURCE QUOTES SNAPSHOT FROM getQuoteLevel2: " .. jsonParser: encode_pretty(quotesSnapshot) .. "\n");
         local orderBook = {};
-        orderBook["type"] = "OrderBook";
+        orderBook["@class"] = "OrderBook";
 
         orderBook["bid_count"] = tonumber(quotesSnapshot.bid_count);
         orderBook["offer_count"] = tonumber(quotesSnapshot.offer_count);
@@ -608,7 +608,7 @@ function QuikDataManager : createDatasource(id, classCode, securityCode, interva
             end;
 
             local descriptor = {};
-            descriptor["type"] = "DatasourceDescriptor";
+            descriptor["@class"] = "DatasourceDescriptor";
             descriptor["id"] = id;
             descriptor["classCode"] = classCode;
             descriptor["securityCode"] = securityCode;
@@ -663,7 +663,7 @@ function QuikDataManager : closeDatasource(descriptor)
         result["status"] = "SUCCESS";
 
         local booleanResult = {};
-        booleanResult["type"] = "BooleanResult";
+        booleanResult["@class"] = "BooleanResult";
         booleanResult["value"] = datasource.instance:Close();
         result["booleanResult"] = booleanResult;
     else
@@ -692,7 +692,7 @@ function QuikDataManager : getDatasourceSise(descriptor)
         result["status"] = "SUCCESS";
 
         local dsSize = {};
-        dsSize["type"] = "LongResult";
+        dsSize["@class"] = "LongResult";
         dsSize["value"] = datasource.instance:Size();
         result["dsSize"] = dsSize;
     else
@@ -725,7 +725,7 @@ function QuikDataManager : getCandle(descriptor, candleIndex)
             result["error"] = "CANDLE INDEX IS OUT OF RANGE! CURRENT DATASOURCE SIZE IS: " .. dsSize;
         else
             local candle = {};
-            candle["type"] = "Candle";
+            candle["@class"] = "Candle";
 
             -- Set prices and volume
             candle["open"]   = datasource.instance:O(candleIndex);
@@ -736,7 +736,7 @@ function QuikDataManager : getCandle(descriptor, candleIndex)
 
             -- Set date and time
             local dateTime = datasource.instance:T(candleIndex);
-            dateTime["type"] = "DateTime";
+            dateTime["@class"] = "DateTime";
             candle["datetime"] = dateTime;
 
             result["status"] = "SUCCESS";
@@ -770,7 +770,7 @@ function QuikDataManager : getAllCandles(descriptor)
         local dsSize = datasource.instance:Size();
 
         local ohlcDataFrame = {};
-        ohlcDataFrame["type"] = "OhlcDataFrame";
+        ohlcDataFrame["@class"] = "OhlcDataFrame";
         ohlcDataFrame["records"] = {};
 
         local candle;
@@ -778,7 +778,7 @@ function QuikDataManager : getAllCandles(descriptor)
         if dsSize > 10 then dsSize = 10; end;
         for i = 1, dsSize, 1 do
             candle = {};
-            candle["type"] = "Candle";
+            candle["@class"] = "Candle";
 
             -- Set prices and volume
             candle["open"]   = datasource.instance:O(i);
@@ -789,7 +789,7 @@ function QuikDataManager : getAllCandles(descriptor)
 
             -- Set date and time
             dateTime = datasource.instance:T(i);
-            dateTime["type"] = "DateTime";
+            dateTime["@class"] = "DateTime";
             candle["datetime"] = dateTime;
             logger.writeToLog(this, "\nCANDLE(" .. i .. "): " .. jsonParser: encode_pretty(candle) .. "\n");
             ohlcDataFrame.records[i] = candle;
@@ -863,16 +863,16 @@ function QuikDataManager : getTableItem(tableName, itemIndex)
                     local clientCode = item;
                     item = {};
                     item["code"] = clientCode;
-                    item["type"] = itemClass;
+                    item["@class"] = itemClass;
                 else
                     for key, value in pairs(item) do
                         if isDateTime(value) then
-                            value["type"] = "DateTime";
+                            value["@class"] = "DateTime";
                         elseif type(value) == "string" then
                             item[key] = value:gsub('"','');
                         end;
                     end;
-                    item["type"] = itemClass;
+                    item["@class"] = itemClass;
                 end;
 
                 result["status"] = "SUCCESS";
@@ -899,7 +899,7 @@ function QuikDataManager : getTableItems(tableName)
     if itemClass ~= nil then
 
         local dataFrame = {};
-        dataFrame["type"] = "QuikDataFrame";
+        dataFrame["@class"] = "QuikDataFrame";
         dataFrame["records"] = {};
 
         local rowsCount = getNumberOf(tableName);
@@ -910,16 +910,16 @@ function QuikDataManager : getTableItems(tableName)
                 local clientCode = item;
                 item = {};
                 item["code"] = clientCode;
-                item["type"] = itemClass;
+                item["@class"] = itemClass;
             else
                 for key, value in pairs(item) do
                     if isDateTime(value) then
-                        value["type"] = "DateTime";
+                        value["@class"] = "DateTime";
                     elseif type(value) == "string" then
                         item[key] = value:gsub('"','');
                     end;
                 end;
-                item["type"] = itemClass;
+                item["@class"] = itemClass;
             end;
             logger.writeToLog(this, "\nITEM: " .. jsonParser: encode_pretty(item) .. "\n");
             dataFrame.records[i + 1] = item;
@@ -942,12 +942,12 @@ function QuikDataManager : getSecurityInfo(classCode, securityCode)
     if security ~= nil then
         for key, value in pairs(security) do
             if isDateTime(value) then
-                value["type"] = "DateTime";
+                value["@class"] = "DateTime";
             elseif type(value) == "string" then
                 security[key] = value:gsub('"','');
             end;
         end;
-        security["type"] = "Security";
+        security["@class"] = "Security";
 
         result["security"] = security;
         result["status"] = "SUCCESS";
@@ -972,7 +972,7 @@ function QuikDataManager : getClassInfo(classCode)
                 securityClass[key] = value:gsub('"','');
             end;
         end;
-        securityClass["type"] = "SecurityClass";
+        securityClass["@class"] = "SecurityClass";
 
         result["securityClass"] = securityClass;
         result["status"] = "SUCCESS";
@@ -991,7 +991,7 @@ function QuikDataManager : getClassesList()
     local codesString = getClassesList();
     if codesString ~= nil then
         local codes = {};
-        codes["type"] = "CodesArray";
+        codes["@class"] = "CodesArray";
         codes["separator"] = ",";
         codes["codesString"] = codesString;
 
@@ -1012,7 +1012,7 @@ function QuikDataManager : getClassSecuritiesList(classCode)
     local codesString = getClassSecurities(classCode);
     if codesString ~= nil then
         local codes = {};
-        codes["type"] = "CodesArray";
+        codes["@class"] = "CodesArray";
         codes["separator"] = ",";
         codes["codesString"] = codesString;
 
@@ -1054,7 +1054,7 @@ function QuikDataManager : getMaxCountOfLotsInOrder(classCode, securityCode, cli
         local countOfLots = {};
         countOfLots["qty"] = qty;
         countOfLots["comission"] = comission;
-        countOfLots["type"] = "CountOfLots";
+        countOfLots["@class"] = "CountOfLots";
 
         result["countOfLots"] = countOfLots;
         result["status"] = "SUCCESS";

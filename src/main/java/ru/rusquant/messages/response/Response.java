@@ -2,6 +2,8 @@ package ru.rusquant.messages.response;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import ru.rusquant.messages.request.RequestType;
+import ru.rusquant.messages.request.body.RequestSubject;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 @JsonAutoDetect
@@ -47,20 +49,20 @@ public class Response
 	 *    1. GET - get some data from server (get quik server time, get order book snapshot and so on)
 	 *    2. POST - execute some operation at server side (Place order and so on)
 	 **/
-	private String type;
+	private RequestType type;
 
 
 	/**
 	 *    Subject of request: subject of get or post operation.
 	 *    For example: GET ECHO, GET TIME, POST ORDER .. etc.
 	 **/
-	private String subject;
+	private RequestSubject subject;
 
 
 	/**
 	 *    The result of the attempt to execute request on server: SUCCESS / FAIL
 	 **/
-	private String status;
+	private ResponseStatus status;
 
 
 	/**
@@ -132,24 +134,14 @@ public class Response
 		this.sendingTimeOfRequestAtClient = sendingTimeOfRequestAtClient;
 	}
 
-	public String getStatus()
+	public ResponseStatus getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(String status)
+	public void setStatus(ResponseStatus status)
 	{
 		this.status = status;
-	}
-
-	public String getSubject()
-	{
-		return subject;
-	}
-
-	public void setSubject(String subject)
-	{
-		this.subject = subject;
 	}
 
 	public Long getTimeOfReceiptOfResponseAtClient()
@@ -172,13 +164,23 @@ public class Response
 		this.timeOfReceiptOfRequestAtServer = timeOfReceiptOfRequestAtServer;
 	}
 
-	public String getType()
+	public RequestType getType()
 	{
 		return type;
 	}
 
-	public void setType(String type)
+	public void setType(RequestType type)
 	{
 		this.type = type;
+	}
+
+	public RequestSubject getSubject()
+	{
+		return subject;
+	}
+
+	public void setSubject(RequestSubject subject)
+	{
+		this.subject = subject;
 	}
 }

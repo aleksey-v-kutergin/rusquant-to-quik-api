@@ -26,6 +26,7 @@ local OHLC_DATASOURCE = "OHLC_DATASOURCE";
 local logger;
 local jsonParser;
 
+
 ---------------------------------------------------------------------------------------
 -- Caching replays for transactions;
 -- The key of the replay object in cache is trans_id ( user defined id of the transaction ).
@@ -76,9 +77,9 @@ local function getOrder(orderNum, remove)
     logger.writeToLog(this, "CHECKING FOR EXISTANCE OF THE ORDER IN CACHE!");
     local cacheItem = ordersCache[orderNum];
     if cacheItem ~= nil then
-        cacheItem["type"] = "Order";
-        cacheItem.datetime["type"] = "DateTime";
-        cacheItem.withdraw_datetime["type"] = "DateTime";
+        cacheItem["@class"] = "Order";
+        cacheItem.datetime["@class"] = "DateTime";
+        cacheItem.withdraw_datetime["@class"] = "DateTime";
         if remove == true then
             ordersCache[orderNum] = nil;
             ordersCacheSize = ordersCacheSize - 1;
@@ -139,9 +140,9 @@ local function getTrades(orderNum, remove)
     local counter = 1;
     if trades ~= nil then
         for k, v in pairs(trades) do
-            v["type"] = "Trade";
-            v.datetime["type"] = "DateTime";
-            v.canceled_datetime["type"] = "DateTime";
+            v["@class"] = "Trade";
+            v.datetime["@class"] = "DateTime";
+            v.canceled_datetime["@class"] = "DateTime";
             result[counter] = v;
             counter = counter + 1;
         end;
