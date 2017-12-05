@@ -1,4 +1,4 @@
-package ru.rusquant.messages.factory;
+package ru.rusquant.messages.request.factory;
 
 import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.data.quik.descriptor.Descriptor;

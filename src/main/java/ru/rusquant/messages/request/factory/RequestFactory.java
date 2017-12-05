@@ -1,4 +1,4 @@
-package ru.rusquant.messages.factory;
+package ru.rusquant.messages.request.factory;
 
 import ru.rusquant.messages.request.*;
 import ru.rusquant.messages.request.body.RequestBody;

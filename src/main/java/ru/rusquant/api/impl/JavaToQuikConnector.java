@@ -6,7 +6,7 @@ import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
 import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
-import ru.rusquant.messages.factory.RequestBodyFactory;
+import ru.rusquant.messages.request.factory.RequestBodyFactory;
 import ru.rusquant.messages.request.Request;
 import ru.rusquant.messages.request.body.RequestSubject;
 import ru.rusquant.messages.request.RequestType;

@@ -2,7 +2,7 @@ package ru.rusquant.api;
 
 import ru.rusquant.channel.ChannelType;
 import ru.rusquant.client.Client;
-import ru.rusquant.messages.factory.RequestFactory;
+import ru.rusquant.messages.request.factory.RequestFactory;
 import ru.rusquant.messages.request.body.RequestSubject;
 
 import java.io.IOException;
