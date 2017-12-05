@@ -10,7 +10,7 @@ import ru.rusquant.messages.response.body.quik.*;
  *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *   Company: Rusquant
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = EchoResponseBody.class, 				    name = "EchoResponseBody"),
 		@JsonSubTypes.Type(value = ConnectionSateResponseBody.class, 	    name = "ConnectionSateResponseBody"),

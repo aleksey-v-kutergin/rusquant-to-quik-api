@@ -15,7 +15,7 @@ import ru.rusquant.data.quik.table.*;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @JsonSubTypes({
 		@JsonSubTypes.Type(value = QuikEcho.class, name = "Echo"),
 		@JsonSubTypes.Type(value = Descriptor.class, name = "Descriptor"),

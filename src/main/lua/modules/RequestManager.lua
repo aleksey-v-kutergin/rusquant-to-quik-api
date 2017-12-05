@@ -8,7 +8,6 @@
 --
 ---------------------------------------------------------------------------------------
 
--- src.modules.RequestManager
 local RequestManager = {};
 
 ---------------------------------------------------------------------------------------
@@ -47,7 +46,11 @@ local function validateRequest(request)
 
     local targetCount = 0;
     for key, value in pairs(request) do
-        if ( key == "type" or key == "subject" or key == "id" or key == "time" or key == "body" ) and value ~= nil then
+        if ( key == "type"
+                or key == "subject"
+                or key == "id"
+                or key == "time"
+                or key == "body" ) and value ~= nil then
             targetCount = targetCount + 1;
         end;
     end;
@@ -91,18 +94,18 @@ local function getECHOResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "EchoResponseBody";
+    responseBody["@class"] = "EchoResponseBody";
 
     if reuqestBody.echoMessage ~= nil then
-        response["status"] = "SUCCESS";
-
         local echo = {};
-        echo["type"] = "QuikEcho";
+        echo["@class"] = "QuikEcho";
         echo["echoAnswer"] = "@ECHO: " .. reuqestBody.echoMessage;
+
+        response["status"] = "SUCCESS";
         responseBody["echo"] = echo;
     else
         response["status"] = "FAILED";
-        response["error"] = "INVALID REQUEST PARAMETERS. ECHO REQUEST MUST CONTAIN NOT NULL echoMessage PARAMETER!";
+        response["error"] = "INVALID REQUEST PARAMETERS. ECHO REQUEST MUST CONTAIN NOT NULL MESSAGE!";
     end;
 
     response["body"] = responseBody;
@@ -120,16 +123,16 @@ end;
 local function getConnectionStateResponse(request)
 
     local response = getCommonResponsePart(request);
-    response["status"] = "SUCCESS";
 
     local responseBody = {};
-    responseBody["type"] = "ConnectionSateResponseBody";
+    responseBody["@class"] = "ConnectionSateResponseBody";
 
     local connectionState = {};
-    connectionState["type"] = "ConnectionState";
+    connectionState["@class"] = "ConnectionState";
     connectionState["isConnected"] = isConnected();
     responseBody["connectionState"] = connectionState;
 
+    response["status"] = "SUCCESS";
     response["body"] = responseBody;
     response["sendingTimeOfResponseAtServer"] = os.time();
     return response;
@@ -148,13 +151,13 @@ local function getInfoParameterResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "InfoParameterResponseBody";
+    responseBody["@class"] = "InfoParameterResponseBody";
 
     if reuqestBody.infoParameterName ~= nil then
         response["status"] = "SUCCESS";
 
         local info = {};
-        info["type"] = "InfoParameter";
+        info["@class"] = "InfoParameter";
         info["parameterName"] = reuqestBody.infoParamType;
 
         local value = getInfoParam(reuqestBody.infoParamType);
@@ -186,7 +189,7 @@ local function getTransactionResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "TransactionResponseBody";
+    responseBody["@class"] = "TransactionResponseBody";
 
     local transaction = reuqestBody.transaction;
     if transaction ~= nil then
@@ -221,7 +224,7 @@ local function getOrderResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "OrderResponseBody";
+    responseBody["@class"] = "OrderResponseBody";
 
     if reuqestBody.orderNumber ~= nil then
         local result = quikDataManager.getOrder(this, reuqestBody.orderNumber, true);
@@ -254,7 +257,7 @@ local function getTradesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "TradesResponseBody";
+    responseBody["@class"] = "TradesResponseBody";
 
     if reuqestBody.orderNumber ~= nil then
         local result = quikDataManager.getTrades(this, reuqestBody.orderNumber);
@@ -288,13 +291,13 @@ local function getTableInfoResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "QuikTableInfoResponseBody";
+    responseBody["@class"] = "QuikTableInfoResponseBody";
 
     if reuqestBody.tableType ~= nil then
         response["status"] = "SUCCESS";
 
         local tableInfo = {};
-        tableInfo["type"] = "QuikTableInfo";
+        tableInfo["@class"] = "QuikTableInfo";
         tableInfo["tableType"] = reuqestBody.tableType;
         tableInfo["rowsCount"] =  getNumberOf(reuqestBody.tableType);
 
@@ -321,7 +324,7 @@ local function getTableItemResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "QuikTableItemResponseBody";
+    responseBody["@class"] = "QuikTableItemResponseBody";
     if reuqestBody.tableType ~= nil and reuqestBody.itemIndex ~= nil then
         local result = quikDataManager.getTableItem(this, reuqestBody.tableType, reuqestBody.itemIndex);
         if result.status ~= "FAILED" then
@@ -353,7 +356,7 @@ local function getTableItemsResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "QuikTableItemsResponseBody";
+    responseBody["@class"] = "QuikTableItemsResponseBody";
 
     if reuqestBody.tableType ~= nil then
         local result = quikDataManager.getTableItems(this, reuqestBody.tableType);
@@ -387,7 +390,7 @@ local function getSubcribeParameterResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "SubscribeParameterResponseBody";
+    responseBody["@class"] = "SubscribeParameterResponseBody";
     local isValid = reuqestBody.id ~= nil;
     isValid = isValid and reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -424,7 +427,7 @@ local function getUnsubcribeParameterResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "UnsubscribeParameterResponseBody";
+    responseBody["@class"] = "UnsubscribeParameterResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.unsubscribeParameter(this,  reuqestBody.descriptor);
@@ -453,7 +456,7 @@ local function getTradingParameterResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "TradingParameterResponseBody";
+    responseBody["@class"] = "TradingParameterResponseBody";
 
     local isValid = reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -491,12 +494,12 @@ local function getTradeDateResponse(request)
 
     local response = getCommonResponsePart(request);
     local responseBody = {};
-    responseBody["type"] = "TradeDateResponseBody";
+    responseBody["@class"] = "TradeDateResponseBody";
 
     local tradeDate = getTradeDate();
     if tradeDate ~= nil then
         response["status"] = "SUCCESS";
-        tradeDate["type"] = "TradeDate";
+        tradeDate["@class"] = "TradeDate";
         responseBody["tradeDate"] = tradeDate;
     else
         response["status"] = "FAILED";
@@ -520,7 +523,7 @@ local function getSecurityInfoResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "SecurityInfoResponseBody";
+    responseBody["@class"] = "SecurityInfoResponseBody";
 
     local isValid = reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -553,7 +556,7 @@ local function getClassInfoResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "SecurityClassInfoResponseBody";
+    responseBody["@class"] = "SecurityClassInfoResponseBody";
 
     if reuqestBody.classCode ~= nil then
         local result = quikDataManager.getClassInfo(this, reuqestBody.classCode);
@@ -581,7 +584,7 @@ local function getClassesListResponse(request)
     local response = getCommonResponsePart(request);
 
     local responseBody = {};
-    responseBody["type"] = "ClassesListResponseBody";
+    responseBody["@class"] = "ClassesListResponseBody";
 
     local result = quikDataManager.getClassesList();
     if result.status ~= "FAILED" then
@@ -606,7 +609,7 @@ local function getClassSecuritiesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "ClassSecuritiesResponseBody";
+    responseBody["@class"] = "ClassSecuritiesResponseBody";
 
     if reuqestBody.classCode ~= nil then
         local result = quikDataManager.getClassSecuritiesList(this, reuqestBody.classCode);
@@ -639,7 +642,7 @@ local function getMaxLotCountResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "MaxCountOfLotsResponseBody";
+    responseBody["@class"] = "MaxCountOfLotsResponseBody";
 
     local isValid = reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -688,7 +691,7 @@ local function getSubcribeQuotesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "SubscribeQuotesResponseBody";
+    responseBody["@class"] = "SubscribeQuotesResponseBody";
     local isValid = reuqestBody.id ~= nil;
     isValid = isValid and reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -723,7 +726,7 @@ local function getUnsubcribeQuotesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "UnsubscribeQuotesResponseBody";
+    responseBody["@class"] = "UnsubscribeQuotesResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.unsubscribeQuotes(this,  reuqestBody.descriptor);
@@ -752,7 +755,7 @@ local function getIsSubscribedToQuotesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "IsSubscribeQuotesResponseBody";
+    responseBody["@class"] = "IsSubscribeQuotesResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.isSubscribedToQuotes(this,  reuqestBody.descriptor);
@@ -781,7 +784,7 @@ local function getQuotesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "QuotesResponseBody";
+    responseBody["@class"] = "QuotesResponseBody";
     local isValid = true;
     isValid = isValid and reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -818,7 +821,7 @@ local function getCreateDatasourceResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "CreateDatasourceResponseBody";
+    responseBody["@class"] = "CreateDatasourceResponseBody";
     local isValid = reuqestBody.id ~= nil;
     isValid = isValid and reuqestBody.classCode ~= nil;
     isValid = isValid and reuqestBody.securityCode ~= nil;
@@ -856,7 +859,7 @@ local function getCloseDatasourceResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "CloseDatasourceResponseBody";
+    responseBody["@class"] = "CloseDatasourceResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.closeDatasource(this,  reuqestBody.descriptor);
@@ -886,7 +889,7 @@ local function getDatasourceSizeResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "DatasourceSizeResponseBody";
+    responseBody["@class"] = "DatasourceSizeResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.getDatasourceSise(this,  reuqestBody.descriptor);
@@ -915,7 +918,7 @@ local function getSingleCandleResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "SingleCandleResponseBody";
+    responseBody["@class"] = "SingleCandleResponseBody";
 
     local isValid = reuqestBody.descriptor ~= nil;
     isValid = isValid and reuqestBody.candleIndex ~= nil;
@@ -947,7 +950,7 @@ local function getAllCandlesResponse(request)
     local reuqestBody = request.body;
 
     local responseBody = {};
-    responseBody["type"] = "AllCandlesResponseBody";
+    responseBody["@class"] = "AllCandlesResponseBody";
 
     if reuqestBody.descriptor ~= nil then
         local result = quikDataManager.getAllCandles(this,  reuqestBody.descriptor);
