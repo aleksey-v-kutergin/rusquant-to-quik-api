@@ -133,7 +133,7 @@ public class TimingManager
 		try
 		{
 			if(storage.size() > SAMPLE_SIZE) { refreshStatistics(); }
-			TimingDataRow dataRow = new TimingDataRow(response.getType(), response.getSubject(), response.getStatus());
+			TimingDataRow dataRow = new TimingDataRow(response.getType().toString(), response.getSubject().toString(), response.getStatus().toString());
 			dataRow.shippingDurationOfRequest 	= calculateTimeDifference(response.getTimeOfReceiptOfRequestAtServer(), response.getSendingTimeOfRequestAtClient());
 			dataRow.durationOfRequestProcessing = calculateTimeDifference(response.getSendingTimeOfResponseAtServer(), response.getTimeOfReceiptOfRequestAtServer());
 			dataRow.shippingDurationOfResponse 	= calculateTimeDifference(response.getTimeOfReceiptOfResponseAtClient(), response.getSendingTimeOfResponseAtServer());

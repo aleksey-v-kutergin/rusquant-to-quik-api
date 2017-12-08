@@ -17,7 +17,7 @@ import ru.rusquant.data.quik.table.*;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 @JsonSubTypes({
-		@JsonSubTypes.Type(value = QuikEcho.class, name = "Echo"),
+		@JsonSubTypes.Type(value = QuikEcho.class, name = "QuikEcho"),
 		@JsonSubTypes.Type(value = Descriptor.class, name = "Descriptor"),
 		@JsonSubTypes.Type(value = ConnectionState.class, name = "ConnectionState"),
 		@JsonSubTypes.Type(value = InfoParameter.class, name = "InfoParameter"),
