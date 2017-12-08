@@ -10,3 +10,5 @@ To fix these issues:
 2. Rename file to lua51.dll
 3. Store it in the same folder with info.exe or somewhere else (adjust package.cpath in this case)
 Thanks for the solution: https://forum.quik.ru/forum10/topic1097/ - postpositions post
+
+luasockets win build download link: http://files.luaforge.net/releases/luasocket/luasocket/luasocket-2.0.2
