@@ -39,7 +39,7 @@ public class WindowsNamedPipe extends DataTransferChannel
 
 	public WindowsNamedPipe()
 	{
-		this.pipeName = "\\\\.\\pipe\\RusquantToQuikPipe";
+		this.pipeName = "\\\\.\\pipe\\R2QPipe";
 	}
 
 	public WindowsNamedPipe(String pipeName)

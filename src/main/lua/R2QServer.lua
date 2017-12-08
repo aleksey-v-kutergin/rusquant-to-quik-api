@@ -1,60 +1,55 @@
 ---------------------------------------------------------------------------------------
--- RusquantToQuikServer.lua
--- Top level project module
+-- R2QServer - wrapper for all remaining code It glues all the pieces into single program.
 -- Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.com>
 -- Company: rusquant.ru
--- Date: 09.08.2016
+--
 ---------------------------------------------------------------------------------------
--- This module is a king of wrapper for all remaining code
--- It glues all the pieces into single program
----------------------------------------------------------------------------------------
-
--- REQUIRE section
-local serverModule = assert( require "modules.ServerModule" );
+local Server = require "modules.Server";
+local _server;
 
 -- QUIK Terminal calls this function before main.
 -- Therefore, it is logical to perform all init operations here
 function OnInit()
-    serverModule.init();
+    _server = Server: new(Server.PIPE);
 end;
 
 -- Entry point to qlua script execution process under QUIK terminal
 -- QUIK executes main() in separate thread
 function main()
-    serverModule.run();
+    _server: run();
 end;
 
 -- Callback for Stop sript execution event
 function OnStop()
-    serverModule.stop();
+    _server: stop();
 end;
 
 -- Callback for terminal exiting event.
 function OnClose()
-    serverModule.stop();
+    _server: stop();
 end;
 
 -- Callback for terminal connects to broker's server event.
 function OnConnected()
-    serverModule.setQUIKToBrokerConnectionFlag(true);
+    _server: onConnectBrokerServer(true);
 end;
 
 -- Callback for terminal lost connection to broker's server event.
 function OnDisconnected()
-    serverModule.setQUIKToBrokerConnectionFlag(false);
+    _server: onConnectBrokerServer(false);
 end;
 
 -- Callback for transaction.
 function OnTransReply(trans_reply)
-    serverModule.cacheTransReplay(this, trans_reply);
+    _server: onTransReplay(trans_reply);
 end;
 
 -- Callback for and order occurance.
 function OnOrder(order)
-    serverModule.cacheOrder(this, order);
+    _server: onOrder(order);
 end;
 
 -- Callback for a trade occurance.
 function OnTrade(trade)
-    serverModule.cacheTrade(this, trade);
+    _server: onTrade(trade);
 end;
