@@ -4,7 +4,7 @@
 -- Company: rusquant.ru
 --
 ---------------------------------------------------------------------------------------
-local class = require "lib.middleclass";
+local class = require "middleclass";
 
 -- Class declaration
 local Cache = class("Cache");

@@ -4,7 +4,7 @@
 -- Company: rusquant.ru
 --
 ---------------------------------------------------------------------------------------
-local class = require "lib.middleclass";
+local class = require "middleclass";
 -- Lua to C interface (foreign function invocation)
 local ffiLib = require "ffi";
 
