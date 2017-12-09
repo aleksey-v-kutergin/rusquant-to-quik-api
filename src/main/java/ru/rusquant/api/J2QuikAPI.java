@@ -34,7 +34,7 @@ import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-public interface JavaToQuikAPI
+public interface J2QuikAPI
 {
     /**====================== Service function  ======================**/
 

@@ -1,7 +1,7 @@
 package ru.rusquant.api.impl;
 
 import ru.rusquant.api.Connector;
-import ru.rusquant.api.JavaToQuikAPI;
+import ru.rusquant.api.J2QuikAPI;
 import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.data.quik.descriptor.ParameterDescriptor;
@@ -35,7 +35,7 @@ import java.util.List;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-public class JavaToQuikConnector extends Connector implements JavaToQuikAPI
+public class J2QuikConnector extends Connector implements J2QuikAPI
 {
 	/** Fabric to produce bodies for request **/
 	private final RequestBodyFactory requestBodyFactory = new RequestBodyFactory();
