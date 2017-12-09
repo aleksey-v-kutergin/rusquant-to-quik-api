@@ -1,7 +1,7 @@
 package ru.rusquant.api.impl;
 
 import ru.rusquant.api.Connector;
-import ru.rusquant.api.JavaToMqlAPI;
+import ru.rusquant.api.J2MqlAPI;
 import ru.rusquant.data.mql.MqlDataObject;
 import ru.rusquant.data.mql.MqlEcho;
 
@@ -10,7 +10,7 @@ import ru.rusquant.data.mql.MqlEcho;
  *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  *    Company: Rusquant
  */
-public class JavaToMqlConnector extends Connector implements JavaToMqlAPI
+public class J2MqlConnector extends Connector implements J2MqlAPI
 {
 
     @Override

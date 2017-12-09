@@ -63,7 +63,7 @@ public class Client
 			}
 			case SOCKET:
 			{
-				this.channel = new SocketChannel();
+				this.channel = new SocketChannel("localhost", 8989);
 				break;
 			}
 			default:

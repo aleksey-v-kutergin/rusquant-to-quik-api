@@ -1,6 +1,6 @@
 package ru.rusquant.demo;
 
-import ru.rusquant.api.impl.JavaToQuikConnector;
+import ru.rusquant.api.impl.J2QuikConnector;
 import ru.rusquant.data.quik.*;
 import ru.rusquant.data.quik.dataframe.TradesDataFrame;
 import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
@@ -31,7 +31,7 @@ public class TestConnectorUser
 	public static void main(String[] args) throws InterruptedException, IOException
 	{
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		JavaToQuikConnector connector = new JavaToQuikConnector();
+		J2QuikConnector connector = new J2QuikConnector();
 
 
 		boolean isExit = false;
@@ -62,7 +62,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void showTestsMenu(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void showTestsMenu(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		boolean isExit = false;
 		while(!isExit)
@@ -91,7 +91,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runManualTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runManualTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running manual test...");
 		System.out.println();
@@ -280,7 +280,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runEchoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runEchoTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running echo test...");
 		System.out.println();
@@ -319,7 +319,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runInfoTest(JavaToQuikConnector connector) throws IOException
+	private static void runInfoTest(J2QuikConnector connector) throws IOException
 	{
 		System.out.println("Running info test...");
 		System.out.println();
@@ -346,7 +346,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runAutoTest(JavaToQuikConnector connector)
+	private static void runAutoTest(J2QuikConnector connector)
 	{
 		System.out.println("Running auto echo test...");
 		System.out.println();
@@ -394,7 +394,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runSendTransactionTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runSendTransactionTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running send transaction test test...");
 		System.out.println();
@@ -448,7 +448,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runGetOrderTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runGetOrderTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running echo test...");
 		System.out.println();
@@ -494,7 +494,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runGetTradesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runGetTradesTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running get trades test...");
 		System.out.println();
@@ -540,7 +540,7 @@ public class TestConnectorUser
 	}
 
 
-	private static void runQuikTableInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+	private static void runQuikTableInfoTest(J2QuikConnector connector, BufferedReader reader) throws IOException
 	{
 		System.out.println("Running Quik table info test...");
 		System.out.println();
@@ -579,7 +579,7 @@ public class TestConnectorUser
 	}
 
 
-    private static void runQuikTableItemTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runQuikTableItemTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik table item test...");
         System.out.println();
@@ -624,7 +624,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runAllQuikTableItemsTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runAllQuikTableItemsTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running get all quik table items test...");
         System.out.println();
@@ -664,7 +664,7 @@ public class TestConnectorUser
 
 
 
-    private static void runTradingParameterTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runTradingParameterTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik table info test...");
         System.out.println();
@@ -706,7 +706,7 @@ public class TestConnectorUser
 
 
 
-    private static void runSubscribeParameterTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runSubscribeParameterTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik subscribe trading parameter test...");
         System.out.println();
@@ -749,7 +749,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runUnsubscribeParameterTest(JavaToQuikConnector connector)
+    private static void runUnsubscribeParameterTest(J2QuikConnector connector)
     {
         System.out.println("Running Quik unsubscribe trading parameter test...");
         System.out.println();
@@ -774,7 +774,7 @@ public class TestConnectorUser
 
 
 
-    private static void runTradeDateTest(JavaToQuikConnector connector)
+    private static void runTradeDateTest(J2QuikConnector connector)
     {
         QuikDataObject result = connector.getTradeDate();
         if(result instanceof ErrorObject)
@@ -788,7 +788,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runSecurityInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runSecurityInfoTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running security info test...");
         System.out.println();
@@ -827,7 +827,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runMaxCountOfLotsTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runMaxCountOfLotsTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running security info test...");
         System.out.println();
@@ -866,7 +866,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runSecurityClassInfoTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runSecurityClassInfoTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik table info test...");
         System.out.println();
@@ -905,7 +905,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runClassesListTest(JavaToQuikConnector connector)
+    private static void runClassesListTest(J2QuikConnector connector)
     {
         QuikDataObject result = connector.getClassesList();
         if(result instanceof ErrorObject)
@@ -919,7 +919,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runClassSecuritiesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runClassSecuritiesTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik table info test...");
         System.out.println();
@@ -958,7 +958,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runSubscribeQuotesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runSubscribeQuotesTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik subscribe trading parameter test...");
         System.out.println();
@@ -1000,7 +1000,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runUnsubscribeQuotesTest(JavaToQuikConnector connector)
+    private static void runUnsubscribeQuotesTest(J2QuikConnector connector)
     {
         System.out.println("Running Quik unsubscribe trading parameter test...");
         System.out.println();
@@ -1024,7 +1024,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runIsSubscribedToQuotesTest(JavaToQuikConnector connector)
+    private static void runIsSubscribedToQuotesTest(J2QuikConnector connector)
     {
         System.out.println("Running Quik unsubscribe trading parameter test...");
         System.out.println();
@@ -1048,7 +1048,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runGetQuotesTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runGetQuotesTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running get order book test...");
         System.out.println();
@@ -1088,7 +1088,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runCreateDatasourceTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runCreateDatasourceTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running Quik create OHLC datasource test...");
         System.out.println();
@@ -1145,7 +1145,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runCloseDatasourceTest(JavaToQuikConnector connector)
+    private static void runCloseDatasourceTest(J2QuikConnector connector)
     {
         System.out.println("Running close datasource test...");
         System.out.println();
@@ -1169,7 +1169,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runDatasourceSizeTest(JavaToQuikConnector connector)
+    private static void runDatasourceSizeTest(J2QuikConnector connector)
     {
         System.out.println("Running datasource size test...");
         System.out.println();
@@ -1192,7 +1192,7 @@ public class TestConnectorUser
         }
     }
 
-    private static void runSingleCandleTest(JavaToQuikConnector connector, BufferedReader reader) throws IOException
+    private static void runSingleCandleTest(J2QuikConnector connector, BufferedReader reader) throws IOException
     {
         System.out.println("Running single candle test...");
         System.out.println();
@@ -1238,7 +1238,7 @@ public class TestConnectorUser
     }
 
 
-    private static void runAllCandlesTest(JavaToQuikConnector connector)
+    private static void runAllCandlesTest(J2QuikConnector connector)
     {
         System.out.println("Running all candles test...");
         System.out.println();
