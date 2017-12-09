@@ -8,10 +8,13 @@ local class = require "middleclass";
 -- Lua to C interface (foreign function invocation)
 local ffiLib = require "ffi";
 
+-- Custom dependencies:
+local DataTransferChannel = require "modules.channels.DataTransferChannel";
+
 
 
 -- Class declaration
-local PipeChannel = class("PipeChannel");
+local PipeChannel = class("PipeChannel", DataTransferChannel);
 
     -- Static fields:
 
@@ -93,19 +96,12 @@ local PipeChannel = class("PipeChannel");
     local _bufferLength;
     local _countOfBytes;
 
-    -- Suspend the termination of an asynchronous operation
-    -- if server was stopped
-    local _abortAsyncOperation;
-
-    -- Does pipe have connected client
-    local _isConnected;
-
     -- Class constructor:
     function PipeChannel : initialize(pipeName, logger)
+        -- Call base class constructor
+        DataTransferChannel.initialize(self);
         _pipeName = pipeName;
         _logger = logger;
-        _abortAsyncOperation = false;
-        _isConnected = false;
         _logger: debug("START INITIALIZE WINDOWS NAMED PIPE API");
         -- Init WinAPI
         _dllLibs = {};
@@ -162,7 +158,7 @@ local PipeChannel = class("PipeChannel");
     -- Private methods:
     local _waitAsyncOperationEnd = function(self, overlappedStruct)
         _logger: debug("START WAITING FOR END OF ASYNC IO OPERATION!");
-        while _abortAsyncOperation ~= true do
+        while DataTransferChannel.isAsyncAborted(self) ~= true do
             if overlappedStruct[0].Internal ~= PipeChannel.STATUS_PENDING then
                 break
             end;
@@ -175,7 +171,7 @@ local PipeChannel = class("PipeChannel");
         _logger: debug("PIPE CHANNEL " .._pipeName
                             .. "STATS TO WAIT FOR CONNECT REQUEST FROM CLIENT");
         local counter = 1;
-        while _abortAsyncOperation ~= true do
+        while DataTransferChannel.isAsyncAborted(self) ~= true do
             if _lpOverlapped[0].Internal ~= PipeChannel.STATUS_PENDING then
                 break;
             end;
@@ -185,25 +181,21 @@ local PipeChannel = class("PipeChannel");
             counter = counter + 1;
         end;
 
-        if _abortAsyncOperation == true then
+        if DataTransferChannel.isAsyncAborted(self) == true then
             _logger: debug("ABORTING ASYN WAIT FOR CLIENT "
                                     .. "R2QServer HAS BEEN INSTRUCTED TO SHUTDOWN "
                                                         .. "BEFORE SOMEONE CONNECTS");
+            DataTransferChannel.setConnected(self, false);
             return false;
         else
             _logger: debug("ENDS ASYN WAIT FOR CLIENT BECAUSE "
                             .. "CLIENT HAS BEEN CONNECTED TO PIPE CHANNEL: " .. _pipeName);
+            DataTransferChannel.setConnected(self, true);
             return true;
         end;
     end;
 
     -- Public methods:
-
-    -- Signals to abort asyn operations within pipe
-    function PipeChannel : abortAsync()
-        _abortAsyncOperation = true;
-    end;
-
 
     -- Create pipe instance
     function PipeChannel : open()
@@ -266,8 +258,8 @@ local PipeChannel = class("PipeChannel");
         if result ~= 0 then
             _logger: debug("CALL OF ConnectNamedPipe(...) RETURNS NON ZERO IMMEDIATE RESULT! "
                                     .. "CLIENT SUCCESSFULLY CONNECTED TO PIPE: " .. _pipeName .. "!");
-            _isConnected = true;
-            return _isConnected;
+            DataTransferChannel.setConnected(self, true);
+            return true;
         else
             -- Zero immediate result means that we have troubles with pipe's descriptor
             -- and we need to analize GetLastError() result.
@@ -275,17 +267,17 @@ local PipeChannel = class("PipeChannel");
                 -- According to https://msdn.microsoft.com/en-us/library/aa365603(v=VS.85).aspx:
                 -- This error means that async IO operation is still in progress and we need to wait until someone connect
                 _logger: debug("CALL OF ConnectNamedPipe(...) FAILED WITH ERROR_IO_PENDING");
-                _abortAsyncOperation = false;
+                DataTransferChannel.resetAbortAsync(self);
                 return _waitForClient(self);
             elseif lastError == PipeChannel.ERROR_PIPE_CONNECTED then
                 -- This means that client is already connected
                 _logger: debug("CALL OF ConnectNamedPipe(...) FAILED WITH ERROR_PIPE_CONNECTED");
-                _isConnected = true;
-                return _isConnected;
+                DataTransferChannel.setConnected(self, true);
+                return true;
             else
                 _logger: debug("CALL OF ConnectNamedPipe(...) FAILED WITH ERRORE CODE: " .. lastError);
-                _isConnected = false;
-                return _isConnected;
+                DataTransferChannel.setConnected(self, false);
+                return false;
             end;
 
         end;
@@ -294,13 +286,19 @@ local PipeChannel = class("PipeChannel");
     -- Flushes pipe's buffer and clear pipe's handle for new client
     function PipeChannel : disconnet()
         _logger: debug("DISCONNECTING CURRENT CLIENT FROM SERVER-END OF THE PIPE: " .. _pipeName);
-        _isConnected = false;
+        DataTransferChannel.setConnected(self, false);
         ffiLib.C.FlushFileBuffers(_pipeHandle);
         ffiLib.C.DisconnectNamedPipe(_pipeHandle);
     end;
 
-
     -- Read from windows named pipe
+    -- ACTUNG!!!
+    -- Little bug here!
+    -- Sync read operation blocks the thread until a message from the client is received.
+    -- This leads to the fact that when you try to stop the server script (OnStop and OnClose event during read IO),
+    -- the execution thread is blocked and there is no normal completion and release of resources.
+    -- To fix this one needs to make read async (the same way as write IO)
+    -- There are no such trubles with sockes :)
     function PipeChannel : readMessage()
         _logger: debug("START SYNC READ IO OPERATION ON PIPE " .. _pipeName);
         local request;
@@ -313,7 +311,7 @@ local PipeChannel = class("PipeChannel");
                                             .. "CLIENT CLOSE HIS PIPE-END FOR SOME REASON! "
                                                 .. "DISCONNECTING CLIENT FROM SERVER-END OF THE PIPE: "
                                                                                                 .. _pipeName);
-                request = "CLIENT_OFF";
+                request = DataTransferChannel.CLIENT_OFF;
             else
                 _logger: debug("SYNC READ IO OPERATION FAILED WITH ERROR: " .. error);
             end;
@@ -339,14 +337,14 @@ local PipeChannel = class("PipeChannel");
         if result == 0 then
             if error == PipeChannel.ERROR_IO_PENDING then
                 _logger: debug("CALL OF WriteFile(...) FAILED WITH ERROR_IO_PENDING");
-                _abortAsyncOperation = false;
+                DataTransferChannel.resetAbortAsync(self);
                 _waitAsyncOperationEnd(self, overlappedStruct);
             elseif error == PipeChannel.ERROR_BROKEN_PIPE then
                 _logger: debug("ASYNC WRITE IO OPERATION FAILED WITH ERROR_BROKEN_PIPE!"
                                             .. "CLIENT CLOSE HIS PIPE-END FOR SOME REASON! "
                                                 .. "DISCONNECTING CLIENT FROM SERVER-END OF THE PIPE: "
                                                                                             .. _pipeName);
-                result = "CLIENT_OFF";
+                result = DataTransferChannel.CLIENT_OFF;
             else
                 _logger: debug("ASYNC WRITE FAILED WITH ERROR CODE: " .. error);
             end;
@@ -357,9 +355,57 @@ local PipeChannel = class("PipeChannel");
         return result;
     end;
 
-    function PipeChannel : isConnected()
-        return _isConnected;
+
+    -- ACTUNG!!!!
+    -- Below functionctions NOT working propertly for unknown reson!!!
+    -- I want to keep the code of these functions in version control
+    -- so as not to lose and not forget the idea
+    local _readStringFromBuffer = function(self, buffer, length)
+        local request;
+        if length > 0 then
+            request = ffiLib.string(buffer);
+        end;
+        return request;
     end;
+
+    -- ACTUNG!!! DO NOT USE!!! FOR FUTRE ANALYSIS ONLY!!!
+    -- At the current stage the only working combination is:
+    -- 1. Async write at client - sync read at server
+    -- 2. Async write at server - async read at client
+    --
+    -- This function can not exit the ERROR_IO_PENDING wait loop.
+    -- Now i don't have time to figure out the reasons and way to fix.
+    -- This issue. If you have an idea - feel free to mail me
+    -- Aleksey Kutergin <aleksey.v.kutergin@gmail.com>
+    local _readMessageAsync = function(self)
+        _logger: debug("STARTING ASYNC READ IO OPERATION");
+
+        local overlappedStruct = ffiLib.new("OVERLAPPED[1]");
+        local result = ffiLib.C.ReadFile(_pipeHandle, _buffer, PipeChannel.IN_BUFFER_SIZE, _countOfBytes, overlappedStruct);
+        local error = ffiLib.C.GetLastError();
+
+        if result == 0 then
+            if error == PipeChannel.ERROR_IO_PENDING then
+                _logger: debug("CALL OF ReadFile(...) FAILED WITH ERROR_IO_PENDING");
+                DataTransferChannel.resetAbortAsync(self);
+                _waitAsyncOperationEnd(self, overlappedStruct);
+                result = _readStringFromBuffer(self,  _buffer, _countOfBytes[0]);
+            elseif error == PipeChannel.ERROR_BROKEN_PIPE then
+                _logger: debug("ASYNC READ IO OPERATION FAILED WITH ERROR_BROKEN_PIPE!"
+                        .. "CLIENT CLOSE HIS PIPE-END FOR SOME REASON! "
+                        .. "DISCONNECTING CLIENT FROM SERVER-END OF THE PIPE: "
+                        .. _pipeName);
+                result = DataTransferChannel.CLIENT_OFF;
+            else
+                _logger: debug("ASYNC READ FAILED WITH ERROR CODE: " .. error);
+            end;
+        end;
+
+        _logger: debug("END ASYNC READ IO OPERATION");
+        ffiLib.C.FlushFileBuffers(_pipeHandle);
+        return result;
+    end;
+
 
 -- End of class declaration
 return PipeChannel;

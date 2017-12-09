@@ -465,49 +465,55 @@ local Cache = class("Cache");
         _tradesCacheSize = 0;
 
         -- Close descriptors for trading parameters
-        for key, value in pairs(_paramDescriptorCache) do
-            local result = CancelParamRequest(value.classCode, value.securityCode, value.parameterName);
-            if result == true then
-                _logger: debug("SUCCESSFULLY CLOSING PARAMETER'S DESCRIPTOR:\n"
-                        .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
-            else
-                _logger: debug("FAILED TO CLOSE PARAMETER'S DESCRIPTOR IN CACHE FOR ID:\n"
-                        .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
-            end;
-        end;
-        _paramDescriptorCache = {};
-        _paramDescriptorCacheSize = 0;
-
-        -- Close descriptors for quotes
-        for key, value in pairs(_quotesDescriptorCache) do
-            local isSubscribed = IsSubscribed_Level_II_Quotes(value.classCode, value.securityCode);
-            if isSubscribed == true then
-                local result = Unsubscribe_Level_II_Quotes(value.classCode, value.securityCode);
+        if _paramDescriptorCacheSize > 0 then
+            for key, value in pairs(_paramDescriptorCache) do
+                local result = CancelParamRequest(value.classCode, value.securityCode, value.parameterName);
                 if result == true then
-                    _logger: debug("SUCCESSFULLY CLOSING QUOTES DESCRIPTOR:\n"
+                    _logger: debug("SUCCESSFULLY CLOSING PARAMETER'S DESCRIPTOR:\n"
                             .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
                 else
-                    _logger: debug("FAILED TO CLOSE QUOTES DESCRIPTOR IN CACHE FOR ID:\n"
+                    _logger: debug("FAILED TO CLOSE PARAMETER'S DESCRIPTOR IN CACHE FOR ID:\n"
                             .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
                 end;
             end;
+            _paramDescriptorCache = {};
+            _paramDescriptorCacheSize = 0;
         end;
-        _quotesDescriptorCache = {};
-        _quotesDescriptorCacheSize = 0;
+
+        -- Close descriptors for quotes
+        if _quotesDescriptorCacheSize > 0 then
+            for key, value in pairs(_quotesDescriptorCache) do
+                local isSubscribed = IsSubscribed_Level_II_Quotes(value.classCode, value.securityCode);
+                if isSubscribed == true then
+                    local result = Unsubscribe_Level_II_Quotes(value.classCode, value.securityCode);
+                    if result == true then
+                        _logger: debug("SUCCESSFULLY CLOSING QUOTES DESCRIPTOR:\n"
+                                .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
+                    else
+                        _logger: debug("FAILED TO CLOSE QUOTES DESCRIPTOR IN CACHE FOR ID:\n"
+                                .. _jsonParser: encode_pretty(value) .."\nWHILE RESETING CACHE!");
+                    end;
+                end;
+            end;
+            _quotesDescriptorCache = {};
+            _quotesDescriptorCacheSize = 0;
+        end;
 
         -- Close OHCL datasources
-        for key, value in pairs(_datasourceCache) do
-            local result = value.instance:Close();
-            if result == true then
-                _logger: debug("SUCCESSFULLY CLOSING OHLC DATASOURCE:\n"
-                        .. _jsonParser: encode_pretty(value.descriptor) .."\nWHILE RESETING CACHE!");
-            else
-                _logger: debug("FAILED TO CLOSE OHLC DATASOURCE:\n"
-                        .. _jsonParser: encode_pretty(value.descriptor) .."\nWHILE RESETING CACHE!");
+        if _datasourceCacheSize > 0 then
+            for key, value in pairs(_datasourceCache) do
+                local result = value.instance:Close();
+                if result == true then
+                    _logger: debug("SUCCESSFULLY CLOSING OHLC DATASOURCE:\n"
+                            .. _jsonParser: encode_pretty(value.descriptor) .."\nWHILE RESETING CACHE!");
+                else
+                    _logger: debug("FAILED TO CLOSE OHLC DATASOURCE:\n"
+                            .. _jsonParser: encode_pretty(value.descriptor) .."\nWHILE RESETING CACHE!");
+                end;
             end;
+            _datasourceCache = {};
+            _datasourceCacheSize = 0;
         end;
-        _datasourceCache = {};
-        _datasourceCache = 0;
     end;
 
 -- End of class declaration

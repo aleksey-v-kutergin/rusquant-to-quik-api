@@ -14,7 +14,7 @@ import java.io.IOException;
 public abstract class Connector
 {
 	/** Client instance **/
-	protected final Client client = new Client(ChannelType.PIPE);
+	protected final Client client = new Client(ChannelType.SOCKET);
 
 	/** Fabric to produce requests **/
 	protected final RequestFactory requestFactory = new RequestFactory();

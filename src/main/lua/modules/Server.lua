@@ -31,11 +31,12 @@ local jsonParser = require "JSON";
 local class      = require "middleclass";
 
 -- Custom dependencies:
-local Logger            = require "modules.Logger";
-local PipeChannel       = require "modules.channels.PipeChannel";
-local SocketChannel     = require "modules.channels.SocketChannel";
-local QuikDataManager   = require "modules.QuikDataManager";
-local RequestManager    = require "modules.RequestManager";
+local Logger                    = require "modules.Logger";
+local DataTransferChannel       = require "modules.channels.DataTransferChannel";
+local PipeChannel               = require "modules.channels.PipeChannel";
+local SocketChannel             = require "modules.channels.SocketChannel";
+local QuikDataManager           = require "modules.QuikDataManager";
+local RequestManager            = require "modules.RequestManager";
 
 
 
@@ -123,8 +124,9 @@ local Server = class("Server");
     local _executeReadStep = function(self)
         local request = _channel: readMessage();
         if request ~= nil then
-            if request == "CLIENT_OFF" then
+            if request == DataTransferChannel.CLIENT_OFF then
                 _channel: disconnet();
+                _quikDataManager: flushCache();
                 _serverMode = Server.WAIT_CLIENT;
             else
                 _clientRequest = request;
@@ -137,8 +139,9 @@ local Server = class("Server");
     local _executeWriteStep = function(self)
         local response = _requestManager: processRequest(_clientRequest);
         local result = _channel: writeMessage(response);
-        if result == "CLIENT_OFF" then
+        if result == DataTransferChannel.CLIENT_OFF then
             _channel: disconnet();
+            _quikDataManager: flushCache();
             _serverMode = Server.WAIT_CLIENT;
         else
             _serverMode = Server.READING;

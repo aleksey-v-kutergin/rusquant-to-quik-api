@@ -10,7 +10,7 @@ local _server;
 -- QUIK Terminal calls this function before main.
 -- Therefore, it is logical to perform all init operations here
 function OnInit()
-    _server = Server: new(Server.PIPE);
+    _server = Server: new(Server.SOCKET);
 end;
 
 -- Entry point to qlua script execution process under QUIK terminal
