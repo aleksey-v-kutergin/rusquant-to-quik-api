@@ -316,7 +316,7 @@ local QuikDataManager = class("QuikDataManager");
 
         _logger: debug("CALL: sendTransaction(...) WITH ARGS: " .. _jsonParser: encode_pretty(args));
         local error = sendTransaction(args);
-        local isSuccess = error ~= nil and error ~= '';
+        local isSuccess = not (error ~= nil and error ~= '');
 
         if isSuccess == true then
             local onTransReplayResult = _getTransactionReplay(self, transaction);

@@ -60,7 +60,7 @@ public class Response
 
 
 	/**
-	 *    The result of the attempt to execute request on server: SUCCESS / FAIL
+	 *    The result of the attempt to execute request on server: SUCCESS / FAILED
 	 **/
 	private ResponseStatus status;
 

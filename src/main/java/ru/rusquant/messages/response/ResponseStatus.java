@@ -7,5 +7,5 @@ package ru.rusquant.messages.response;
 public enum ResponseStatus
 {
 	SUCCESS,
-	FAIL
+	FAILED
 }
