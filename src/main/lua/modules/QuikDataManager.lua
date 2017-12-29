@@ -377,9 +377,8 @@ local QuikDataManager = class("QuikDataManager");
         tradesDataFrame[QuikDataManager.JAVA_CLASS_FIELD] = "TradesDataFrame";
         tradesDataFrame["records"] = trades;
         local result = _createResult(self, true, tradesDataFrame, nil);
-
         _logger: debug("CALL: getTrades(...) FINISHED WITH RESULT: "
-                .. _jsonParser: encode_pretty(result));
+                                    .. _jsonParser: encode_pretty(result));
         return result;
     end;
 
@@ -965,7 +964,7 @@ local QuikDataManager = class("QuikDataManager");
         -- Reurns empty string if such class does not exists
         local codesString = getClassSecurities(classCode);
 
-        if codesString ~= nil then
+        if codesString ~= nil and codesString ~= ""  then
             local codes = {};
             codes[QuikDataManager.JAVA_CLASS_FIELD] = "CodesArray";
             codes["separator"] = ",";
@@ -975,7 +974,7 @@ local QuikDataManager = class("QuikDataManager");
             result["status"] = "FAILED";
             local error = "CALL OF " .. "getClassSecurities" ..
                     "( classCode = " .. classCode ..
-                    ") RETURNS NIL VALUE! INVALID CLASS CODE!";
+                    ") RETURNS EMPTY STRING! INVALID CLASS CODE!";
             result = _createResult(self, false, nil, error);
         end;
 
