@@ -415,6 +415,44 @@ local RequestManager = class("RequestManager");
         end;
     end;
 
+    local _createDepoResponse = function(self, request)
+        local reuqestBody = request.body;
+        local isValid = true;
+        isValid = isValid and reuqestBody.clientCode ~= nil;
+        isValid = isValid and reuqestBody.firmId ~= nil;
+        isValid = isValid and reuqestBody.securityCode ~= nil;
+        isValid = isValid and reuqestBody.account ~= nil;
+
+        if isValid == true then
+            local result = _quikDataManager: getDepo(reuqestBody.clientCode,
+                                                     reuqestBody.firmId,
+                                                     reuqestBody.securityCode,
+                                                     reuqestBody.account);
+            return _createResponse(self, request, "DepoResponseBody", "depo", result);
+        else
+            return _createErrorResponse(self, request, "INVALID REQUEST PARAMETERS!");
+        end;
+    end;
+
+    local _createMoneyResponse = function(self, request)
+        local reuqestBody = request.body;
+        local isValid = true;
+        isValid = isValid and reuqestBody.clientCode ~= nil;
+        isValid = isValid and reuqestBody.firmId ~= nil;
+        isValid = isValid and reuqestBody.tag ~= nil;
+        isValid = isValid and reuqestBody.currencyCode ~= nil;
+
+        if isValid == true then
+            local result = _quikDataManager: getMoney(reuqestBody.clientCode,
+                                                      reuqestBody.firmId,
+                                                      reuqestBody.tag,
+                                                      reuqestBody.currencyCode);
+            return _createResponse(self, request, "MoneyResponseBody", "money", result);
+        else
+            return _createErrorResponse(self, request, "INVALID REQUEST PARAMETERS!");
+        end;
+    end;
+
 
     local _processGET = function(self, request)
         local subject = request.subject;
@@ -458,6 +496,10 @@ local RequestManager = class("RequestManager");
             return _createSingleCandleResponse(self, request);
         elseif subject == "ALL_CANDLES" then
             return _createAllCandlesResponse(self, request);
+        elseif subject == "DEPO" then
+            return _createDepoResponse(self, request);
+        elseif subject == "MONEY" then
+            return _createMoneyResponse(self, request);
         else
             return _createErrorResponse(self, request, "Unsupported GET request subject: " .. request.subject);
         end;

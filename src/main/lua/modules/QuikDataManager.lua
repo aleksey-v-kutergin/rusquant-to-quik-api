@@ -1131,6 +1131,48 @@ local QuikDataManager = class("QuikDataManager");
         return result;
     end;
 
+    function QuikDataManager : getDepo(clientCode, firmId, securityCode, account)
+        local result;
+        local depo = getDepo(clientCode, firmId, securityCode, account);
+
+        if depo ~= nil then
+            depo[QuikDataManager.JAVA_CLASS_FIELD] = "Depo";
+            result = _createResult(self, true, depo, nil);
+        else
+            local error = "CALL OF " .. "getDepo" ..
+                                        "( clientCode = "   .. clientCode ..
+                                        ", firmId = "       .. firmId ..
+                                        ", securityCode = " .. securityCode ..
+                                        ", account = "      .. account .. ") RETURNS NIL!";
+            result = _createResult(self, false, nil, error);
+        end;
+
+        _logger: debug("CALL: getDepo(...) FINISHED WITH RESULT: "
+                                        .. _jsonParser: encode_pretty(result));
+        return result;
+    end;
+
+    function QuikDataManager : getMoney(clientCode, firmId, tag, currencyCode)
+        local result;
+        local money = getMoney(clientCode, firmId, tag, currencyCode);
+
+        if money ~= nil then
+            money[QuikDataManager.JAVA_CLASS_FIELD] = "Money";
+            result = _createResult(self, true, money, nil);
+        else
+            local error = "CALL OF " .. "getMoney" ..
+                                        "( clientCode = "   .. clientCode ..
+                                        ", firmId = "       .. firmId ..
+                                        ", tag = "          .. tag ..
+                                        ", account = "      .. currencyCode .. ") RETURNS NIL!";
+            result = _createResult(self, false, nil, error);
+        end;
+
+        _logger: debug("CALL: getMoney(...) FINISHED WITH RESULT: "
+                                            .. _jsonParser: encode_pretty(result));
+        return result;
+    end;
+
 
 -- End of QuikDataManager class declaration
 return QuikDataManager;

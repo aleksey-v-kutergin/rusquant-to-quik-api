@@ -34,7 +34,9 @@ public enum RequestSubject
     CLOSE_DATASOURCE,
     DATASOURCE_SIZE,
     ALL_CANDLES,
-    SINGLE_CANDLE
+    SINGLE_CANDLE,
+    DEPO,
+    MONEY
 
 
     /** MQL5 request subjects **/

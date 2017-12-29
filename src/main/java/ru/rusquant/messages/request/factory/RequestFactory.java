@@ -42,6 +42,8 @@ public class RequestFactory
 		getRequests.add(RequestSubject.DATASOURCE_SIZE);
 		getRequests.add(RequestSubject.ALL_CANDLES);
 		getRequests.add(RequestSubject.SINGLE_CANDLE);
+		getRequests.add(RequestSubject.DEPO);
+		getRequests.add(RequestSubject.MONEY);
 
 		// Subset of POST request's subjects
 		postRequests.add(RequestSubject.TRANSACTION);

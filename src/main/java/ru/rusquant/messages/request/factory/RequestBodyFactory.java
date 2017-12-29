@@ -199,6 +199,24 @@ public class RequestBodyFactory
                 validateDatasourceDescriptorArg(args);
                 return new AllCandlesRequestBody( (DatasourceDescriptor) args.get(0) );
             }
+            case MONEY:
+            {
+                validateMoneyArgs(args);
+                String clientCode = (String) args.get(0);
+                String firmId = (String) args.get(1);
+                String tag = (String) args.get(2);
+                String currencyCode = (String) args.get(3);
+                return new MoneyRequestBody(clientCode, firmId, tag, currencyCode);
+            }
+            case DEPO:
+            {
+                validateDepoArgs(args);
+                String clientCode = (String) args.get(0);
+                String firmId = (String) args.get(1);
+                String securityCode = (String) args.get(2);
+                String account = (String) args.get(3);
+                return new DepoRequestBody(clientCode, firmId, securityCode, account);
+            }
 			default:
 			{
 				return null;
@@ -553,5 +571,17 @@ public class RequestBodyFactory
             String msg = "Argument with number " + 2 + " of " + "single candle" + " request is not an long!";
             throw new IllegalArgumentException(msg);
         }
+    }
+
+    private void validateMoneyArgs(List<?> args)
+    {
+        validateMultipleArgs(args, 4);
+        validateStringArgs(args, "money");
+    }
+
+    private void validateDepoArgs(List<?> args)
+    {
+        validateMultipleArgs(args, 4);
+        validateStringArgs(args, "money");
     }
 }
