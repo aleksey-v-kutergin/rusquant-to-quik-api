@@ -256,7 +256,7 @@ public class Client
 		}
 
 
-		public String readMessage() throws IOException
+		public String readMessage() throws IOException, InterruptedException
 		{
 			synchronized (channelLocker)
 			{

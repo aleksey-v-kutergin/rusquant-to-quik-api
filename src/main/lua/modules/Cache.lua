@@ -207,22 +207,20 @@ local Cache = class("Cache");
         local tradesCollection = _tradesCache[orderNum];
 
         if tradesCollection ~= nil then
+            local counter = 1;
+            for k, v in pairs(tradesCollection) do
+                _logger: debug("EXTRACT TRADE:\n" .. _jsonParser: encode_pretty(v) .. "\nFROM CACHE.");
+                result[counter] = v;
+                counter = counter + 1;
+            end;
+
             if remove == true then
-                _logger: debug("EXTRACT AND REMOVE TRADES:\n"
-                                    .. _jsonParser: encode_pretty(tradesCollection)
-                                    .. "\nFROM CACHE FOR ORDER NUMBER: " .. orderNum .."!");
-                local counter = 1;
-                for k, v in pairs(tradesCollection) do
-                    result[counter] = v;
-                    counter = counter + 1;
-                end;
+                _logger: debug("AND REMOVE ALL TRADES FROM CACHE FOR ORDER NUMBER: " .. orderNum .."!");
                 _tradesCache[orderNum] = nil;
                 _tradesCacheSize = _tradesCacheSize - counter;
             else
-                _logger: debug("EXTRACT TRADES:\n"
-                                .. _jsonParser: encode_pretty(tradesCollection)
-                                .. "\nFROM CACHE FOR ORDER NUMBER: " .. orderNum .."!");
-                result = tradesCollection;
+                _logger: debug("ALL TRADES HAVE BEEN EXTRACTED WITHOUT REMOVING: "
+                                                .. "FROM CACHE FOR ORDER NUMBER: " .. orderNum .."!");
             end;
         else
             _logger: debug("TRADES FOR ORDER WITH NUMBER: "
@@ -365,17 +363,17 @@ local Cache = class("Cache");
         if cacheItem ~= nil then
             if remove == true then
                 _logger: debug("EXTRACT AND REMOVE DATASOURCE:\n"
-                                        .. _jsonParser: encode_pretty(cacheItem)
+                                        .. _jsonParser: encode_pretty(cacheItem.descriptor)
                                         .. "\nFOR OHLC FROM CACHE!");
                 _datasourceCache[datasourceId] = nil;
                 _datasourceCacheSize = _datasourceCacheSize - 1;
             else
                 _logger: debug("EXTRACT AND REMOVE DATASOURCE:\n"
-                                        .. _jsonParser: encode_pretty(cacheItem)
+                                        .. _jsonParser: encode_pretty(cacheItem.descriptor)
                                         .. "\nFOR OHLC FROM CACHE!");
             end;
         else
-            _logger: debug("QUOTES DATASOURCE WITH ID: "
+            _logger: debug("OHLC DATASOURCE WITH ID: "
                     .. datasourceId .." DOES NOT EXIST IN CACHE! RETURN NIL!");
         end;
         return cacheItem;
@@ -386,13 +384,13 @@ local Cache = class("Cache");
         _logger: debug("CHEKING THE EXISTANCE OF "
                                         .. "THE OHLC DATASOURCE WITH ID: "
                                         .. datasourceId .." IN CACHE!");
-        local descriptor = _datasourceCache[datasourceId];
-        if descriptor ~= nil then
+        local datasource = _datasourceCache[datasourceId];
+        if datasource ~= nil then
             _logger: debug("FOUND OHLC DATASOURCE:\n"
-                    .. _jsonParser: encode_pretty(descriptor));
+                    .. _jsonParser: encode_pretty(datasource.descriptor));
             return true;
         else
-            _logger: debug("QUOTES DATASOURCE WITH ID: "
+            _logger: debug("OHLC DATASOURCE WITH ID: "
                     .. datasourceId .." DOES NOT EXIST IN CACHE!");
             return false;
         end;

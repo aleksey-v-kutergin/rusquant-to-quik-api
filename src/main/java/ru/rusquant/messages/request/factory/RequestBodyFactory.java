@@ -87,7 +87,7 @@ public class RequestBodyFactory
             }
             case SUBSCRIBE_TRADING_PARAMETER:
             {
-                validateTradingParameterArgs(args);
+                validateSubscribeParameterArgs(args);
                 String classCode = (String) args.get(0);
                 String securityCode = (String) args.get(1);
                 String parameterName = (String) args.get(2);
@@ -198,6 +198,24 @@ public class RequestBodyFactory
             {
                 validateDatasourceDescriptorArg(args);
                 return new AllCandlesRequestBody( (DatasourceDescriptor) args.get(0) );
+            }
+            case MONEY:
+            {
+                validateMoneyArgs(args);
+                String clientCode = (String) args.get(0);
+                String firmId = (String) args.get(1);
+                String tag = (String) args.get(2);
+                String currencyCode = (String) args.get(3);
+                return new MoneyRequestBody(clientCode, firmId, tag, currencyCode);
+            }
+            case DEPO:
+            {
+                validateDepoArgs(args);
+                String clientCode = (String) args.get(0);
+                String firmId = (String) args.get(1);
+                String securityCode = (String) args.get(2);
+                String account = (String) args.get(3);
+                return new DepoRequestBody(clientCode, firmId, securityCode, account);
             }
 			default:
 			{
@@ -410,7 +428,20 @@ public class RequestBodyFactory
     {
         validateMultipleArgs(args, 4);
         validateStringArgs(args, "trading parameter");
-        String parameter = (String) args.get(0);
+        String parameter = (String) args.get(2);
+        if(!ParameterType.contains(parameter))
+        {
+            String msg = "Passed parameter: " + parameter;
+            msg += " does not belong to set of available parameters of current trading table: \n" + ParameterType.getAvailableParameters();
+            throw new IllegalArgumentException(msg);
+        }
+    }
+
+    private void validateSubscribeParameterArgs(List<?> args)
+    {
+        validateMultipleArgs(args, 3);
+        validateStringArgs(args, "subscribe trading parameter");
+        String parameter = (String) args.get(2);
         if(!ParameterType.contains(parameter))
         {
             String msg = "Passed parameter: " + parameter;
@@ -542,7 +573,7 @@ public class RequestBodyFactory
     private void validateSingleCandleArgs(List<?> args)
     {
         validateMultipleArgs(args, 2);
-        validateDescriptorArg(args.subList(0, 0));
+        validateDescriptorArg(args.subList(0, 1));
         if( !(args.get(0) instanceof DatasourceDescriptor) )
         {
             String msg = "Class of passed argument is not a DatasourceDescriptor!";
@@ -553,5 +584,17 @@ public class RequestBodyFactory
             String msg = "Argument with number " + 2 + " of " + "single candle" + " request is not an long!";
             throw new IllegalArgumentException(msg);
         }
+    }
+
+    private void validateMoneyArgs(List<?> args)
+    {
+        validateMultipleArgs(args, 4);
+        validateStringArgs(args, "money");
+    }
+
+    private void validateDepoArgs(List<?> args)
+    {
+        validateMultipleArgs(args, 4);
+        validateStringArgs(args, "money");
     }
 }

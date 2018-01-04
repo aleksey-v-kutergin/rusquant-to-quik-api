@@ -128,6 +128,8 @@ public class TestConnectorUser
             System.out.println("\tcloseds (get OHLC datasource at QUIK-server)");
             System.out.println("\tgetohlcprice (get single OHLC ptice (Candle) from QUIK-server)");
             System.out.println("\tgetohlcprices (get all OHLC ptices (Candle) from QUIK-server)");
+            System.out.println("\tgetdepo (get info about security limits)");
+            System.out.println("\tgetmoney (get info about money limits)");
 			System.out.println("\texit");
 			System.out.println();
 
@@ -241,6 +243,14 @@ public class TestConnectorUser
                 else if("getohlcprices".equals(message))
                 {
                     runAllCandlesTest(connector);
+                }
+                else if("getdepo".equals(message))
+                {
+                    runGetDepoTest(connector, reader);
+                }
+                else if("getmoney".equals(message))
+                {
+                    runGetMoneyTest(connector, reader);
                 }
 				else if("isconnected".equals(message))
 				{
@@ -1258,6 +1268,89 @@ public class TestConnectorUser
         else
         {
             System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+        }
+    }
+
+    private static void runGetDepoTest(J2QuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running get depo test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter security code or type exit:");
+            String clientCode = "10021";
+            String firmId = "NC0011100000";
+            String message = reader.readLine();
+            String account = "NL0011100043";
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getDepo(clientCode, firmId, message, account);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
+        }
+    }
+
+
+    private static void runGetMoneyTest(J2QuikConnector connector, BufferedReader reader) throws IOException
+    {
+        System.out.println("Running get money test...");
+        System.out.println();
+
+        boolean isExit = false;
+        while(!isExit)
+        {
+            System.out.println();
+            System.out.println("Enter currency code or type exit:");
+            String clientCode = "10021";
+            String firmId = "NC0011100000";
+            String tag = "tag";
+            String message = reader.readLine();
+            if(message != null && !message.isEmpty())
+            {
+                if("exit".equals(message))
+                {
+                    isExit = true;
+                }
+                else
+                {
+                    QuikDataObject result = connector.getMoney(clientCode, firmId, tag, message);
+                    if(result instanceof ErrorObject)
+                    {
+                        System.out.println( ((ErrorObject) result).getErrorMessage() );
+                        isExit = true;
+                    }
+                    else
+                    {
+                        System.out.println(result);
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("Invalid test type!");
+            }
         }
     }
 

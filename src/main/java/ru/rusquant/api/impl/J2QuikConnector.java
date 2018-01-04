@@ -318,8 +318,7 @@ public class J2QuikConnector extends Connector implements J2QuikAPI
             else
             {
                 error.setErrorMessage(response.getError());
-            }
-        }
+            } }
         catch (Exception e)
         {
             error.setErrorMessage(e.getMessage());
@@ -534,7 +533,34 @@ public class J2QuikConnector extends Connector implements J2QuikAPI
     @Override
     public QuikDataObject getMoney(String clientCode, String firmId, String tag, String currencyCode)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        ErrorObject error = new ErrorObject();
+        try
+        {
+            List<String> args = new ArrayList<>();
+            args.add(clientCode);
+            args.add(firmId);
+            args.add(tag);
+            args.add(currencyCode);
+
+            RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.MONEY, args);
+            Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.MONEY, body);
+
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if( ResponseStatus.SUCCESS.equals(response.getStatus()) )
+            {
+                return ( (MoneyResponseBody) response.getBody() ).getMoney();
+            }
+            else
+            {
+                error.setErrorMessage(response.getError());
+            }
+        }
+        catch (Exception e)
+        {
+            error.setErrorMessage(e.getMessage());
+        }
+        return error;
     }
 
     @Override
@@ -544,9 +570,36 @@ public class J2QuikConnector extends Connector implements J2QuikAPI
     }
 
     @Override
-    public QuikDataObject getDepo(String clientCode, String firmId, String tag, String account)
+    public QuikDataObject getDepo(String clientCode, String firmId, String securityCode, String account)
     {
-        return new ErrorObject("Not supported operation! Function not yet implemented!");
+        ErrorObject error = new ErrorObject();
+        try
+        {
+            List<String> args = new ArrayList<>();
+            args.add(clientCode);
+            args.add(firmId);
+            args.add(securityCode);
+            args.add(account);
+
+            RequestBody body =  requestBodyFactory.createRequestBody(RequestSubject.DEPO, args);
+            Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.DEPO, body);
+
+            client.postRequest(request);
+            Response response = client.getResponse();
+            if( ResponseStatus.SUCCESS.equals(response.getStatus()) )
+            {
+                return ( (DepoResponseBody) response.getBody() ).getDepo();
+            }
+            else
+            {
+                error.setErrorMessage(response.getError());
+            }
+        }
+        catch (Exception e)
+        {
+            error.setErrorMessage(e.getMessage());
+        }
+        return error;
     }
 
     @Override

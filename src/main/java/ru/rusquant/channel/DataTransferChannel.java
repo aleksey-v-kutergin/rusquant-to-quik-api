@@ -32,5 +32,5 @@ public abstract class DataTransferChannel
     public abstract void writeMessage(String message) throws IOException;
 
     /** Reads data from channel. **/
-    public abstract String readMessage() throws IOException;
+    public abstract String readMessage() throws IOException, InterruptedException;
 }

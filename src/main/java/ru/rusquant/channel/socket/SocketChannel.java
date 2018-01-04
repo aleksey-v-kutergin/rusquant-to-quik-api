@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 /**
- *    Implementation of the data transfer mechanism through sockets.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Implementation of the data transfer mechanism through sockets.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 public class SocketChannel extends DataTransferChannel
 {
@@ -62,15 +62,22 @@ public class SocketChannel extends DataTransferChannel
     }
 
     @Override
-    public String readMessage() throws IOException
+    public String readMessage() throws IOException, InterruptedException
     {
+        // Read IO from socket is not blocking
+        // Need wait for data
+        int attempts = 0;
+        while (in.available() == 0 && attempts <= 1000000)
+        {
+            attempts++;
+            Thread.sleep(5);
+        }
         int count = in.available();
-        if(count > 0)
+        if (count > 0)
         {
             byte[] bytes = new byte[count];
             in.read(bytes);
-            String line = new String(bytes, "UTF-8");
-            return line;
+            return new String(bytes, "UTF-8");
         }
         return null;
     }
