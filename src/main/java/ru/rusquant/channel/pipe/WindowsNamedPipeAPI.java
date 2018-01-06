@@ -6,12 +6,12 @@ import com.sun.jna.ptr.IntByReference;
 import java.nio.ByteBuffer;
 
 /**
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public interface WindowsNamedPipeAPI extends Kernel32
-{
-	boolean FlushFileBuffers(HANDLE hNamedPipe);
+public interface WindowsNamedPipeAPI extends Kernel32 {
 
-	boolean PeekNamedPipe(HANDLE hNamedPipe, ByteBuffer lpBuffer, int nBufferSize, IntByReference lpBytesRead, DWORDByReference lpTotalBytesAvail, DWORDByReference lpBytesLeftThisMessage);
+    boolean FlushFileBuffers(HANDLE hNamedPipe);
+
+    boolean PeekNamedPipe(HANDLE hNamedPipe, ByteBuffer lpBuffer, int nBufferSize, IntByReference lpBytesRead, DWORDByReference lpTotalBytesAvail, DWORDByReference lpBytesLeftThisMessage);
 }

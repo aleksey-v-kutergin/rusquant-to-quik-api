@@ -11,48 +11,61 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class FirmHolding extends QuikDataObject
-{
-    /** Firm identifier **/
+public class FirmHolding extends QuikDataObject {
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Code of security **/
+    /**
+     * Code of security
+     **/
     @JsonProperty("sec_code")
     private String securityCode;
 
-    /** Incoming balance **/
+    /**
+     * Incoming balance
+     **/
     @JsonProperty("openbal")
     private Double openBalance;
 
-    /** Current balance **/
+    /**
+     * Current balance
+     **/
     @JsonProperty("currentpos")
     private Double currentPosition;
 
-    /** Volume of active orders for purchase, in securities **/
+    /**
+     * Volume of active orders for purchase, in securities
+     **/
     @JsonProperty("plannedposbuy")
     private Long plannedPositionInBuyOrders;
 
-    /** Volume of active applications for sale, in securities **/
+    /**
+     * Volume of active applications for sale, in securities
+     **/
     @JsonProperty("plannedpossell")
     private Long plannedPositionInSellOrders;
 
-    /** Purchased **/
+    /**
+     * Purchased
+     **/
     @JsonProperty("usqtyb")
     private Double usqtyb;
 
-    /** Sales **/
+    /**
+     * Sales
+     **/
     @JsonProperty("usqtys")
     private Double usqtys;
 
-    public FirmHolding()
-    {
+    public FirmHolding() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "FirmHolding: {" +
                 "firmId='" + firmId + '\'' +
                 ", securityCode='" + securityCode + '\'' +
@@ -65,83 +78,67 @@ public class FirmHolding extends QuikDataObject
                 '}';
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode)
-    {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
-    public Double getOpenBalance()
-    {
+    public Double getOpenBalance() {
         return openBalance;
     }
 
-    public void setOpenBalance(Double openBalance)
-    {
+    public void setOpenBalance(Double openBalance) {
         this.openBalance = openBalance;
     }
 
-    public Double getCurrentPosition()
-    {
+    public Double getCurrentPosition() {
         return currentPosition;
     }
 
-    public void setCurrentPosition(Double currentPosition)
-    {
+    public void setCurrentPosition(Double currentPosition) {
         this.currentPosition = currentPosition;
     }
 
-    public Long getPlannedPositionInBuyOrders()
-    {
+    public Long getPlannedPositionInBuyOrders() {
         return plannedPositionInBuyOrders;
     }
 
-    public void setPlannedPositionInBuyOrders(Long plannedPositionInBuyOrders)
-    {
+    public void setPlannedPositionInBuyOrders(Long plannedPositionInBuyOrders) {
         this.plannedPositionInBuyOrders = plannedPositionInBuyOrders;
     }
 
-    public Long getPlannedPositionInSellOrders()
-    {
+    public Long getPlannedPositionInSellOrders() {
         return plannedPositionInSellOrders;
     }
 
-    public void setPlannedPositionInSellOrders(Long plannedPositionInSellOrders)
-    {
+    public void setPlannedPositionInSellOrders(Long plannedPositionInSellOrders) {
         this.plannedPositionInSellOrders = plannedPositionInSellOrders;
     }
 
-    public Double getUsqtyb()
-    {
+    public Double getUsqtyb() {
         return usqtyb;
     }
 
-    public void setUsqtyb(Double usqtyb)
-    {
+    public void setUsqtyb(Double usqtyb) {
         this.usqtyb = usqtyb;
     }
 
-    public Double getUsqtys()
-    {
+    public Double getUsqtys() {
         return usqtys;
     }
 
-    public void setUsqtys(Double usqtys)
-    {
+    public void setUsqtys(Double usqtys) {
         this.usqtys = usqtys;
     }
 }

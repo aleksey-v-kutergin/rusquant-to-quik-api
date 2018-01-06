@@ -5,31 +5,26 @@ import ru.rusquant.data.quik.descriptor.DatasourceDescriptor;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class DatasourceSizeRequestBody extends RequestBody
-{
+public class DatasourceSizeRequestBody extends RequestBody {
     private DatasourceDescriptor descriptor;
 
-    public DatasourceSizeRequestBody()
-    {
+    public DatasourceSizeRequestBody() {
 
     }
 
-    public DatasourceSizeRequestBody(DatasourceDescriptor descriptor)
-    {
+    public DatasourceSizeRequestBody(DatasourceDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 
-    public DatasourceDescriptor getDescriptor()
-    {
+    public DatasourceDescriptor getDescriptor() {
         return descriptor;
     }
 
-    public void setDescriptor(DatasourceDescriptor descriptor)
-    {
+    public void setDescriptor(DatasourceDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 }

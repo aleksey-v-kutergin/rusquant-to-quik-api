@@ -10,9 +10,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class TradeDate extends QuikDataObject
-{
-    /** Trade date in DD.MM.YYYY **/
+public class TradeDate extends QuikDataObject {
+    /**
+     * Trade date in DD.MM.YYYY
+     **/
     @JsonProperty("date")
     private String date;
 
@@ -25,14 +26,12 @@ public class TradeDate extends QuikDataObject
     @JsonProperty("day")
     private Integer day;
 
-    public TradeDate()
-    {
+    public TradeDate() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "TradeDate: {" +
                 "date='" + date + '\'' +
                 ", year=" + year +
@@ -41,43 +40,35 @@ public class TradeDate extends QuikDataObject
                 '}';
     }
 
-    public String getDate()
-    {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(String date)
-    {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Integer getYear()
-    {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Integer year)
-    {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public Integer getMonth()
-    {
+    public Integer getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month)
-    {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
-    public Integer getDay()
-    {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(Integer day)
-    {
+    public void setDay(Integer day) {
         this.day = day;
     }
 }

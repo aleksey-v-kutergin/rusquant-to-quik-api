@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class MaxCountOfLotsRequestBody extends RequestBody
-{
+public class MaxCountOfLotsRequestBody extends RequestBody {
     private String classCode;
     private String securityCode;
     private String clientCode;
@@ -23,13 +22,11 @@ public class MaxCountOfLotsRequestBody extends RequestBody
     @JsonProperty("isMarket")
     private Boolean isMarket;
 
-    public MaxCountOfLotsRequestBody()
-    {
+    public MaxCountOfLotsRequestBody() {
 
     }
 
-    public MaxCountOfLotsRequestBody(String classCode, String securityCode, String clientCode, String account, Double price, Boolean isBuy, Boolean isMarket)
-    {
+    public MaxCountOfLotsRequestBody(String classCode, String securityCode, String clientCode, String account, Double price, Boolean isBuy, Boolean isMarket) {
         this.classCode = classCode;
         this.securityCode = securityCode;
         this.clientCode = clientCode;
@@ -39,73 +36,59 @@ public class MaxCountOfLotsRequestBody extends RequestBody
         this.isMarket = isMarket;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public void setClassCode(String classCode)
-    {
+    public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode)
-    {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
-    public String getClientCode()
-    {
+    public String getClientCode() {
         return clientCode;
     }
 
-    public void setClientCode(String clientCode)
-    {
+    public void setClientCode(String clientCode) {
         this.clientCode = clientCode;
     }
 
-    public String getAccount()
-    {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(String account)
-    {
+    public void setAccount(String account) {
         this.account = account;
     }
 
-    public Double getPrice()
-    {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price)
-    {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Boolean getBuy()
-    {
+    public Boolean getBuy() {
         return isBuy;
     }
 
-    public void setBuy(Boolean buy)
-    {
+    public void setBuy(Boolean buy) {
         isBuy = buy;
     }
 
-    public Boolean getMarket()
-    {
+    public Boolean getMarket() {
         return isMarket;
     }
 
-    public void setMarket(Boolean market)
-    {
+    public void setMarket(Boolean market) {
         isMarket = market;
     }
 }

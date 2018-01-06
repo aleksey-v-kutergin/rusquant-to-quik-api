@@ -11,32 +11,29 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class ClientCode extends QuikDataObject
-{
-    /** Client code **/
+public class ClientCode extends QuikDataObject {
+    /**
+     * Client code
+     **/
     @JsonProperty("code")
     private String code;
 
-    public ClientCode()
-    {
+    public ClientCode() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "ClientCode: {" +
                 "code='" + code + '\'' +
                 '}';
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(String code)
-    {
+    public void setCode(String code) {
         this.code = code;
     }
 }

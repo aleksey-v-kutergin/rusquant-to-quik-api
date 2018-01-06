@@ -10,89 +10,137 @@ import ru.rusquant.data.quik.types.*;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Transaction extends QuikDataObject
-{
+public class Transaction extends QuikDataObject {
     @JsonProperty("TRANS_ID")
-    private Long                transId;        /** User's defined id of the transaction. **/
+    private Long transId;
+    /**
+     * User's defined id of the transaction.
+     **/
 
     @JsonProperty("ACTION")
-    private ActionType          action;         /** Aim of the transaction **/
+    private ActionType action;
+    /**
+     * Aim of the transaction
+     **/
 
     @JsonProperty("STATUS")
-    private TransactionStatus   status;         /** Resulting status of the transaction **/
+    private TransactionStatus status;
+    /**
+     * Resulting status of the transaction
+     **/
 
     @JsonProperty("RESULT_MSG")
-    private String              resultMsg;      /** Message **/
+    private String resultMsg;
+    /**
+     * Message
+     **/
 
     @JsonProperty("TIME")
-    private Long                time;           /** Date-Time in Unix-format **/
+    private Long time;
+    /**
+     * Date-Time in Unix-format
+     **/
 
     @JsonProperty("UID")
-    private Long                uid;
+    private Long uid;
 
     @JsonProperty("FLAGS")
-    private Integer             flags;          /** Flags of the transaction (temporally not used). **/
+    private Integer flags;
+    /**
+     * Flags of the transaction (temporally not used).
+     **/
 
     @JsonProperty("SERVER_TRANS_ID")
-    private Long                serverTransId;  /** Id of the transaction, assigned at server **/
+    private Long serverTransId;
+    /**
+     * Id of the transaction, assigned at server
+     **/
 
     @JsonProperty("ORDER_NUM")
-    private Long                orderNum;       /** Number of order **/
+    private Long orderNum;
+    /**
+     * Number of order
+     **/
 
     @JsonProperty("PRICE")
-    private Double              price;
+    private Double price;
 
     @JsonProperty("QUANTITY")
-    private Double              quantity;
+    private Double quantity;
 
     @JsonProperty("BALANCE")
-    private Double              balance;
+    private Double balance;
 
     @JsonProperty("FIRM_ID")
-    private String              firmId;         /** Id of the company **/
+    private String firmId;
+    /**
+     * Id of the company
+     **/
 
     @JsonProperty("ACCOUNT")
-    private String              account;        /** Trading account **/
+    private String account;
+    /**
+     * Trading account
+     **/
 
     @JsonProperty("CLIENT_CODE")
-    private String              clientCode;
+    private String clientCode;
 
     @JsonProperty("BROKERREF")
-    private String              brokerRef;      /** Assignment **/
+    private String brokerRef;
+    /**
+     * Assignment
+     **/
 
     @JsonProperty("CLASSCODE")
-    private String              classCode;      /** Code of security class **/
+    private String classCode;
+    /**
+     * Code of security class
+     **/
 
     @JsonProperty("SECCODE")
-    private String              secCode;        /** Security code **/
+    private String secCode;
+    /**
+     * Security code
+     **/
 
     @JsonProperty("OPERATION")
-    private OperationType       operation;      /** Type of operation. For order Buy or Sell  **/
+    private OperationType operation;
+    /**
+     * Type of operation. For order Buy or Sell
+     **/
 
     @JsonProperty("TYPE")
-    private OrderType           type;           /** Market or Limit **/
+    private OrderType type;
+    /**
+     * Market or Limit
+     **/
 
     @JsonProperty("EXCHANGE_CODE")
-    private String              exchangeCode;   /** Exchange number of order **/
+    private String exchangeCode;
+    /**
+     * Exchange number of order
+     **/
 
     @JsonProperty("COMMENT")
-    private String              comment;
+    private String comment;
 
     @JsonProperty("MODE")
-    private TransactionMode     mode;           /** Execution mode for sendTransaction() server-side wrapper **/
+    private TransactionMode mode;
+    /**
+     * Execution mode for sendTransaction() server-side wrapper
+     **/
 
     @JsonProperty("DATETIME")
     private DateTime dateTime;
 
-    public Transaction()
-    {
+    public Transaction() {
 
     }
 
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Transaction: \n\t\t{" +
                 "transId=" + transId +
                 ", action=" + action +
@@ -121,243 +169,195 @@ public class Transaction extends QuikDataObject
                 '}';
     }
 
-    public Long getTransId()
-    {
+    public Long getTransId() {
         return transId;
     }
 
-    public void setTransId(Long transId)
-    {
+    public void setTransId(Long transId) {
         this.transId = transId;
     }
 
-    public ActionType getAction()
-    {
+    public ActionType getAction() {
         return action;
     }
 
-    public void setAction(ActionType action)
-    {
+    public void setAction(ActionType action) {
         this.action = action;
     }
 
-    public TransactionStatus getStatus()
-    {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(TransactionStatus status)
-    {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 
-    public String getResultMsg()
-    {
+    public String getResultMsg() {
         return resultMsg;
     }
 
-    public void setResultMsg(String resultMsg)
-    {
+    public void setResultMsg(String resultMsg) {
         this.resultMsg = resultMsg;
     }
 
-    public Long getTime()
-    {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(Long time)
-    {
+    public void setTime(Long time) {
         this.time = time;
     }
 
-    public Long getUid()
-    {
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(Long uid)
-    {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
-    public Integer getFlags()
-    {
+    public Integer getFlags() {
         return flags;
     }
 
-    public void setFlags(Integer flags)
-    {
+    public void setFlags(Integer flags) {
         this.flags = flags;
     }
 
-    public Long getServerTransId()
-    {
+    public Long getServerTransId() {
         return serverTransId;
     }
 
-    public void setServerTransId(Long serverTransId)
-    {
+    public void setServerTransId(Long serverTransId) {
         this.serverTransId = serverTransId;
     }
 
-    public Long getOrderNum()
-    {
+    public Long getOrderNum() {
         return orderNum;
     }
 
-    public void setOrderNum(Long orderNum)
-    {
+    public void setOrderNum(Long orderNum) {
         this.orderNum = orderNum;
     }
 
-    public Double getPrice()
-    {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price)
-    {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
-    public Double getQuantity()
-    {
+    public Double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity)
-    {
+    public void setQuantity(Double quantity) {
         this.quantity = quantity;
     }
 
-    public Double getBalance()
-    {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(Double balance)
-    {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getAccount()
-    {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(String account)
-    {
+    public void setAccount(String account) {
         this.account = account;
     }
 
-    public String getClientCode()
-    {
+    public String getClientCode() {
         return clientCode;
     }
 
-    public void setClientCode(String clientCode)
-    {
+    public void setClientCode(String clientCode) {
         this.clientCode = clientCode;
     }
 
-    public String getBrokerRef()
-    {
+    public String getBrokerRef() {
         return brokerRef;
     }
 
-    public void setBrokerRef(String brokerRef)
-    {
+    public void setBrokerRef(String brokerRef) {
         this.brokerRef = brokerRef;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public void setClassCode(String classCode)
-    {
+    public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
-    public String getSecCode()
-    {
+    public String getSecCode() {
         return secCode;
     }
 
-    public void setSecCode(String secCode)
-    {
+    public void setSecCode(String secCode) {
         this.secCode = secCode;
     }
 
-    public String getExchangeCode()
-    {
+    public String getExchangeCode() {
         return exchangeCode;
     }
 
-    public void setExchangeCode(String exchangeCode)
-    {
+    public void setExchangeCode(String exchangeCode) {
         this.exchangeCode = exchangeCode;
     }
 
-    public OperationType getOperation()
-    {
+    public OperationType getOperation() {
         return operation;
     }
 
-    public void setOperation(OperationType operation)
-    {
+    public void setOperation(OperationType operation) {
         this.operation = operation;
     }
 
-    public OrderType getType()
-    {
+    public OrderType getType() {
         return type;
     }
 
-    public void setType(OrderType type)
-    {
+    public void setType(OrderType type) {
         this.type = type;
     }
 
-    public String getComment()
-    {
+    public String getComment() {
         return comment;
     }
 
-    public void setComment(String comment)
-    {
+    public void setComment(String comment) {
         this.comment = comment;
     }
 
-    public TransactionMode getMode()
-    {
+    public TransactionMode getMode() {
         return mode;
     }
 
-    public void setMode(TransactionMode mode)
-    {
+    public void setMode(TransactionMode mode) {
         this.mode = mode;
     }
 
-    public DateTime getDateTime()
-    {
+    public DateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(DateTime dateTime)
-    {
+    public void setDateTime(DateTime dateTime) {
         this.dateTime = dateTime;
     }
 }

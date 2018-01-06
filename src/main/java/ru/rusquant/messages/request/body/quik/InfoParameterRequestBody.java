@@ -5,31 +5,26 @@ import ru.rusquant.data.quik.types.InfoParamType;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class InfoParameterRequestBody extends RequestBody
-{
-	private InfoParamType infoParamType;
+public class InfoParameterRequestBody extends RequestBody {
+    private InfoParamType infoParamType;
 
-	public InfoParameterRequestBody()
-	{
+    public InfoParameterRequestBody() {
 
-	}
+    }
 
-	public InfoParameterRequestBody(InfoParamType infoParamType)
-	{
-		this.infoParamType = infoParamType;
-	}
+    public InfoParameterRequestBody(InfoParamType infoParamType) {
+        this.infoParamType = infoParamType;
+    }
 
-	public InfoParamType getInfoParamType()
-	{
-		return infoParamType;
-	}
+    public InfoParamType getInfoParamType() {
+        return infoParamType;
+    }
 
-	public void setInfoParamType(InfoParamType infoParamType)
-	{
-		this.infoParamType = infoParamType;
-	}
+    public void setInfoParamType(InfoParamType infoParamType) {
+        this.infoParamType = infoParamType;
+    }
 }

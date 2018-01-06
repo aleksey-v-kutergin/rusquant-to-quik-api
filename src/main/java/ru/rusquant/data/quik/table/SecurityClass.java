@@ -11,36 +11,43 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SecurityClass extends QuikDataObject
-{
-    /** Firm identifier **/
+public class SecurityClass extends QuikDataObject {
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Class name **/
+    /**
+     * Class name
+     **/
     @JsonProperty("name")
     private String name;
 
-    /** Class code **/
+    /**
+     * Class code
+     **/
     @JsonProperty("code")
     private String code;
 
-    /** Number of parameters in class **/
+    /**
+     * Number of parameters in class
+     **/
     @JsonProperty("npars")
     private Integer numberOfParameters;
 
-    /** Number of securities in class **/
+    /**
+     * Number of securities in class
+     **/
     @JsonProperty("nsecs")
     private Integer numberOfSecurities;
 
-    public SecurityClass()
-    {
+    public SecurityClass() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "SecurityClass: {" +
                 "firmId='" + firmId + '\'' +
                 ", name='" + name + '\'' +
@@ -50,53 +57,43 @@ public class SecurityClass extends QuikDataObject
                 '}';
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(String code)
-    {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public Integer getNumberOfParameters()
-    {
+    public Integer getNumberOfParameters() {
         return numberOfParameters;
     }
 
-    public void setNumberOfParameters(Integer numberOfParameters)
-    {
+    public void setNumberOfParameters(Integer numberOfParameters) {
         this.numberOfParameters = numberOfParameters;
     }
 
-    public Integer getNumberOfSecurities()
-    {
+    public Integer getNumberOfSecurities() {
         return numberOfSecurities;
     }
 
-    public void setNumberOfSecurities(Integer numberOfSecurities)
-    {
+    public void setNumberOfSecurities(Integer numberOfSecurities) {
         this.numberOfSecurities = numberOfSecurities;
     }
 }

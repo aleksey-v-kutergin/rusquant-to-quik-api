@@ -5,31 +5,26 @@ import ru.rusquant.data.quik.types.QuikTableType;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class QuikTableInfoRequestBody extends RequestBody
-{
+public class QuikTableInfoRequestBody extends RequestBody {
     private QuikTableType tableType;
 
-    public QuikTableInfoRequestBody()
-    {
+    public QuikTableInfoRequestBody() {
 
     }
 
-    public QuikTableInfoRequestBody(QuikTableType tableType)
-    {
+    public QuikTableInfoRequestBody(QuikTableType tableType) {
         this.tableType = tableType;
     }
 
-    public QuikTableType getTableType()
-    {
+    public QuikTableType getTableType() {
         return tableType;
     }
 
-    public void setTableType(QuikTableType tableType)
-    {
+    public void setTableType(QuikTableType tableType) {
         this.tableType = tableType;
     }
 }

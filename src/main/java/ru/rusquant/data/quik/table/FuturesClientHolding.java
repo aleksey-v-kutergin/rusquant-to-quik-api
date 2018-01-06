@@ -9,73 +9,106 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
-public class FuturesClientHolding extends QuikDataObject
-{
-    /** Firm identifier **/
+public class FuturesClientHolding extends QuikDataObject {
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Trading account id **/
+    /**
+     * Trading account id
+     **/
     @JsonProperty("trdaccid")
     private String tradingAccountId;
 
-    /** Futures Contract Code **/
+    /**
+     * Futures Contract Code
+     **/
     @JsonProperty("sec_code")
     private String securityCode;
 
-    /** Type of limit **/
+    /**
+     * Type of limit
+     **/
     @JsonProperty("type")
     private String type;
 
-    /** Incoming long positions **/
+    /**
+     * Incoming long positions
+     **/
     @JsonProperty("startbuy")
     private Double startBuy;
 
-    /** Incoming short positions **/
+    /**
+     * Incoming short positions
+     **/
     @JsonProperty("startsell")
     private Double startSell;
 
-    /** Incoming net positions **/
+    /**
+     * Incoming net positions
+     **/
     @JsonProperty("startnet")
     private Double startNet;
 
-    /** Current long positions **/
+    /**
+     * Current long positions
+     **/
     @JsonProperty("todaybuy")
     private Double todayBuy;
 
-    /** Current short positions **/
+    /**
+     * Current short positions
+     **/
     @JsonProperty("todaysell")
     private Double todaySell;
 
-    /** Current net positions **/
+    /**
+     * Current net positions
+     **/
     @JsonProperty("totalnet")
     private Double totalNet;
 
-    /** Active for purchase **/
+    /**
+     * Active for purchase
+     **/
     @JsonProperty("openbuys")
     private Double openBuys;
 
-    /** Active for sale **/
+    /**
+     * Active for sale
+     **/
     @JsonProperty("opensells")
     private Double openSells;
 
-    /** Estimation of current net positions **/
+    /**
+     * Estimation of current net positions
+     **/
     @JsonProperty("cbplused")
     private Double cbplUsed;
 
-    /** Planned net positions **/
+    /**
+     * Planned net positions
+     **/
     @JsonProperty("cbplplanned")
     private Double cbplUsedPlanned;
 
-    /** Variation Margin **/
+    /**
+     * Variation Margin
+     **/
     @JsonProperty("varmargin")
     private Double varMargin;
 
-    /** Effective line item price **/
+    /**
+     * Effective line item price
+     **/
     @JsonProperty("avrposnprice")
     private Double avrPosnPrice;
 
-    /** Line item cost **/
+    /**
+     * Line item cost
+     **/
     @JsonProperty("positionvalue")
     private Double positionValue;
 
@@ -87,32 +120,32 @@ public class FuturesClientHolding extends QuikDataObject
     @JsonProperty("real_varmargin")
     private Double realVarMargin;
 
-    /** The total variation margin on the basis of the main clearing accrued for all positions. Displayed to within 2 characters **/
+    /**
+     * The total variation margin on the basis of the main clearing accrued for all positions. Displayed to within 2 characters
+     **/
     @JsonProperty("total_varmargin")
     private Double totalVarMargin;
 
     /**
      * The current status of the trading session. The possible values are:
-     *     "0" is not defined;
-     *     "1" - the main session;
-     *     "2" - the beginning of the promulking;
-     *     "3" - the promulking was completed;
-     *     "4" - the main clearing began;
-     *     "5" - the main clearing: a new session is appointed;
-     *     "6" - the main clearing was completed;
-     *     "7" - the evening session was over
+     * "0" is not defined;
+     * "1" - the main session;
+     * "2" - the beginning of the promulking;
+     * "3" - the promulking was completed;
+     * "4" - the main clearing began;
+     * "5" - the main clearing: a new session is appointed;
+     * "6" - the main clearing was completed;
+     * "7" - the evening session was over
      **/
     @JsonProperty("session_status")
     private Integer sessionStatus;
 
-    public FuturesClientHolding()
-    {
+    public FuturesClientHolding() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "FuturesClientHolding: {" +
                 "firmId='" + firmId + '\'' +
                 ", tradingAccountId='" + tradingAccountId + '\'' +
@@ -137,203 +170,163 @@ public class FuturesClientHolding extends QuikDataObject
                 '}';
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getTradingAccountId()
-    {
+    public String getTradingAccountId() {
         return tradingAccountId;
     }
 
-    public void setTradingAccountId(String tradingAccountId)
-    {
+    public void setTradingAccountId(String tradingAccountId) {
         this.tradingAccountId = tradingAccountId;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode)
-    {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
-    public String getType()
-    {
+    public String getType() {
         return type;
     }
 
-    public void setType(String type)
-    {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Double getStartBuy()
-    {
+    public Double getStartBuy() {
         return startBuy;
     }
 
-    public void setStartBuy(Double startBuy)
-    {
+    public void setStartBuy(Double startBuy) {
         this.startBuy = startBuy;
     }
 
-    public Double getStartSell()
-    {
+    public Double getStartSell() {
         return startSell;
     }
 
-    public void setStartSell(Double startSell)
-    {
+    public void setStartSell(Double startSell) {
         this.startSell = startSell;
     }
 
-    public Double getStartNet()
-    {
+    public Double getStartNet() {
         return startNet;
     }
 
-    public void setStartNet(Double startNet)
-    {
+    public void setStartNet(Double startNet) {
         this.startNet = startNet;
     }
 
-    public Double getTodayBuy()
-    {
+    public Double getTodayBuy() {
         return todayBuy;
     }
 
-    public void setTodayBuy(Double todayBuy)
-    {
+    public void setTodayBuy(Double todayBuy) {
         this.todayBuy = todayBuy;
     }
 
-    public Double getTodaySell()
-    {
+    public Double getTodaySell() {
         return todaySell;
     }
 
-    public void setTodaySell(Double todaySell)
-    {
+    public void setTodaySell(Double todaySell) {
         this.todaySell = todaySell;
     }
 
-    public Double getTotalNet()
-    {
+    public Double getTotalNet() {
         return totalNet;
     }
 
-    public void setTotalNet(Double totalNet)
-    {
+    public void setTotalNet(Double totalNet) {
         this.totalNet = totalNet;
     }
 
-    public Double getOpenBuys()
-    {
+    public Double getOpenBuys() {
         return openBuys;
     }
 
-    public void setOpenBuys(Double openBuys)
-    {
+    public void setOpenBuys(Double openBuys) {
         this.openBuys = openBuys;
     }
 
-    public Double getOpenSells()
-    {
+    public Double getOpenSells() {
         return openSells;
     }
 
-    public void setOpenSells(Double openSells)
-    {
+    public void setOpenSells(Double openSells) {
         this.openSells = openSells;
     }
 
-    public Double getCbplUsed()
-    {
+    public Double getCbplUsed() {
         return cbplUsed;
     }
 
-    public void setCbplUsed(Double cbplUsed)
-    {
+    public void setCbplUsed(Double cbplUsed) {
         this.cbplUsed = cbplUsed;
     }
 
-    public Double getCbplUsedPlanned()
-    {
+    public Double getCbplUsedPlanned() {
         return cbplUsedPlanned;
     }
 
-    public void setCbplUsedPlanned(Double cbplUsedPlanned)
-    {
+    public void setCbplUsedPlanned(Double cbplUsedPlanned) {
         this.cbplUsedPlanned = cbplUsedPlanned;
     }
 
-    public Double getVarMargin()
-    {
+    public Double getVarMargin() {
         return varMargin;
     }
 
-    public void setVarMargin(Double varMargin)
-    {
+    public void setVarMargin(Double varMargin) {
         this.varMargin = varMargin;
     }
 
-    public Double getAvrPosnPrice()
-    {
+    public Double getAvrPosnPrice() {
         return avrPosnPrice;
     }
 
-    public void setAvrPosnPrice(Double avrPosnPrice)
-    {
+    public void setAvrPosnPrice(Double avrPosnPrice) {
         this.avrPosnPrice = avrPosnPrice;
     }
 
-    public Double getPositionValue()
-    {
+    public Double getPositionValue() {
         return positionValue;
     }
 
-    public void setPositionValue(Double positionValue)
-    {
+    public void setPositionValue(Double positionValue) {
         this.positionValue = positionValue;
     }
 
-    public Double getRealVarMargin()
-    {
+    public Double getRealVarMargin() {
         return realVarMargin;
     }
 
-    public void setRealVarMargin(Double realVarMargin)
-    {
+    public void setRealVarMargin(Double realVarMargin) {
         this.realVarMargin = realVarMargin;
     }
 
-    public Double getTotalVarMargin()
-    {
+    public Double getTotalVarMargin() {
         return totalVarMargin;
     }
 
-    public void setTotalVarMargin(Double totalVarMargin)
-    {
+    public void setTotalVarMargin(Double totalVarMargin) {
         this.totalVarMargin = totalVarMargin;
     }
 
-    public Integer getSessionStatus()
-    {
+    public Integer getSessionStatus() {
         return sessionStatus;
     }
 
-    public void setSessionStatus(Integer sessionStatus)
-    {
+    public void setSessionStatus(Integer sessionStatus) {
         this.sessionStatus = sessionStatus;
     }
 }

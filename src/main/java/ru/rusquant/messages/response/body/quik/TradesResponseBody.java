@@ -5,31 +5,26 @@ import ru.rusquant.messages.response.body.ResponseBody;
 
 
 /**
- *   Response contains a collection of trades for order.
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Response contains a collection of trades for order.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class TradesResponseBody extends ResponseBody
-{
+public class TradesResponseBody extends ResponseBody {
     private TradesDataFrame tradesDataFrame;
 
-    public TradesResponseBody()
-    {
+    public TradesResponseBody() {
 
     }
 
-    public TradesResponseBody(TradesDataFrame tradesDataFrame)
-    {
+    public TradesResponseBody(TradesDataFrame tradesDataFrame) {
         this.tradesDataFrame = tradesDataFrame;
     }
 
-    public TradesDataFrame getTradesDataFrame()
-    {
+    public TradesDataFrame getTradesDataFrame() {
         return tradesDataFrame;
     }
 
-    public void setTradesDataFrame(TradesDataFrame tradesDataFrame)
-    {
+    public void setTradesDataFrame(TradesDataFrame tradesDataFrame) {
         this.tradesDataFrame = tradesDataFrame;
     }
 }

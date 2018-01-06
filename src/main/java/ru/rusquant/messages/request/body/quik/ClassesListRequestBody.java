@@ -4,14 +4,12 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class ClassesListRequestBody extends RequestBody
-{
-    public ClassesListRequestBody()
-    {
+public class ClassesListRequestBody extends RequestBody {
+    public ClassesListRequestBody() {
 
     }
 }

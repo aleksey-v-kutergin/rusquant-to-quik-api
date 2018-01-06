@@ -9,48 +9,61 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
-public class Depo extends QuikDataObject
-{
-    /** The value of securities blocked for purchase **/
+public class Depo extends QuikDataObject {
+    /**
+     * The value of securities blocked for purchase
+     **/
     @JsonProperty("depo_limit_locked_buy_value")
     private Double valueOfLotsForPurchase;
 
-    /** Current balance on securities **/
+    /**
+     * Current balance on securities
+     **/
     @JsonProperty("depo_current_balance")
     private Double depoCurrentBalance;
 
-    /** Number of lots of securities blocked for purchase **/
+    /**
+     * Number of lots of securities blocked for purchase
+     **/
     @JsonProperty("depo_limit_locked_buy")
     private Double blockedCountOfLotsForPurchase;
 
-    /** Blocked Number of lots of securities **/
+    /**
+     * Blocked Number of lots of securities
+     **/
     @JsonProperty("depo_limit_locked")
     private Double blockedCountOfLots;
 
-    /** Available quantity of securities **/
+    /**
+     * Available quantity of securities
+     **/
     @JsonProperty("depo_limit_available")
     private Double availableCountOfSecurities;
 
-    /** Current limit on securities **/
+    /**
+     * Current limit on securities
+     **/
     @JsonProperty("depo_current_limit")
     private Double depoCurrentLimit;
 
-    /** Incoming balance on securities **/
+    /**
+     * Incoming balance on securities
+     **/
     @JsonProperty("depo_open_balance")
     private Double depoOpenBalance;
 
-    /** Incoming limit on securities **/
+    /**
+     * Incoming limit on securities
+     **/
     @JsonProperty("depo_open_limit")
     private Double depoOpenLimit;
 
-    public Depo()
-    {
+    public Depo() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Depo: {" +
                 "valueOfLotsForPurchase=" + valueOfLotsForPurchase +
                 ", depoCurrentBalance=" + depoCurrentBalance +
@@ -63,83 +76,67 @@ public class Depo extends QuikDataObject
                 '}';
     }
 
-    public Double getValueOfLotsForPurchase()
-    {
+    public Double getValueOfLotsForPurchase() {
         return valueOfLotsForPurchase;
     }
 
-    public void setValueOfLotsForPurchase(Double valueOfLotsForPurchase)
-    {
+    public void setValueOfLotsForPurchase(Double valueOfLotsForPurchase) {
         this.valueOfLotsForPurchase = valueOfLotsForPurchase;
     }
 
-    public Double getDepoCurrentBalance()
-    {
+    public Double getDepoCurrentBalance() {
         return depoCurrentBalance;
     }
 
-    public void setDepoCurrentBalance(Double depoCurrentBalance)
-    {
+    public void setDepoCurrentBalance(Double depoCurrentBalance) {
         this.depoCurrentBalance = depoCurrentBalance;
     }
 
-    public Double getBlockedCountOfLotsForPurchase()
-    {
+    public Double getBlockedCountOfLotsForPurchase() {
         return blockedCountOfLotsForPurchase;
     }
 
-    public void setBlockedCountOfLotsForPurchase(Double blockedCountOfLotsForPurchase)
-    {
+    public void setBlockedCountOfLotsForPurchase(Double blockedCountOfLotsForPurchase) {
         this.blockedCountOfLotsForPurchase = blockedCountOfLotsForPurchase;
     }
 
-    public Double getBlockedCountOfLots()
-    {
+    public Double getBlockedCountOfLots() {
         return blockedCountOfLots;
     }
 
-    public void setBlockedCountOfLots(Double blockedCountOfLots)
-    {
+    public void setBlockedCountOfLots(Double blockedCountOfLots) {
         this.blockedCountOfLots = blockedCountOfLots;
     }
 
-    public Double getAvailableCountOfSecurities()
-    {
+    public Double getAvailableCountOfSecurities() {
         return availableCountOfSecurities;
     }
 
-    public void setAvailableCountOfSecurities(Double availableCountOfSecurities)
-    {
+    public void setAvailableCountOfSecurities(Double availableCountOfSecurities) {
         this.availableCountOfSecurities = availableCountOfSecurities;
     }
 
-    public Double getDepoCurrentLimit()
-    {
+    public Double getDepoCurrentLimit() {
         return depoCurrentLimit;
     }
 
-    public void setDepoCurrentLimit(Double depoCurrentLimit)
-    {
+    public void setDepoCurrentLimit(Double depoCurrentLimit) {
         this.depoCurrentLimit = depoCurrentLimit;
     }
 
-    public Double getDepoOpenBalance()
-    {
+    public Double getDepoOpenBalance() {
         return depoOpenBalance;
     }
 
-    public void setDepoOpenBalance(Double depoOpenBalance)
-    {
+    public void setDepoOpenBalance(Double depoOpenBalance) {
         this.depoOpenBalance = depoOpenBalance;
     }
 
-    public Double getDepoOpenLimit()
-    {
+    public Double getDepoOpenLimit() {
         return depoOpenLimit;
     }
 
-    public void setDepoOpenLimit(Double depoOpenLimit)
-    {
+    public void setDepoOpenLimit(Double depoOpenLimit) {
         this.depoOpenLimit = depoOpenLimit;
     }
 }

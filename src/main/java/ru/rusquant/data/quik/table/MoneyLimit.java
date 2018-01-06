@@ -11,72 +11,93 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MoneyLimit extends QuikDataObject
-{
-    /** Currency code **/
+public class MoneyLimit extends QuikDataObject {
+    /**
+     * Currency code
+     **/
     @JsonProperty("currcode")
     private String currencyCode;
 
-    /** Payment Tag **/
+    /**
+     * Payment Tag
+     **/
     @JsonProperty("tag")
     private String tag;
 
-    /** Company ID **/
+    /**
+     * Company ID
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Client code **/
+    /**
+     * Client code
+     **/
     @JsonProperty("client_code")
     private String clientCode;
 
-    /** Incoming balance on money **/
+    /**
+     * Incoming balance on money
+     **/
     @JsonProperty("openbal")
     private Double openBalance;
 
-    /** Incoming limit on money **/
+    /**
+     * Incoming limit on money
+     **/
     @JsonProperty("openlimit")
     private Double openLimit;
 
-    /** Current balance on money **/
+    /**
+     * Current balance on money
+     **/
     @JsonProperty("currentbal")
     private Double currentBalance;
 
-    /** Current limit on money **/
+    /**
+     * Current limit on money
+     **/
     @JsonProperty("currentlimit")
     private Double currentLimit;
 
-    /** Blocked quantity **/
+    /**
+     * Blocked quantity
+     **/
     @JsonProperty("locked")
     private Double lockedValue;
 
-    /** The value of assets in applications for purchase of non-marginal securities **/
+    /**
+     * The value of assets in applications for purchase of non-marginal securities
+     **/
     @JsonProperty("locked_value_coef")
     private Long lockedValueInBuyOrders;
 
-    /** The value of assets in applications for the purchase of margin securities **/
+    /**
+     * The value of assets in applications for the purchase of margin securities
+     **/
     @JsonProperty("locked_margin_value")
     private Long lockedValueInMarginOrders;
 
-    /** Leverage **/
+    /**
+     * Leverage
+     **/
     @JsonProperty("leverage")
     private Double leverage;
 
     /**
      * The limit type. The possible values are:
-     *   "0" - the usual limits
-     *    otherwise - technological limits
+     *    "0" - the usual limits
+     *     otherwise - technological limits
      **/
     @JsonProperty("limit_kind")
     private Integer limitKind;
 
-    public MoneyLimit()
-    {
+    public MoneyLimit() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "MoneyLimit: {" +
                 "currencyCode='" + currencyCode + '\'' +
                 ", tag='" + tag + '\'' +
@@ -94,133 +115,107 @@ public class MoneyLimit extends QuikDataObject
                 '}';
     }
 
-    public String getCurrencyCode()
-    {
+    public String getCurrencyCode() {
         return currencyCode;
     }
 
-    public void setCurrencyCode(String currencyCode)
-    {
+    public void setCurrencyCode(String currencyCode) {
         this.currencyCode = currencyCode;
     }
 
-    public String getTag()
-    {
+    public String getTag() {
         return tag;
     }
 
-    public void setTag(String tag)
-    {
+    public void setTag(String tag) {
         this.tag = tag;
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getClientCode()
-    {
+    public String getClientCode() {
         return clientCode;
     }
 
-    public void setClientCode(String clientCode)
-    {
+    public void setClientCode(String clientCode) {
         this.clientCode = clientCode;
     }
 
-    public Double getOpenBalance()
-    {
+    public Double getOpenBalance() {
         return openBalance;
     }
 
-    public void setOpenBalance(Double openBalance)
-    {
+    public void setOpenBalance(Double openBalance) {
         this.openBalance = openBalance;
     }
 
-    public Double getOpenLimit()
-    {
+    public Double getOpenLimit() {
         return openLimit;
     }
 
-    public void setOpenLimit(Double openLimit)
-    {
+    public void setOpenLimit(Double openLimit) {
         this.openLimit = openLimit;
     }
 
-    public Double getCurrentBalance()
-    {
+    public Double getCurrentBalance() {
         return currentBalance;
     }
 
-    public void setCurrentBalance(Double currentBalance)
-    {
+    public void setCurrentBalance(Double currentBalance) {
         this.currentBalance = currentBalance;
     }
 
-    public Double getCurrentLimit()
-    {
+    public Double getCurrentLimit() {
         return currentLimit;
     }
 
-    public void setCurrentLimit(Double currentLimit)
-    {
+    public void setCurrentLimit(Double currentLimit) {
         this.currentLimit = currentLimit;
     }
 
-    public Double getLockedValue()
-    {
+    public Double getLockedValue() {
         return lockedValue;
     }
 
-    public void setLockedValue(Double lockedValue)
-    {
+    public void setLockedValue(Double lockedValue) {
         this.lockedValue = lockedValue;
     }
 
-    public Long getLockedValueInBuyOrders()
-    {
+    public Long getLockedValueInBuyOrders() {
         return lockedValueInBuyOrders;
     }
 
-    public void setLockedValueInBuyOrders(Long lockedValueInBuyOrders)
-    {
+    public void setLockedValueInBuyOrders(Long lockedValueInBuyOrders) {
         this.lockedValueInBuyOrders = lockedValueInBuyOrders;
     }
 
-    public Long getLockedValueInMarginOrders()
-    {
+    public Long getLockedValueInMarginOrders() {
         return lockedValueInMarginOrders;
     }
 
-    public void setLockedValueInMarginOrders(Long lockedValueInMarginOrders)
-    {
+    public void setLockedValueInMarginOrders(Long lockedValueInMarginOrders) {
         this.lockedValueInMarginOrders = lockedValueInMarginOrders;
     }
 
-    public Double getLeverage()
-    {
+    public Double getLeverage() {
         return leverage;
     }
 
-    public void setLeverage(Double leverage)
-    {
+    public void setLeverage(Double leverage) {
         this.leverage = leverage;
     }
 
-    public Integer getLimitKind()
-    {
+    public Integer getLimitKind() {
         return limitKind;
     }
 
-    public void setLimitKind(Integer limitKind)
-    {
+    public void setLimitKind(Integer limitKind) {
         this.limitKind = limitKind;
     }
 }

@@ -4,23 +4,20 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class SubscribeQuotesRequestBody extends RequestBody
-{
+public class SubscribeQuotesRequestBody extends RequestBody {
     private Long id;
     private String classCode;
     private String securityCode;
 
-    public SubscribeQuotesRequestBody()
-    {
+    public SubscribeQuotesRequestBody() {
 
     }
 
-    public SubscribeQuotesRequestBody(String classCode, String securityCode)
-    {
+    public SubscribeQuotesRequestBody(String classCode, String securityCode) {
         this.classCode = classCode;
         this.securityCode = securityCode;
 
@@ -29,18 +26,15 @@ public class SubscribeQuotesRequestBody extends RequestBody
         this.id = hash < 0 ? -1 * hash : hash;
     }
 
-    public Long getId()
-    {
+    public Long getId() {
         return id;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 }

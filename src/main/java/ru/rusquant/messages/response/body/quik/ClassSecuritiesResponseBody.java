@@ -4,30 +4,25 @@ import ru.rusquant.data.quik.CodesArray;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class ClassSecuritiesResponseBody extends ResponseBody
-{
+public class ClassSecuritiesResponseBody extends ResponseBody {
     private CodesArray codes;
 
-    public ClassSecuritiesResponseBody()
-    {
+    public ClassSecuritiesResponseBody() {
 
     }
 
-    public ClassSecuritiesResponseBody(CodesArray codes)
-    {
+    public ClassSecuritiesResponseBody(CodesArray codes) {
         this.codes = codes;
     }
 
-    public CodesArray getCodes()
-    {
+    public CodesArray getCodes() {
         return codes;
     }
 
-    public void setCodes(CodesArray codes)
-    {
+    public void setCodes(CodesArray codes) {
         this.codes = codes;
     }
 }

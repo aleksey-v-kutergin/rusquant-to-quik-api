@@ -4,17 +4,15 @@ import ru.rusquant.data.quik.types.DSParameterType;
 import ru.rusquant.data.quik.types.TimeScale;
 
 /**
- *    Class-descriptor for quik datasource for OHLC prices.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Class-descriptor for quik datasource for OHLC prices.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class DatasourceDescriptor extends Descriptor
-{
+public class DatasourceDescriptor extends Descriptor {
     private TimeScale interval;
     private DSParameterType parameter;
 
-    public DatasourceDescriptor()
-    {
+    public DatasourceDescriptor() {
 
     }
 
@@ -22,16 +20,14 @@ public class DatasourceDescriptor extends Descriptor
                                 String classCode,
                                 String securityCode,
                                 TimeScale interval,
-                                DSParameterType parameter)
-    {
+                                DSParameterType parameter) {
         super(id, classCode, securityCode);
         this.interval = interval;
         this.parameter = parameter;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "DatasourceDescriptor{" +
                 "id=" + id +
                 "classCode='" + classCode + '\'' +
@@ -41,23 +37,19 @@ public class DatasourceDescriptor extends Descriptor
                 '}';
     }
 
-    public TimeScale getInterval()
-    {
+    public TimeScale getInterval() {
         return interval;
     }
 
-    public void setInterval(TimeScale interval)
-    {
+    public void setInterval(TimeScale interval) {
         this.interval = interval;
     }
 
-    public DSParameterType getParameter()
-    {
+    public DSParameterType getParameter() {
         return parameter;
     }
 
-    public void setParameter(DSParameterType parameter)
-    {
+    public void setParameter(DSParameterType parameter) {
         this.parameter = parameter;
     }
 }

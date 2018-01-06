@@ -11,32 +11,37 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Firm extends QuikDataObject
-{
-    /** Firm identifier **/
+public class Firm extends QuikDataObject {
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Firm name**/
+    /**
+     * Firm name
+     **/
     @JsonProperty("firm_name")
     private String firmName;
 
-    /** Status **/
+    /**
+     * Status
+     **/
     @JsonProperty("status")
     private Integer status;
 
-    /** Exchange **/
+    /**
+     * Exchange
+     **/
     @JsonProperty("exchange")
     private String exchange;
 
-    public Firm()
-    {
+    public Firm() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Firm: {" +
                 "firmId='" + firmId + '\'' +
                 ", firmName='" + firmName + '\'' +
@@ -45,43 +50,35 @@ public class Firm extends QuikDataObject
                 '}';
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getFirmName()
-    {
+    public String getFirmName() {
         return firmName;
     }
 
-    public void setFirmName(String firmName)
-    {
+    public void setFirmName(String firmName) {
         this.firmName = firmName;
     }
 
-    public Integer getStatus()
-    {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status)
-    {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public String getExchange()
-    {
+    public String getExchange() {
         return exchange;
     }
 
-    public void setExchange(String exchange)
-    {
+    public void setExchange(String exchange) {
         this.exchange = exchange;
     }
 }

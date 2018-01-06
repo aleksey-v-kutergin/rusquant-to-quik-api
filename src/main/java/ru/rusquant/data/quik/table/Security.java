@@ -11,64 +11,85 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Security extends QuikDataObject
-{
-    /** Code of asset **/
+public class Security extends QuikDataObject {
+    /**
+     * Code of asset
+     **/
     @JsonProperty("code")
     private String code;
 
-    /** Name of asset **/
+    /**
+     * Name of asset
+     **/
     @JsonProperty("name")
     private String name;
 
-    /** Short name of asset **/
+    /**
+     * Short name of asset
+     **/
     @JsonProperty("short_name")
     private String shortName;
 
-    /** Asset class code **/
+    /**
+     * Asset class code
+     **/
     @JsonProperty("class_code")
     private String classCode;
 
-    /** Asset class name **/
+    /**
+     * Asset class name
+     **/
     @JsonProperty("class_name")
     private String className;
 
-    /** Nominal value of the security **/
+    /**
+     * Nominal value of the security
+     **/
     @JsonProperty("face_value")
     private Double faceValue;
 
-    /** Currency of the nominal **/
+    /**
+     * Currency of the nominal
+     **/
     @JsonProperty("face_unit")
     private String faceUnit;
 
-    /** Accuracy (the number of significant digits after the decimal point) **/
+    /**
+     * Accuracy (the number of significant digits after the decimal point)
+     **/
     @JsonProperty("scale")
     private Integer scale;
 
-    /** Maturity date **/
+    /**
+     * Maturity date
+     **/
     @JsonProperty("mat_date")
     private Long maturityDate;
 
-    /** Size of lot for asset **/
+    /**
+     * Size of lot for asset
+     **/
     @JsonProperty("lot_size")
     private Double lotSize;
 
-    /** ISIN **/
+    /**
+     * ISIN
+     **/
     @JsonProperty("isin_code")
     private String isinCode;
 
-    /** Minimal price step for asset **/
+    /**
+     * Minimal price step for asset
+     **/
     @JsonProperty("min_price_step")
     private Double minPriceStep;
 
-    public Security()
-    {
+    public Security() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Security: {" +
                 "code='" + code + '\'' +
                 ", name='" + name + '\'' +
@@ -85,123 +106,99 @@ public class Security extends QuikDataObject
                 '}';
     }
 
-    public String getCode()
-    {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(String code)
-    {
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getShortName()
-    {
+    public String getShortName() {
         return shortName;
     }
 
-    public void setShortName(String shortName)
-    {
+    public void setShortName(String shortName) {
         this.shortName = shortName;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public void setClassCode(String classCode)
-    {
+    public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
-    public String getClassName()
-    {
+    public String getClassName() {
         return className;
     }
 
-    public void setClassName(String className)
-    {
+    public void setClassName(String className) {
         this.className = className;
     }
 
-    public Double getFaceValue()
-    {
+    public Double getFaceValue() {
         return faceValue;
     }
 
-    public void setFaceValue(Double faceValue)
-    {
+    public void setFaceValue(Double faceValue) {
         this.faceValue = faceValue;
     }
 
-    public String getFaceUnit()
-    {
+    public String getFaceUnit() {
         return faceUnit;
     }
 
-    public void setFaceUnit(String faceUnit)
-    {
+    public void setFaceUnit(String faceUnit) {
         this.faceUnit = faceUnit;
     }
 
-    public Integer getScale()
-    {
+    public Integer getScale() {
         return scale;
     }
 
-    public void setScale(Integer scale)
-    {
+    public void setScale(Integer scale) {
         this.scale = scale;
     }
 
-    public Long getMaturityDate()
-    {
+    public Long getMaturityDate() {
         return maturityDate;
     }
 
-    public void setMaturityDate(Long maturityDate)
-    {
+    public void setMaturityDate(Long maturityDate) {
         this.maturityDate = maturityDate;
     }
 
-    public Double getLotSize()
-    {
+    public Double getLotSize() {
         return lotSize;
     }
 
-    public void setLotSize(Double lotSize)
-    {
+    public void setLotSize(Double lotSize) {
         this.lotSize = lotSize;
     }
 
-    public String getIsinCode()
-    {
+    public String getIsinCode() {
         return isinCode;
     }
 
-    public void setIsinCode(String isinCode)
-    {
+    public void setIsinCode(String isinCode) {
         this.isinCode = isinCode;
     }
 
-    public Double getMinPriceStep()
-    {
+    public Double getMinPriceStep() {
         return minPriceStep;
     }
 
-    public void setMinPriceStep(Double minPriceStep)
-    {
+    public void setMinPriceStep(Double minPriceStep) {
         this.minPriceStep = minPriceStep;
     }
 }

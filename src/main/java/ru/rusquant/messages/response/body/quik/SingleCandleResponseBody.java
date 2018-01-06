@@ -4,30 +4,25 @@ import ru.rusquant.data.quik.Candle;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class SingleCandleResponseBody extends ResponseBody
-{
+public class SingleCandleResponseBody extends ResponseBody {
     private Candle candle;
 
-    public SingleCandleResponseBody()
-    {
+    public SingleCandleResponseBody() {
 
     }
 
-    public SingleCandleResponseBody(Candle candle)
-    {
+    public SingleCandleResponseBody(Candle candle) {
         this.candle = candle;
     }
 
-    public Candle getCandle()
-    {
+    public Candle getCandle() {
         return candle;
     }
 
-    public void setCandle(Candle candle)
-    {
+    public void setCandle(Candle candle) {
         this.candle = candle;
     }
 }

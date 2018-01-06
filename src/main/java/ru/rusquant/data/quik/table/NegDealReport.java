@@ -12,88 +12,121 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class NegDealReport extends QuikDataObject
-{
-    /** Report number **/
+public class NegDealReport extends QuikDataObject {
+    /**
+     * Report number
+     **/
     @JsonProperty("report_num")
     private Long reportNumber;
 
-    /** Report date **/
+    /**
+     * Report date
+     **/
     @JsonProperty("report_date")
     private Long reportDate;
 
-    /** Flags **/
+    /**
+     * Flags
+     **/
     @JsonProperty("flags")
     private Integer flags;
 
-    /** User identifier **/
+    /**
+     * User identifier
+     **/
     @JsonProperty("userid")
     private String userId;
 
-    /** Firm identifier **/
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Depo account **/
+    /**
+     * Depo account
+     **/
     @JsonProperty("account")
     private String account;
 
-    /** Partner-firm identifier **/
+    /**
+     * Partner-firm identifier
+     **/
     @JsonProperty("cpfirmid")
     private String cpFirmId;
 
-    /** Partner-firm trading account **/
+    /**
+     * Partner-firm trading account
+     **/
     @JsonProperty("cpaccount")
     private String cpAccount;
 
-    /** Quantity of securities in lots **/
+    /**
+     * Quantity of securities in lots
+     **/
     @JsonProperty("qty")
     private Long qty;
 
-    /** Volume of trade in RUB **/
+    /**
+     * Volume of trade in RUB
+     **/
     @JsonProperty("value")
     private Double value;
 
-    /** Order withdraw time **/
+    /**
+     * Order withdraw time
+     **/
     @JsonProperty("withdraw_time")
     private Long withdrawTime;
 
-    /** Report type **/
+    /**
+     * Report type
+     **/
     @JsonProperty("report_type")
     private Integer reportType;
 
-    /** Report kind **/
+    /**
+     * Report kind
+     **/
     @JsonProperty("report_kind")
     private Integer reportKind;
 
-    /** Volume of trade commission in RUB **/
+    /**
+     * Volume of trade commission in RUB
+     **/
     @JsonProperty("commission")
     private Double commission;
 
-    /** Security code **/
+    /**
+     * Security code
+     **/
     @JsonProperty("sec_code")
     private String securityCode;
 
-    /** Security class code **/
+    /**
+     * Security class code
+     **/
     @JsonProperty("class_code")
     private String classCode;
 
-    /** Report time??? **/
+    /**
+     * Report time???
+     **/
     @JsonProperty("report_time")
     private Long reportTime;
 
-    /** Report date time **/
+    /**
+     * Report date time
+     **/
     @JsonProperty("report_date_time")
     private DateTime reportDateTime;
 
-    public NegDealReport()
-    {
+    public NegDealReport() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "NegDealReport: {" +
                 "reportNumber=" + reportNumber +
                 ", reportDate=" + reportDate +
@@ -116,183 +149,147 @@ public class NegDealReport extends QuikDataObject
                 '}';
     }
 
-    public Long getReportNumber()
-    {
+    public Long getReportNumber() {
         return reportNumber;
     }
 
-    public void setReportNumber(Long reportNumber)
-    {
+    public void setReportNumber(Long reportNumber) {
         this.reportNumber = reportNumber;
     }
 
-    public Long getReportDate()
-    {
+    public Long getReportDate() {
         return reportDate;
     }
 
-    public void setReportDate(Long reportDate)
-    {
+    public void setReportDate(Long reportDate) {
         this.reportDate = reportDate;
     }
 
-    public Integer getFlags()
-    {
+    public Integer getFlags() {
         return flags;
     }
 
-    public void setFlags(Integer flags)
-    {
+    public void setFlags(Integer flags) {
         this.flags = flags;
     }
 
-    public String getUserId()
-    {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId)
-    {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getAccount()
-    {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(String account)
-    {
+    public void setAccount(String account) {
         this.account = account;
     }
 
-    public String getCpFirmId()
-    {
+    public String getCpFirmId() {
         return cpFirmId;
     }
 
-    public void setCpFirmId(String cpFirmId)
-    {
+    public void setCpFirmId(String cpFirmId) {
         this.cpFirmId = cpFirmId;
     }
 
-    public String getCpAccount()
-    {
+    public String getCpAccount() {
         return cpAccount;
     }
 
-    public void setCpAccount(String cpAccount)
-    {
+    public void setCpAccount(String cpAccount) {
         this.cpAccount = cpAccount;
     }
 
-    public Long getQty()
-    {
+    public Long getQty() {
         return qty;
     }
 
-    public void setQty(Long qty)
-    {
+    public void setQty(Long qty) {
         this.qty = qty;
     }
 
-    public Double getValue()
-    {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(Double value)
-    {
+    public void setValue(Double value) {
         this.value = value;
     }
 
-    public Long getWithdrawTime()
-    {
+    public Long getWithdrawTime() {
         return withdrawTime;
     }
 
-    public void setWithdrawTime(Long withdrawTime)
-    {
+    public void setWithdrawTime(Long withdrawTime) {
         this.withdrawTime = withdrawTime;
     }
 
-    public Integer getReportType()
-    {
+    public Integer getReportType() {
         return reportType;
     }
 
-    public void setReportType(Integer reportType)
-    {
+    public void setReportType(Integer reportType) {
         this.reportType = reportType;
     }
 
-    public Integer getReportKind()
-    {
+    public Integer getReportKind() {
         return reportKind;
     }
 
-    public void setReportKind(Integer reportKind)
-    {
+    public void setReportKind(Integer reportKind) {
         this.reportKind = reportKind;
     }
 
-    public Double getCommission()
-    {
+    public Double getCommission() {
         return commission;
     }
 
-    public void setCommission(Double commission)
-    {
+    public void setCommission(Double commission) {
         this.commission = commission;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode)
-    {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public void setClassCode(String classCode)
-    {
+    public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
-    public Long getReportTime()
-    {
+    public Long getReportTime() {
         return reportTime;
     }
 
-    public void setReportTime(Long reportTime)
-    {
+    public void setReportTime(Long reportTime) {
         this.reportTime = reportTime;
     }
 
-    public DateTime getReportDateTime()
-    {
+    public DateTime getReportDateTime() {
         return reportDateTime;
     }
 
-    public void setReportDateTime(DateTime reportDateTime)
-    {
+    public void setReportDateTime(DateTime reportDateTime) {
         this.reportDateTime = reportDateTime;
     }
 }

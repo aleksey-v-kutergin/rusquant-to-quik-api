@@ -12,33 +12,38 @@ import java.util.Arrays;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OrderBook extends QuikDataObject
-{
-    /** Depth of the order book at bid. In the absence of demand, the value "0" **/
+public class OrderBook extends QuikDataObject {
+    /**
+     * Depth of the order book at bid. In the absence of demand, the value "0"
+     **/
     @JsonProperty("bid_count")
     private Long bidCount;
 
-    /** Depth of the order book at bid. In the absence of demand, the value "0" **/
+    /**
+     * Depth of the order book at bid. In the absence of demand, the value "0"
+     **/
     @JsonProperty("offer_count")
     private Long offerCount;
 
-    /** Bid-levels **/
+    /**
+     * Bid-levels
+     **/
     @JsonDeserialize(as = OrderBookLevel[].class)
     @JsonProperty("bid")
     private OrderBookLevel[] bid;
 
-    /** Ask-levels **/
+    /**
+     * Ask-levels
+     **/
     @JsonDeserialize(as = OrderBookLevel[].class)
     @JsonProperty("offer")
     private OrderBookLevel[] ask;
 
-    public OrderBook()
-    {
+    public OrderBook() {
 
     }
 
-    public OrderBook(Long bidCount, Long offerCount, OrderBookLevel[] bid, OrderBookLevel[] ask)
-    {
+    public OrderBook(Long bidCount, Long offerCount, OrderBookLevel[] bid, OrderBookLevel[] ask) {
         this.bidCount = bidCount;
         this.offerCount = offerCount;
         this.bid = bid;
@@ -46,8 +51,7 @@ public class OrderBook extends QuikDataObject
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "OrderBook: {" +
                 "bidCount=" + bidCount +
                 ", offerCount=" + offerCount +
@@ -56,43 +60,35 @@ public class OrderBook extends QuikDataObject
                 '}';
     }
 
-    public Long getBidCount()
-    {
+    public Long getBidCount() {
         return bidCount;
     }
 
-    public void setBidCount(Long bidCount)
-    {
+    public void setBidCount(Long bidCount) {
         this.bidCount = bidCount;
     }
 
-    public Long getOfferCount()
-    {
+    public Long getOfferCount() {
         return offerCount;
     }
 
-    public void setOfferCount(Long offerCount)
-    {
+    public void setOfferCount(Long offerCount) {
         this.offerCount = offerCount;
     }
 
-    public OrderBookLevel[] getBid()
-    {
+    public OrderBookLevel[] getBid() {
         return bid;
     }
 
-    public void setBid(OrderBookLevel[] bid)
-    {
+    public void setBid(OrderBookLevel[] bid) {
         this.bid = bid;
     }
 
-    public OrderBookLevel[] getAsk()
-    {
+    public OrderBookLevel[] getAsk() {
         return ask;
     }
 
-    public void setAsk(OrderBookLevel[] ask)
-    {
+    public void setAsk(OrderBookLevel[] ask) {
         this.ask = ask;
     }
 }

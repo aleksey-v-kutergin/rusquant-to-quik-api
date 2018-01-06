@@ -4,43 +4,36 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class SecurityInfoRequestBody extends RequestBody
-{
+public class SecurityInfoRequestBody extends RequestBody {
     private String classCode;
     private String securityCode;
 
-    public SecurityInfoRequestBody()
-    {
+    public SecurityInfoRequestBody() {
 
     }
 
-    public SecurityInfoRequestBody(String classCode, String securityCode)
-    {
+    public SecurityInfoRequestBody(String classCode, String securityCode) {
         this.classCode = classCode;
         this.securityCode = securityCode;
     }
 
-    public String getClassCode()
-    {
+    public String getClassCode() {
         return classCode;
     }
 
-    public void setClassCode(String classCode)
-    {
+    public void setClassCode(String classCode) {
         this.classCode = classCode;
     }
 
-    public String getSecurityCode()
-    {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode)
-    {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 }

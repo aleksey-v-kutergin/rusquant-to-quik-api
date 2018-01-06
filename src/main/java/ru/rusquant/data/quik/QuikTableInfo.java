@@ -3,46 +3,39 @@ package ru.rusquant.data.quik;
 import ru.rusquant.data.quik.types.QuikTableType;
 
 /**
- *    Information about quik table.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Information about quik table.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class QuikTableInfo extends QuikDataObject
-{
+public class QuikTableInfo extends QuikDataObject {
     private QuikTableType tableType;
     private Integer rowsCount;
 
-    public QuikTableInfo()
-    {
+    public QuikTableInfo() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "QuikTableInfo: \n\t\t{" +
                 "tableType=" + tableType +
                 ", rowsCount=" + rowsCount +
                 '}';
     }
 
-    public QuikTableType getTableType()
-    {
+    public QuikTableType getTableType() {
         return tableType;
     }
 
-    public void setTableType(QuikTableType tableType)
-    {
+    public void setTableType(QuikTableType tableType) {
         this.tableType = tableType;
     }
 
-    public Integer getRowsCount()
-    {
+    public Integer getRowsCount() {
         return rowsCount;
     }
 
-    public void setRowsCount(Integer rowsCount)
-    {
+    public void setRowsCount(Integer rowsCount) {
         this.rowsCount = rowsCount;
     }
 }

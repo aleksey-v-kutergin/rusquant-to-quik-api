@@ -4,30 +4,25 @@ import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class SubscribeQuotesResponseBody extends ResponseBody
-{
+public class SubscribeQuotesResponseBody extends ResponseBody {
     private QuotesDescriptor descriptor;
 
-    public SubscribeQuotesResponseBody()
-    {
+    public SubscribeQuotesResponseBody() {
 
     }
 
-    public SubscribeQuotesResponseBody(QuotesDescriptor descriptor)
-    {
+    public SubscribeQuotesResponseBody(QuotesDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 
-    public QuotesDescriptor getDescriptor()
-    {
+    public QuotesDescriptor getDescriptor() {
         return descriptor;
     }
 
-    public void setDescriptor(QuotesDescriptor descriptor)
-    {
+    public void setDescriptor(QuotesDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 }

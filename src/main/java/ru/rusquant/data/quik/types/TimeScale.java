@@ -6,47 +6,79 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum TimeScale
-{
-    /** Tick data **/
+public enum TimeScale {
+    /**
+     * Tick data
+     **/
     INTERVAL_TICK,
-    /** 1 minute data **/
+    /**
+     * 1 minute data
+     **/
     INTERVAL_M1,
-    /** 2 minute data **/
+    /**
+     * 2 minute data
+     **/
     INTERVAL_M2,
-    /** 3 minute data **/
+    /**
+     * 3 minute data
+     **/
     INTERVAL_M3,
-    /** 4 minute data **/
+    /**
+     * 4 minute data
+     **/
     INTERVAL_M4,
-    /** 5 minute data **/
+    /**
+     * 5 minute data
+     **/
     INTERVAL_M5,
-    /** 6 minute data **/
+    /**
+     * 6 minute data
+     **/
     INTERVAL_M6,
-    /** 10 minute data **/
+    /**
+     * 10 minute data
+     **/
     INTERVAL_M10,
-    /** 15 minute data **/
+    /**
+     * 15 minute data
+     **/
     INTERVAL_M15,
-    /** 20 minute data **/
+    /**
+     * 20 minute data
+     **/
     INTERVAL_M20,
-    /** 30 minute data **/
+    /**
+     * 30 minute data
+     **/
     INTERVAL_M30,
-    /** 1 hour data **/
+    /**
+     * 1 hour data
+     **/
     INTERVAL_H1,
-    /** 2 hour data **/
+    /**
+     * 2 hour data
+     **/
     INTERVAL_H2,
-    /** 4 hour data **/
+    /**
+     * 4 hour data
+     **/
     INTERVAL_H4,
-    /** 1 day data **/
+    /**
+     * 1 day data
+     **/
     INTERVAL_D1,
-    /** 1 week data **/
+    /**
+     * 1 week data
+     **/
     INTERVAL_W1,
-    /** 1 month data **/
+    /**
+     * 1 month data
+     **/
     INTERVAL_MN1;
 
     private static Map<Integer, TimeScale> namesMap = new HashMap<>();
 
-    static
-    {
+    static {
         namesMap.put(1, INTERVAL_M1);
         namesMap.put(2, INTERVAL_M2);
         namesMap.put(3, INTERVAL_M3);
@@ -65,46 +97,46 @@ public enum TimeScale
         namesMap.put(23200, INTERVAL_MN1);
     }
 
-    /** Serialization **/
+    /**
+     * Serialization
+     **/
     @JsonValue
-    public Integer toValue()
-    {
-        for(Map.Entry<Integer, TimeScale> entry: namesMap.entrySet())
-        {
-            if(this == entry.getValue()) { return entry.getKey(); }
+    public Integer toValue() {
+        for (Map.Entry<Integer, TimeScale> entry : namesMap.entrySet()) {
+            if (this == entry.getValue()) {
+                return entry.getKey();
+            }
         }
         return null;
     }
 
-    /** Deserialization **/
+    /**
+     * Deserialization
+     **/
     @JsonCreator
-    public static TimeScale forValue(Integer value)
-    {
-        if(value == null) return null;
+    public static TimeScale forValue(Integer value) {
+        if (value == null) return null;
         return namesMap.get(value);
     }
 
 
-    public static boolean contains(String timeScaleName)
-    {
-        for(TimeScale type : TimeScale.values())
-        {
-            if( type.toString().equalsIgnoreCase(timeScaleName) )
-            {
+    public static boolean contains(String timeScaleName) {
+        for (TimeScale type : TimeScale.values()) {
+            if (type.toString().equalsIgnoreCase(timeScaleName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String getAvailableTimeScales()
-    {
+    public static String getAvailableTimeScales() {
         String availableTimeScales = "[ ";
         int counter = 1;
-        for(TimeScale type : TimeScale.values())
-        {
+        for (TimeScale type : TimeScale.values()) {
             availableTimeScales += "\t\t" + type.toString().toUpperCase();
-            if(counter < TimeScale.values().length) { availableTimeScales += ", "; }
+            if (counter < TimeScale.values().length) {
+                availableTimeScales += ", ";
+            }
             counter++;
         }
         availableTimeScales += " ]";

@@ -4,31 +4,26 @@ import ru.rusquant.data.quik.TradingParameter;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 /**
- *   Response contains a requested trading tradingParameter data.
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Response contains a requested trading tradingParameter data.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class TradingParameterResponseBody extends ResponseBody
-{
+public class TradingParameterResponseBody extends ResponseBody {
     private TradingParameter tradingParameter;
 
-    public TradingParameterResponseBody()
-    {
+    public TradingParameterResponseBody() {
 
     }
 
-    public TradingParameterResponseBody(TradingParameter tradingParameter)
-    {
+    public TradingParameterResponseBody(TradingParameter tradingParameter) {
         this.tradingParameter = tradingParameter;
     }
 
-    public TradingParameter getTradingParameter()
-    {
+    public TradingParameter getTradingParameter() {
         return tradingParameter;
     }
 
-    public void setTradingParameter(TradingParameter tradingParameter)
-    {
+    public void setTradingParameter(TradingParameter tradingParameter) {
         this.tradingParameter = tradingParameter;
     }
 }

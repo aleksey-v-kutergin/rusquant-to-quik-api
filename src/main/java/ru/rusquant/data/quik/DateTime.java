@@ -3,12 +3,11 @@ package ru.rusquant.data.quik;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- *    Class represents Quick's datetime table.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Class represents Quick's datetime table.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class DateTime extends QuikDataObject
-{
+public class DateTime extends QuikDataObject {
     private Integer day;
     private Integer hour;
     private Integer mcs;
@@ -22,114 +21,92 @@ public class DateTime extends QuikDataObject
     @JsonProperty("week_day")
     private Integer weekDay;
 
-    public DateTime()
-    {
+    public DateTime() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return day + "." + month + "." + year + " " + hour + ":" + min + ":" + sec + "." + ms + "/" + mcs;
     }
 
-    public Integer getDay()
-    {
+    public Integer getDay() {
         return day;
     }
 
-    public void setDay(Integer day)
-    {
+    public void setDay(Integer day) {
         this.day = day;
     }
 
-    public Integer getHour()
-    {
+    public Integer getHour() {
         return hour;
     }
 
-    public void setHour(Integer hour)
-    {
+    public void setHour(Integer hour) {
         this.hour = hour;
     }
 
-    public Integer getMcs()
-    {
+    public Integer getMcs() {
         return mcs;
     }
 
-    public void setMcs(Integer mcs)
-    {
+    public void setMcs(Integer mcs) {
         this.mcs = mcs;
     }
 
-    public Integer getMin()
-    {
+    public Integer getMin() {
         return min;
     }
 
-    public void setMin(Integer min)
-    {
+    public void setMin(Integer min) {
         this.min = min;
     }
 
-    public Integer getMonth()
-    {
+    public Integer getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month)
-    {
+    public void setMonth(Integer month) {
         this.month = month;
     }
 
-    public Integer getMs()
-    {
+    public Integer getMs() {
         return ms;
     }
 
-    public void setMs(Integer ms)
-    {
+    public void setMs(Integer ms) {
         this.ms = ms;
     }
 
-    public Integer getSec()
-    {
+    public Integer getSec() {
         return sec;
     }
 
-    public void setSec(Integer sec)
-    {
+    public void setSec(Integer sec) {
         this.sec = sec;
     }
 
-    public Integer getWeekDay()
-    {
+    public Integer getWeekDay() {
         return weekDay;
     }
 
-    public void setWeekDay(Integer weekDay)
-    {
+    public void setWeekDay(Integer weekDay) {
         this.weekDay = weekDay;
     }
 
-    public Integer getYear()
-    {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(Integer year)
-    {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
-    public Integer getCount()
-    {
+    public Integer getCount() {
         return count;
     }
 
-    public void setCount(Integer count)
-    {
+    public void setCount(Integer count) {
         this.count = count;
     }
 }

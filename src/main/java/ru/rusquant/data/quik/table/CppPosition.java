@@ -11,40 +11,49 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CppPosition extends QuikDataObject
-{
-    /** Firm identifier **/
+public class CppPosition extends QuikDataObject {
+    /**
+     * Firm identifier
+     **/
     @JsonProperty("firmid")
     private String firmId;
 
-    /** Identifier of the settlement account / code in the clearing organization **/
+    /**
+     * Identifier of the settlement account / code in the clearing organization
+     **/
     @JsonProperty("bank_acc_id")
     private String bankAccountId;
 
-    /** Settlement date **/
+    /**
+     * Settlement date
+     **/
     @JsonProperty("settle_date")
     private Long settlementDate;
 
-    /** Net position **/
+    /**
+     * Net position
+     **/
     @JsonProperty("netto")
     private Double netPosition;
 
-    /** Debit **/
+    /**
+     * Debit
+     **/
     @JsonProperty("debit")
     private Double debit;
 
-    /** Credit **/
+    /**
+     * Credit
+     **/
     @JsonProperty("credit")
     private Double credit;
 
-    public CppPosition()
-    {
+    public CppPosition() {
 
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "CppPosition: {" +
                 "firmId='" + firmId + '\'' +
                 ", bankAccountId='" + bankAccountId + '\'' +
@@ -55,63 +64,51 @@ public class CppPosition extends QuikDataObject
                 '}';
     }
 
-    public String getFirmId()
-    {
+    public String getFirmId() {
         return firmId;
     }
 
-    public void setFirmId(String firmId)
-    {
+    public void setFirmId(String firmId) {
         this.firmId = firmId;
     }
 
-    public String getBankAccountId()
-    {
+    public String getBankAccountId() {
         return bankAccountId;
     }
 
-    public void setBankAccountId(String bankAccountId)
-    {
+    public void setBankAccountId(String bankAccountId) {
         this.bankAccountId = bankAccountId;
     }
 
-    public Long getSettlementDate()
-    {
+    public Long getSettlementDate() {
         return settlementDate;
     }
 
-    public void setSettlementDate(Long settlementDate)
-    {
+    public void setSettlementDate(Long settlementDate) {
         this.settlementDate = settlementDate;
     }
 
-    public Double getNetPosition()
-    {
+    public Double getNetPosition() {
         return netPosition;
     }
 
-    public void setNetPosition(Double netPosition)
-    {
+    public void setNetPosition(Double netPosition) {
         this.netPosition = netPosition;
     }
 
-    public Double getDebit()
-    {
+    public Double getDebit() {
         return debit;
     }
 
-    public void setDebit(Double debit)
-    {
+    public void setDebit(Double debit) {
         this.debit = debit;
     }
 
-    public Double getCredit()
-    {
+    public Double getCredit() {
         return credit;
     }
 
-    public void setCredit(Double credit)
-    {
+    public void setCredit(Double credit) {
         this.credit = credit;
     }
 }

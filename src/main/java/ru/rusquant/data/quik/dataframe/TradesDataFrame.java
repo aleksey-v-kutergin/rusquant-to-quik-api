@@ -5,14 +5,11 @@ package ru.rusquant.data.quik.dataframe;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
-public class TradesDataFrame extends QuikDataFrame
-{
+public class TradesDataFrame extends QuikDataFrame {
     @Override
-    public String toString()
-    {
+    public String toString() {
         String str = "Trades: ";
-        for(int i = 0; i < records.size(); i++)
-        {
+        for (int i = 0; i < records.size(); i++) {
             str += "\n\t" + records.get(i);
         }
         return str;

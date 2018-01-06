@@ -5,32 +5,27 @@ import ru.rusquant.data.quik.Transaction;
 import ru.rusquant.messages.request.body.RequestBody;
 
 /**
- *   Single transaction request
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Single transaction request
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class TransactionRequestBody extends RequestBody
-{
+public class TransactionRequestBody extends RequestBody {
     Transaction transaction;
 
-    public TransactionRequestBody()
-    {
+    public TransactionRequestBody() {
 
     }
 
-    public TransactionRequestBody(Transaction transaction)
-    {
+    public TransactionRequestBody(Transaction transaction) {
         this.transaction = transaction;
     }
 
-    public Transaction getTransaction()
-    {
+    public Transaction getTransaction() {
         return transaction;
     }
 
-    public void setTransaction(Transaction transaction)
-    {
+    public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
     }
 }

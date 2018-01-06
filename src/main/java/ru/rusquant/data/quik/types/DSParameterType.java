@@ -2,12 +2,11 @@ package ru.rusquant.data.quik.types;
 
 
 /**
- *    List of available parameters of CreateDataSource() function from QLUA specification.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * List of available parameters of CreateDataSource() function from QLUA specification.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public enum DSParameterType
-{
+public enum DSParameterType {
     LOTSIZE,                // Размер лота
     BID,                    // Лучшая цена спроса
     BIDDEPTH,               // Спрос по лучшей цене
@@ -60,26 +59,23 @@ public enum DSParameterType
     SETTLEPRICE,            // Расчетная цена
     PERCENTRATE;            // Агрегированная ставка
 
-    public static boolean contains(String parameter)
-    {
-        for(DSParameterType type : DSParameterType.values())
-        {
-            if( type.toString().equalsIgnoreCase(parameter) )
-            {
+    public static boolean contains(String parameter) {
+        for (DSParameterType type : DSParameterType.values()) {
+            if (type.toString().equalsIgnoreCase(parameter)) {
                 return true;
             }
         }
         return false;
     }
 
-    public static String getAvailableDSParameters()
-    {
+    public static String getAvailableDSParameters() {
         String availableDSParameters = "[ ";
         int counter = 1;
-        for(DSParameterType type : DSParameterType.values())
-        {
+        for (DSParameterType type : DSParameterType.values()) {
             availableDSParameters += "\t\t" + type.toString().toUpperCase();
-            if(counter < DSParameterType.values().length) { availableDSParameters += ", "; }
+            if (counter < DSParameterType.values().length) {
+                availableDSParameters += ", ";
+            }
             counter++;
         }
         availableDSParameters += " ]";

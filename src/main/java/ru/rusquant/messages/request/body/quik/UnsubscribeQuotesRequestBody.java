@@ -6,31 +6,26 @@ import ru.rusquant.messages.request.body.RequestBody;
 
 
 /**
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
 @JsonAutoDetect
-public class UnsubscribeQuotesRequestBody extends RequestBody
-{
+public class UnsubscribeQuotesRequestBody extends RequestBody {
     private QuotesDescriptor descriptor;
 
-    public UnsubscribeQuotesRequestBody()
-    {
+    public UnsubscribeQuotesRequestBody() {
 
     }
 
-    public UnsubscribeQuotesRequestBody(QuotesDescriptor descriptor)
-    {
+    public UnsubscribeQuotesRequestBody(QuotesDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 
-    public QuotesDescriptor getDescriptor()
-    {
+    public QuotesDescriptor getDescriptor() {
         return descriptor;
     }
 
-    public void setDescriptor(QuotesDescriptor descriptor)
-    {
+    public void setDescriptor(QuotesDescriptor descriptor) {
         this.descriptor = descriptor;
     }
 }
