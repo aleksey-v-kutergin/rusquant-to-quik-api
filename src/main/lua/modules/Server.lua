@@ -18,7 +18,7 @@ package.path = package.path ..';./libs/oop/?.lua';
 package.path = package.path ..';./libs/luasocket/lua/?.lua';
 
 -- Where to find dlls
-package.cpath = package.cpath .. ';./libs/ffi/?.dll;';
+package.cpath = package.cpath .. ';./libs/ffi/x64/?.dll;';
 package.cpath = package.cpath .. ';./libs/luasocket/?.dll';
 package.cpath = package.cpath .. ';./libs/luasocket/mime/?.dll';
 package.cpath = package.cpath .. ';./libs/luasocket/socket/?.dll';
