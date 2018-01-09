@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class IsSubscribeQuotesRequestBody extends RequestBody {
+
     private QuotesDescriptor descriptor;
 
     public IsSubscribeQuotesRequestBody() {

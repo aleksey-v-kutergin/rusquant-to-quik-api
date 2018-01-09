@@ -11,6 +11,7 @@ import ru.rusquant.messages.request.body.RequestSubject;
  */
 @JsonAutoDetect
 public class GETRequest extends Request {
+
     public GETRequest() {
 
     }
@@ -18,4 +19,5 @@ public class GETRequest extends Request {
     public GETRequest(Long id, RequestSubject subject, RequestBody body) {
         super(id, RequestType.GET, subject, body);
     }
+
 }

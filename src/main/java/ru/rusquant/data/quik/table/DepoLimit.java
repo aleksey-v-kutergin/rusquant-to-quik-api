@@ -10,6 +10,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class DepoLimit extends QuikDataObject {
+
     /**
      * Security code
      **/

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Company: Rusquant
  */
 public class CodesArray extends QuikDataObject {
+
     @JsonProperty("separator")
     private String separator;
 
@@ -54,5 +55,6 @@ public class CodesArray extends QuikDataObject {
      * Created by kutergin on 27.11.2017.
      */
     public static class LongResult extends QuikDataObject {
+
     }
 }

@@ -7,6 +7,7 @@ package ru.rusquant.data.quik.descriptor;
  * Company: Rusquant
  */
 public class ParameterDescriptor extends Descriptor {
+
     private String parameterName;
 
     public ParameterDescriptor() {

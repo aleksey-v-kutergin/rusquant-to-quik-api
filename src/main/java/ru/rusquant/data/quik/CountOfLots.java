@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Company: Rusquant
  */
 public class CountOfLots extends QuikDataObject {
+
     @JsonProperty("qty")
     private Long qty;
 

@@ -4,6 +4,7 @@ import ru.rusquant.data.quik.InfoParameter;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 public class InfoParameterResponseBody extends ResponseBody {
+
     private InfoParameter infoParameter;
 
     public InfoParameterResponseBody() {

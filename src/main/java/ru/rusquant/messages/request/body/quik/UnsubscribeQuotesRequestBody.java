@@ -11,6 +11,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class UnsubscribeQuotesRequestBody extends RequestBody {
+
     private QuotesDescriptor descriptor;
 
     public UnsubscribeQuotesRequestBody() {

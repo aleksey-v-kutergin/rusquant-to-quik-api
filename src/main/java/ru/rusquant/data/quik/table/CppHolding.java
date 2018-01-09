@@ -12,6 +12,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CppHolding extends QuikDataObject {
+
     /**
      * Identifier for firm
      **/

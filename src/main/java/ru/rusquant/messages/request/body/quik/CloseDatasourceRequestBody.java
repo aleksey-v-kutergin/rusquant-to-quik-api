@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class CloseDatasourceRequestBody extends RequestBody {
+
     private DatasourceDescriptor descriptor;
 
     public CloseDatasourceRequestBody() {

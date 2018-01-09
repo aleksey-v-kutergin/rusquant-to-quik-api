@@ -31,6 +31,7 @@ import ru.rusquant.data.quik.descriptor.QuotesDescriptor;
  * Company: Rusquant
  */
 public interface J2QuikAPI {
+
     /**====================== Service function  ======================**/
 
     /**

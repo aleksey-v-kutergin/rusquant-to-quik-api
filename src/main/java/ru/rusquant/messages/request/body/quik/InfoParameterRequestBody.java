@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class InfoParameterRequestBody extends RequestBody {
+
     private InfoParamType infoParamType;
 
     public InfoParameterRequestBody() {

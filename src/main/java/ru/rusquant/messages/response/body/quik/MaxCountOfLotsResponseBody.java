@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class MaxCountOfLotsResponseBody extends ResponseBody {
+
     private CountOfLots countOfLots;
 
     public MaxCountOfLotsResponseBody() {

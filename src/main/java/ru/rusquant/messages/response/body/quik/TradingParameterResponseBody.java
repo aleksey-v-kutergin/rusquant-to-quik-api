@@ -9,6 +9,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class TradingParameterResponseBody extends ResponseBody {
+
     private TradingParameter tradingParameter;
 
     public TradingParameterResponseBody() {

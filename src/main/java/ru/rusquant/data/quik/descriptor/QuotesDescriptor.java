@@ -7,6 +7,7 @@ package ru.rusquant.data.quik.descriptor;
  * Company: Rusquant
  */
 public class QuotesDescriptor extends Descriptor {
+
     public QuotesDescriptor() {
 
     }

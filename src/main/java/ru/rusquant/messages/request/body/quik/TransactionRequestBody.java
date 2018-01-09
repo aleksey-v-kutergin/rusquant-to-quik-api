@@ -11,6 +11,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class TransactionRequestBody extends RequestBody {
+
     Transaction transaction;
 
     public TransactionRequestBody() {

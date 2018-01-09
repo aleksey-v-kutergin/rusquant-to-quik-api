@@ -6,6 +6,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class BooleanResult extends QuikDataObject {
+
     private Boolean value = Boolean.FALSE;
 
     public BooleanResult() {

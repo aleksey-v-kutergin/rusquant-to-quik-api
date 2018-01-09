@@ -9,6 +9,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class SecurityInfoRequestBody extends RequestBody {
+
     private String classCode;
     private String securityCode;
 

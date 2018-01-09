@@ -12,6 +12,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountPosition extends QuikDataObject {
+
     /**
      * Company ID
      **/

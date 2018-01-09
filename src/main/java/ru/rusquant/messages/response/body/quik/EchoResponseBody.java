@@ -4,6 +4,7 @@ import ru.rusquant.data.quik.QuikEcho;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 public class EchoResponseBody extends ResponseBody {
+
     private QuikEcho echo;
 
     public EchoResponseBody() {

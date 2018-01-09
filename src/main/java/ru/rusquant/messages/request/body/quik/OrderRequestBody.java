@@ -9,6 +9,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class OrderRequestBody extends RequestBody {
+
     private Long orderNumber;
 
     public OrderRequestBody() {

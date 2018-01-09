@@ -36,6 +36,7 @@ public class TimingManager {
      * Class-container for time-info based on response data
      **/
     private class TimingDataRow {
+
         public TimingDataRow(String type, String subject, String status) {
             this.type = type;
             this.subject = subject;
@@ -54,6 +55,7 @@ public class TimingManager {
 
 
     private class RefreshStatisticsTask implements Runnable {
+
         List<TimingDataRow> sample;
 
         public RefreshStatisticsTask(List<TimingDataRow> sample) {

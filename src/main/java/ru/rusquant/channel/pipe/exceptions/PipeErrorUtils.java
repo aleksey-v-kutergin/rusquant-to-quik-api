@@ -10,6 +10,7 @@ import java.io.IOException;
  * Company: Rusquant
  */
 public class PipeErrorUtils {
+
     public static String getErrorMessageByErrorCode(PipeErrorSource source, String pipeName, int errorCode) {
         switch (source) {
             case CONNECT: {
@@ -135,4 +136,5 @@ public class PipeErrorUtils {
             }
         }
     }
+
 }

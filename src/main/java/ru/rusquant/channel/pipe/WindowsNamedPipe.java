@@ -132,7 +132,6 @@ public class WindowsNamedPipe extends DataTransferChannel {
             lastError = KERNEL32_INSTANCE.GetLastError();
             throw PipeErrorUtils.getErrorByErrorCode(PipeErrorSource.READ, pipeName, lastError);
         }
-
         return null;
     }
 }

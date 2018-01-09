@@ -6,6 +6,7 @@ package ru.rusquant.data.mql;
  * Company: Rusquant
  */
 public class MqlEcho extends MqlDataObject {
+
     private String echoAnswer;
 
     public MqlEcho() {

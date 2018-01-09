@@ -8,6 +8,7 @@ import ru.rusquant.data.quik.types.QuikTableType;
  * Company: Rusquant
  */
 public class QuikTableInfo extends QuikDataObject {
+
     private QuikTableType tableType;
     private Integer rowsCount;
 

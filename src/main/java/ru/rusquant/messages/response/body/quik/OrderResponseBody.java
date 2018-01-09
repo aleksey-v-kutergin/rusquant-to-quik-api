@@ -4,6 +4,7 @@ import ru.rusquant.data.quik.table.Order;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 public class OrderResponseBody extends ResponseBody {
+
     private Order order;
 
     public OrderResponseBody() {

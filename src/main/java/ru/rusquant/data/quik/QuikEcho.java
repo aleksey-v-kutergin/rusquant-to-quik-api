@@ -6,6 +6,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class QuikEcho extends QuikDataObject {
+
     private String echoAnswer;
 
     public QuikEcho() {

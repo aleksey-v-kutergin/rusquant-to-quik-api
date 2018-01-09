@@ -9,6 +9,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class DepoRequestBody extends RequestBody {
+
     private String clientCode;
     private String firmId;
     private String securityCode;

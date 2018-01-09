@@ -14,6 +14,7 @@ import ru.rusquant.data.quik.types.TradingPeriodType;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AnonymousTrade extends QuikDataObject {
+
     /**
      * Number of trade
      **/

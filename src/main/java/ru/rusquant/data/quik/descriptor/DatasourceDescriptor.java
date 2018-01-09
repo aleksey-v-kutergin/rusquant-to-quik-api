@@ -9,6 +9,7 @@ import ru.rusquant.data.quik.types.TimeScale;
  * Company: Rusquant
  */
 public class DatasourceDescriptor extends Descriptor {
+
     private TimeScale interval;
     private DSParameterType parameter;
 

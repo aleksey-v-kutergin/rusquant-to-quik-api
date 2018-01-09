@@ -65,4 +65,5 @@ import ru.rusquant.data.quik.table.*;
         @JsonSubTypes.Type(value = ErrorObject.class, name = "ErrorObject")
 })
 public abstract class QuikDataObject {
+
 }

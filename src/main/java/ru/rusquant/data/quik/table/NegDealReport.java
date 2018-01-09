@@ -13,6 +13,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class NegDealReport extends QuikDataObject {
+
     /**
      * Report number
      **/

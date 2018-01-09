@@ -6,6 +6,7 @@ package ru.rusquant.data.quik.dataframe;
  * Company: Rusquant
  */
 public class TradesDataFrame extends QuikDataFrame {
+
     @Override
     public String toString() {
         String str = "Trades: ";

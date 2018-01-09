@@ -6,6 +6,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class ErrorObject extends QuikDataObject {
+
     private String errorMessage;
 
     public ErrorObject() {

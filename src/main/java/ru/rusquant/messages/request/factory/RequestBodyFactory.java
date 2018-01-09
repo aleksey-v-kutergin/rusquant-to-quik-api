@@ -19,6 +19,7 @@ import java.util.List;
  * Company: Rusquant
  */
 public class RequestBodyFactory {
+
     public RequestBody createRequestBody(RequestSubject subject, List<?> args) {
         switch (subject) {
             case CONNECTION_SATE: {
@@ -493,4 +494,5 @@ public class RequestBodyFactory {
         validateMultipleArgs(args, 4);
         validateStringArgs(args, "money");
     }
+
 }

@@ -10,6 +10,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class TradesResponseBody extends ResponseBody {
+
     private TradesDataFrame tradesDataFrame;
 
     public TradesResponseBody() {

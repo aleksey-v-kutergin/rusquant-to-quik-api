@@ -12,6 +12,7 @@ import java.util.List;
  * Created by kutergin on 28.09.2016.
  */
 public class RequestFactory {
+
     /**
      * Unique id for request within session.
      **/

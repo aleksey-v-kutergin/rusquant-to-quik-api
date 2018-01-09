@@ -4,6 +4,7 @@ import ru.rusquant.data.quik.ConnectionState;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 public class ConnectionSateResponseBody extends ResponseBody {
+
     private ConnectionState connectionState;
 
     public ConnectionSateResponseBody() {

@@ -15,6 +15,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class Descriptor extends QuikDataObject {
+
     /**
      * According to Fengshui, the identifier should be generated on the server when caching a subscription to a server resource.
      * However, hashing in lua is difficult ... Therefore, as the identifier of the subscription in the cache,

@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TradeDate extends QuikDataObject {
+
     /**
      * Trade date in DD.MM.YYYY
      **/

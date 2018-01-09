@@ -10,6 +10,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class Depo extends QuikDataObject {
+
     /**
      * The value of securities blocked for purchase
      **/

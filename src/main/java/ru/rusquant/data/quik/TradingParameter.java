@@ -12,6 +12,7 @@ import ru.rusquant.data.quik.types.ParameterDataType;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TradingParameter extends QuikDataObject {
+
     /**
      * The data type of the parameter used in the "Current Bidding" table.
      * The possible values are:

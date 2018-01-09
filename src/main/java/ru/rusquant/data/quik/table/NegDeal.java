@@ -11,6 +11,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class NegDeal extends QuikDataObject {
+
     /**
      * Neg deal number
      **/

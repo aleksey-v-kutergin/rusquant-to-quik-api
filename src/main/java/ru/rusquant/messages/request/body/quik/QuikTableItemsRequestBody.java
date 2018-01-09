@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class QuikTableItemsRequestBody extends RequestBody {
+
     private QuikTableType tableType;
 
     public QuikTableItemsRequestBody() {

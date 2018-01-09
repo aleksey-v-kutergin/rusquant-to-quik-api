@@ -28,6 +28,7 @@ import java.util.List;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class QuikDataFrame extends QuikDataObject {
+
     @JsonDeserialize(as = ArrayList.class)
     protected List<? extends QuikDataObject> records = new ArrayList<>();
 

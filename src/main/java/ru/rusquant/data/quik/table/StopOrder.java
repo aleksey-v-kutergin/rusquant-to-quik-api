@@ -11,6 +11,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class StopOrder extends QuikDataObject {
+
     /**
      * Registration number of the stop request on the QUIK server
      **/

@@ -8,6 +8,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class ConnectionState extends QuikDataObject {
+
     private Integer isConnected;
 
     public ConnectionState() {

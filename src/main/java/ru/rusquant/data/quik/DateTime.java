@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Company: Rusquant
  */
 public class DateTime extends QuikDataObject {
+
     private Integer day;
     private Integer hour;
     private Integer mcs;

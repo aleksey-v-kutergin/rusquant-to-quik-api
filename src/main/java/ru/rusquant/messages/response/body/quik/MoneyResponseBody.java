@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class MoneyResponseBody extends ResponseBody {
+
     private Money money;
 
     public MoneyResponseBody() {

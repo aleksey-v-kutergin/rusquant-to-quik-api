@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class TradingParameterRequestBody extends RequestBody {
+
     private String classCode;
     private String securityCode;
     private ParameterType parameter;

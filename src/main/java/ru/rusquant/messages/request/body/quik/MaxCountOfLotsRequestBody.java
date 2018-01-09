@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class MaxCountOfLotsRequestBody extends RequestBody {
+
     private String classCode;
     private String securityCode;
     private String clientCode;

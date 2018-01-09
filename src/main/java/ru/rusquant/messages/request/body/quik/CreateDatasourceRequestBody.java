@@ -11,6 +11,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class CreateDatasourceRequestBody extends RequestBody {
+
     private Long id;
     private String classCode;
     private String securityCode;

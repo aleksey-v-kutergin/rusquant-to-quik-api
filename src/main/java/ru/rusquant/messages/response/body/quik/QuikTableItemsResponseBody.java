@@ -9,6 +9,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class QuikTableItemsResponseBody extends ResponseBody {
+
     private QuikDataFrame items;
 
     public QuikTableItemsResponseBody() {

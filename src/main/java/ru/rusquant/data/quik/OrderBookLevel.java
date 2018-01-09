@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderBookLevel extends QuikDataObject {
+
     /**
      * Number of the price level starting form mid
      **/

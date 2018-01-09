@@ -6,6 +6,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class LongResult extends QuikDataObject {
+
     private Long value = 0L;
 
     public LongResult() {

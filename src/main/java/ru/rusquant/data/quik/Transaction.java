@@ -11,6 +11,7 @@ import ru.rusquant.data.quik.types.*;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Transaction extends QuikDataObject {
+
     @JsonProperty("TRANS_ID")
     private Long transId;
     /**

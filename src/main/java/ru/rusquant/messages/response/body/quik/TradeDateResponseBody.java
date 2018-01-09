@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class TradeDateResponseBody extends ResponseBody {
+
     private TradeDate tradeDate;
 
     public TradeDateResponseBody() {

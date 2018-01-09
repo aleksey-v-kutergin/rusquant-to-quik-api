@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class SingleCandleRequestBody extends RequestBody {
+
     private DatasourceDescriptor descriptor;
     private Long candleIndex;
 

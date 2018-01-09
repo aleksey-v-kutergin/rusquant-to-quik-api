@@ -4,6 +4,7 @@ import ru.rusquant.data.quik.QuikDataObject;
 import ru.rusquant.messages.response.body.ResponseBody;
 
 public class QuikTableItemResponseBody extends ResponseBody {
+
     private QuikDataObject item;
 
     public QuikTableItemResponseBody() {

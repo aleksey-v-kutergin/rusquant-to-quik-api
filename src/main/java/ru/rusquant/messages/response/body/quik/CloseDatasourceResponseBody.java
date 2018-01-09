@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class CloseDatasourceResponseBody extends ResponseBody {
+
     private BooleanResult result;
 
     public CloseDatasourceResponseBody() {

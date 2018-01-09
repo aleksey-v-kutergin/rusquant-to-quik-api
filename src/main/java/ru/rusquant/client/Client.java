@@ -204,14 +204,17 @@ public class Client {
      * In such situations client aborts all operations, shut down the channel and clean channel descriptor, notify at api's level about error.
      **/
     private class MessageGrinder extends Thread {
+
         private static final String END_OF_SESSION_MESSAGE = "CLIENT_OFF";
+        private static final int WRITE_MODE = 1;
+        private static final int READ_MODE = 2;
 
         /**
          * Client switches between two modes:
          * 1 - writing message to sever
          * 2 - reading answer from server
          **/
-        private int clientMode = 1;
+        private int clientMode = MessageGrinder.WRITE_MODE;
 
         private boolean isInterrupted = false;
 
@@ -236,7 +239,6 @@ public class Client {
         public synchronized Boolean isEmergencyAborted() {
             return isEmergencyAborted;
         }
-
 
         public synchronized Exception getError() {
             return new Exception(error);
@@ -285,7 +287,7 @@ public class Client {
             if (rawJSONRequest != null && !rawJSONRequest.isEmpty()) {
                 writeMessage(rawJSONRequest);
                 isLastResponseReceived = Boolean.FALSE;
-                clientMode = 2;
+                clientMode = MessageGrinder.READ_MODE;
             }
 
             return request;
@@ -300,7 +302,7 @@ public class Client {
                     response.setTimeOfReceiptOfResponseAtClient(System.currentTimeMillis());
                     responses.put(response);
                     isLastResponseReceived = Boolean.TRUE;
-                    clientMode = 1;
+                    clientMode = MessageGrinder.WRITE_MODE;
                 }
             }
         }
@@ -337,9 +339,9 @@ public class Client {
             try {
                 while (needContinueWork()) {
                     try {
-                        if (clientMode == 1) {
+                        if (clientMode == MessageGrinder.WRITE_MODE) {
                             request = executeWriteStep();
-                        } else if (clientMode == 2) {
+                        } else if (clientMode == MessageGrinder.READ_MODE) {
                             executeReadStep(request);
                         }
                     } catch (InterruptedException e) {

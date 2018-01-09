@@ -9,6 +9,7 @@ import org.apache.commons.lang.exception.ExceptionUtils;
  * Company: Rusquant
  */
 public class MessageGrinderEmergencyAbortException extends RuntimeException {
+
     public MessageGrinderEmergencyAbortException(String message, Throwable cause) {
         super(message, cause);
     }

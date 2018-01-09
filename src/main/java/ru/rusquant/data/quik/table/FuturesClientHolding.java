@@ -10,6 +10,7 @@ import ru.rusquant.data.quik.QuikDataObject;
  * Company: Rusquant
  */
 public class FuturesClientHolding extends QuikDataObject {
+
     /**
      * Firm identifier
      **/

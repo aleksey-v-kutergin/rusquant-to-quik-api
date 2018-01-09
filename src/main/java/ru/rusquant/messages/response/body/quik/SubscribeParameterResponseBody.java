@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class SubscribeParameterResponseBody extends ResponseBody {
+
     private ParameterDescriptor descriptor;
 
     public SubscribeParameterResponseBody() {

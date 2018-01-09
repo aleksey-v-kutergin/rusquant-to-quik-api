@@ -10,6 +10,7 @@ import ru.rusquant.messages.request.body.RequestBody;
  */
 @JsonAutoDetect
 public class UnsubscribeParameterRequestBody extends RequestBody {
+
     private ParameterDescriptor descriptor;
 
     public UnsubscribeParameterRequestBody() {

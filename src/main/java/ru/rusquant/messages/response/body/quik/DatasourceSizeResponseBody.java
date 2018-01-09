@@ -8,6 +8,7 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Company: Rusquant
  */
 public class DatasourceSizeResponseBody extends ResponseBody {
+
     private LongResult result;
 
     public DatasourceSizeResponseBody() {

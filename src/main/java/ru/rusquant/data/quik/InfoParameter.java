@@ -6,6 +6,7 @@ package ru.rusquant.data.quik;
  * Company: Rusquant
  */
 public class InfoParameter extends QuikDataObject {
+
     private String parameterName;
     private String parameterValue;
 

@@ -13,6 +13,7 @@ import java.util.Arrays;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderBook extends QuikDataObject {
+
     /**
      * Depth of the order book at bid. In the absence of demand, the value "0"
      **/
