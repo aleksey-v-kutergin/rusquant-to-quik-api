@@ -13,6 +13,7 @@ local QuikDataManager = class("QuikDataManager");
 
     -- Static fields:
     QuikDataManager.static.JAVA_CLASS_FIELD = "@class";
+    QuikDataManager.static.MAX_RANGE_SIZE = 10;
 
     -- Private fields:
     local _logger;
@@ -1052,46 +1053,79 @@ local QuikDataManager = class("QuikDataManager");
     end;
 
 
-    function QuikDataManager : getTableItems(tableName)
-        local result ;
+    function QuikDataManager : getTableItems(tableName, firstIndex, lastIndex)
+        local result;
+        local error;
         local itemClass = TABLE_NAME_TO_JAVA_ITEM_CLASS_MAP[tableName];
 
         if itemClass ~= nil then
-
-            local dataFrame = {};
-            dataFrame[QuikDataManager.JAVA_CLASS_FIELD] = "QuikDataFrame";
-            dataFrame["records"] = {};
-
             local rowsCount = getNumberOf(tableName);
-            for i = 0, (rowsCount - 1), 1 do
-                local item = getItem(tableName, i);
-                if tableName == "client_codes" then
-                    -- In this case item is string, containing code of the client with index itemIndex
-                    local clientCode = item;
-                    item = {};
-                    item["code"] = clientCode;
-                    item[QuikDataManager.JAVA_CLASS_FIELD] = itemClass;
-                else
-                    for key, value in pairs(item) do
-                        if _isDateTime(self, value) then
-                            value[QuikDataManager.JAVA_CLASS_FIELD] = "DateTime";
-                        elseif type(value) == "string" then
-                            item[key] = value:gsub('"','');
-                        end;
-                    end;
-                    item[QuikDataManager.JAVA_CLASS_FIELD] = itemClass;
+            local isValidFirstIndex = firstIndex >= 0;
+            local isValidLastIndex = lastIndex <= (rowsCount - 1);
+            local isValidRange = isValidFirstIndex == true and isValidLastIndex == true;
+            isValidRange = isValidRange and (firstIndex <= lastIndex);
+
+            if isValidRange == true then
+                local dataFrame = {};
+                dataFrame[QuikDataManager.JAVA_CLASS_FIELD] = "QuikDataFrame";
+                dataFrame["records"] = {};
+
+                local isValidRangeSize = ( (lastIndex + 1) - firstIndex ) <= QuikDataManager.MAX_RANGE_SIZE;
+                local rangeEnd = lastIndex;
+                if isValidRangeSize == false then
+                    rangeEnd = firstIndex + (QuikDataManager.MAX_RANGE_SIZE - 1);
                 end;
-                _logger: debug("\nITEM: " .. _jsonParser: encode_pretty(item));
-                dataFrame.records[i + 1] = item;
+
+                for i = 0, rangeEnd, 1 do
+                    local item = getItem(tableName, i);
+                    if tableName == "client_codes" then
+                        -- In this case item is string, containing code of the client with index itemIndex
+                        local clientCode = item;
+                        item = {};
+                        item["code"] = clientCode;
+                        item[QuikDataManager.JAVA_CLASS_FIELD] = itemClass;
+                    else
+                        for key, value in pairs(item) do
+                            if _isDateTime(self, value) then
+                                value[QuikDataManager.JAVA_CLASS_FIELD] = "DateTime";
+                            elseif type(value) == "string" then
+                                item[key] = value:gsub('"','');
+                            end;
+                        end;
+                        item[QuikDataManager.JAVA_CLASS_FIELD] = itemClass;
+                    end;
+                    _logger: debug("\nITEM: " .. _jsonParser: encode_pretty(item));
+                    dataFrame.records[i + 1] = item;
+                end;
+                result = _createResult(self, true, dataFrame, nil);
+            elseif isValidFirstIndex == false and isValidLastIndex == false then
+                error = "Invalid range! First and last index both have invalid values. " ..
+                        "First index has to be greater then or equal to 0! " ..
+                        "Last index has to be less or equal then number of rows - 1. " ..
+                        " Currently, table: " .. tableName .. " contains only " .. rowsCount .. " rows.";
+                result = _createResult(self, false, nil, error);
+            elseif isValidFirstIndex == false then
+                error = "First index out of range! First index has to be greater then or equal to 0!";
+                result = _createResult(self, false, nil, error);
+            elseif isValidLastIndex == false then
+                error = "Last index out of range! " ..
+                        "Last index has to be less or equal then number of rows - 1. " ..
+                        " Currently, table: " .. tableName .. " contains only " .. rowsCount .. " rows.";
+                result = _createResult(self, false, nil, error);
+            elseif firstIndex <= lastIndex then
+                error = "Invalid range! First index is greater then last index!";
+                result = _createResult(self, false, nil, error);
             end;
-            result = _createResult(self, true, dataFrame, nil);
+
         else
             result = _createResult(self, false, nil, "UNSUPPORTED TABLE!");
         end;
 
         _logger: debug("CALL OF getTableItems( tableName = " .. tableName
-                                                            .. ") FINISHED WITH RESULT: "
-                                                            .. _jsonParser: encode_pretty(result));
+                                                                .. ", index = " .. firstIndex
+                                                                .. ", index = " .. lastIndex
+                                                                .. ") FINISHED WITH RESULT: "
+                                                                .. _jsonParser: encode_pretty(result));
         return result;
     end;
 

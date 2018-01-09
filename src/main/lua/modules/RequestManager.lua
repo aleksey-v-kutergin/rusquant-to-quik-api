@@ -165,8 +165,13 @@ local RequestManager = class("RequestManager");
 
     local _createTableItemsResponse = function(self, request)
         local reuqestBody = request.body;
-        if reuqestBody.tableType ~= nil then
-            local result = _quikDataManager: getTableItems(reuqestBody.tableType);
+        local isValid = reuqestBody.tableType ~= nil;
+        isValid = isValid and reuqestBody.firstIndex ~= nil;
+        isValid = isValid and reuqestBody.lastIndex ~= nil;
+        if isValid == true then
+            local result = _quikDataManager: getTableItems(reuqestBody.tableType,
+                                                           reuqestBody.firstIndex,
+                                                           reuqestBody.lastIndex);
             return _createResponse(self, request, "QuikTableItemsResponseBody", "items", result);
         else
             return _createErrorResponse(self, request, "INVALID REQUEST PARAMETERS!");

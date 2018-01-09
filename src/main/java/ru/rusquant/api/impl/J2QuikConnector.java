@@ -240,11 +240,13 @@ public class J2QuikConnector extends Connector implements J2QuikAPI {
 
 
     @Override
-    public QuikDataObject getItems(String tableName) {
+    public QuikDataObject getItems(String tableName, Integer firstIndex, Integer lastIndex) {
         ErrorObject error = new ErrorObject();
         try {
-            List<String> args = new ArrayList<>();
+            List<Object> args = new ArrayList<>();
             args.add(tableName);
+            args.add(firstIndex);
+            args.add(lastIndex);
 
             RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.TABLE_ITEMS, args);
             Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.TABLE_ITEMS, body);

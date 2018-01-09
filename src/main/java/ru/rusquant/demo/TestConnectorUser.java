@@ -460,30 +460,40 @@ public class TestConnectorUser {
 
 
     private static void runAllQuikTableItemsTest(J2QuikConnector connector, BufferedReader reader) throws IOException {
-        System.out.println("Running get all quik table items test...");
-        System.out.println();
+		System.out.println("Running Quik table items test...");
+		System.out.println();
 
-        boolean isExit = false;
-        while (!isExit) {
-            System.out.println();
-            System.out.println("Enter name of quik table or type exit:");
-            String message = reader.readLine();
-            if (message != null && !message.isEmpty()) {
-                if ("exit".equals(message)) {
-                    isExit = true;
-                } else {
-                    QuikDataObject result = connector.getItems(message);
-                    if (result instanceof ErrorObject) {
-                        System.out.println(((ErrorObject) result).getErrorMessage());
-                        isExit = true;
-                    } else {
-                        System.out.println(result);
-                    }
-                }
-            } else {
-                System.out.println("Invalid test type!");
-            }
-        }
+		boolean isExit = false;
+		while (!isExit) {
+			System.out.println();
+			System.out.println("Enter name of quik table or type exit:");
+			String tableName = reader.readLine();
+
+			System.out.println("Enter first index in range [0, rowsCount - 1]:");
+			String firstIndexStr = reader.readLine();
+
+			System.out.println("Enter last index in range [0, rowsCount - 1]:");
+			String lastIndexStr = reader.readLine();
+
+			boolean isValid = tableName != null && !tableName.isEmpty();
+			isValid = isValid && (firstIndexStr != null && !firstIndexStr.isEmpty());
+			isValid = isValid && (lastIndexStr != null && !lastIndexStr.isEmpty());
+			if (isValid) {
+				if ("exit".equals(tableName) || "exit".equals(lastIndexStr)) {
+					isExit = true;
+				} else {
+					QuikDataObject result = connector.getItems(tableName, Integer.parseInt(firstIndexStr), Integer.parseInt(lastIndexStr));
+					if (result instanceof ErrorObject) {
+						System.out.println(((ErrorObject) result).getErrorMessage());
+						isExit = true;
+					} else {
+						System.out.println(result);
+					}
+				}
+			} else {
+				System.out.println("Invalid test type!");
+			}
+		}
     }
 
 

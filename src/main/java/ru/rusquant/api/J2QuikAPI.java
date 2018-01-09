@@ -75,7 +75,7 @@ public interface J2QuikAPI {
      * QLua specification does not contains such function, but it is convenient
      * to have an ability to get all items of table in a single request
      **/
-    QuikDataObject getItems(String tableName);
+    QuikDataObject getItems(String tableName, Integer firstIndex, Integer lastIndex);
 
     /**
      * The function allows quick selection of items from the terminal storage

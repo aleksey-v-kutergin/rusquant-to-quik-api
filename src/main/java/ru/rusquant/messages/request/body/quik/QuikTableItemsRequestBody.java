@@ -12,13 +12,17 @@ import ru.rusquant.messages.request.body.RequestBody;
 public class QuikTableItemsRequestBody extends RequestBody {
 
     private QuikTableType tableType;
+    private Integer firstIndex;
+    private Integer lastIndex;
 
     public QuikTableItemsRequestBody() {
 
     }
 
-    public QuikTableItemsRequestBody(QuikTableType tableType) {
+    public QuikTableItemsRequestBody(QuikTableType tableType, Integer firstIndex, Integer lastIndex) {
         this.tableType = tableType;
+        this.firstIndex = firstIndex;
+        this.lastIndex = lastIndex;
     }
 
     public QuikTableType getTableType() {
@@ -27,5 +31,21 @@ public class QuikTableItemsRequestBody extends RequestBody {
 
     public void setTableType(QuikTableType tableType) {
         this.tableType = tableType;
+    }
+
+    public Integer getFirstIndex() {
+        return firstIndex;
+    }
+
+    public void setFirstIndex(Integer firstIndex) {
+        this.firstIndex = firstIndex;
+    }
+
+    public Integer getLastIndex() {
+        return lastIndex;
+    }
+
+    public void setLastIndex(Integer lastIndex) {
+        this.lastIndex = lastIndex;
     }
 }

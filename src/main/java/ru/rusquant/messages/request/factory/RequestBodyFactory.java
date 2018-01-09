@@ -61,9 +61,11 @@ public class RequestBodyFactory {
                 return new QuikTableItemRequestBody(QuikTableType.forValue(tableName), index);
             }
             case TABLE_ITEMS: {
-                validateTableInfoArgs(args);
+                validateTableItemsArgs(args);
                 String tableName = (String) args.get(0);
-                return new QuikTableItemsRequestBody(QuikTableType.forValue(tableName));
+                Integer firstIndex = (Integer) args.get(1);
+                Integer lastIndex = (Integer) args.get(2);
+                return new QuikTableItemsRequestBody(QuikTableType.forValue(tableName), firstIndex, lastIndex);
             }
             case TRADING_PARAMETER: {
                 validateTradingParameterArgs(args);
@@ -352,6 +354,24 @@ public class RequestBodyFactory {
             throw new IllegalArgumentException(msg);
         }
     }
+
+
+    private void validateTableItemsArgs(List<?> args) {
+        validateMultipleArgs(args, 3);
+        if (!(args.get(0) instanceof String)) {
+            String msg = "Argument with number " + 1 + " of " + "table items" + " request is not a string!";
+            throw new IllegalArgumentException(msg);
+        }
+        String tableName = (String) args.get(0);
+        validateQuikTableName(tableName);
+        for(int i = 1; i < args.size(); i++) {
+            if (!(args.get(i) instanceof Integer)) {
+                String msg = "Argument with number " + (i + 1) + " of " + "table items" + " request is not an integer!";
+                throw new IllegalArgumentException(msg);
+            }
+        }
+    }
+
 
 
     private void validateTradingParameterArgs(List<?> args) {
