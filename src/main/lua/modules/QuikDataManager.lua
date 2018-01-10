@@ -78,6 +78,15 @@ local QuikDataManager = class("QuikDataManager");
 
     -- Private methods:
 
+    -- Splits string by delimiter
+    local _split = function(self, s, delimiter)
+        local result = {};
+        for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+            table.insert(result, match);
+        end
+        return result;
+    end
+
     -- Creates common for ALL business-functions result table
     local _createResult = function(self, isSucces, value, error)
         local result = {};
@@ -974,7 +983,7 @@ local QuikDataManager = class("QuikDataManager");
         local result;
         local codesString = getClassesList();
 
-        if codesString ~= nil then
+        if codesString ~= nil and codesString ~= "" then
             local codes = {};
             codes[QuikDataManager.JAVA_CLASS_FIELD] = "CodesArray";
             codes["separator"] = ",";
@@ -992,17 +1001,65 @@ local QuikDataManager = class("QuikDataManager");
     end;
 
 
-    function QuikDataManager : getClassSecuritiesList(classCode)
+    function QuikDataManager : getClassSecuritiesList(classCode, firstIndex, lastIndex)
         local result;
-        -- Reurns empty string if such class does not exists
-        local codesString = getClassSecurities(classCode);
+        local error;
 
-        if codesString ~= nil and codesString ~= ""  then
-            local codes = {};
-            codes[QuikDataManager.JAVA_CLASS_FIELD] = "CodesArray";
-            codes["separator"] = ",";
-            codes["codesString"] = codesString;
-            result = _createResult(self, true, codes, nil);
+        -- Reurns empty string if such class does not exists
+        local secsCodesString = getClassSecurities(classCode);
+        if secsCodesString ~= nil and secsCodesString ~= ""  then
+
+            local secsCount = 0;
+            local secsTable = _split(self, secsCodesString, ",");
+            for key, value in pairs(secsTable) do
+                secsCount = secsCount + 1;
+            end
+
+            local isValidFirstIndex = firstIndex >= 1;
+            local isValidLastIndex = lastIndex <= secsCount;
+            local isValidRange = isValidFirstIndex == true and isValidLastIndex == true;
+            isValidRange = isValidRange and (firstIndex <= lastIndex);
+
+            if isValidRange == true then
+
+                local isValidRangeSize = (lastIndex - (firstIndex - 1)) <= QuikDataManager.MAX_RANGE_SIZE;
+                local rangeEnd = lastIndex;
+                if isValidRangeSize == false then
+                    rangeEnd = firstIndex + (QuikDataManager.MAX_RANGE_SIZE - 1);
+                end;
+
+                local security;
+                local secsInRange = {};
+                for i = 1, rangeEnd, 1 do
+                    security = secsTable[i];
+                    _logger: debug("\nADD SECURITY CODE TO RESULT" .. security);
+                    secsInRange[i] = security;
+                end;
+
+                local codes = {};
+                codes[QuikDataManager.JAVA_CLASS_FIELD] = "CodesArray";
+                codes["separator"] = ",";
+                codes["codesString"] = table.concat(secsInRange, ",");
+                result = _createResult(self, true, codes, nil);
+
+            elseif isValidFirstIndex == false and isValidLastIndex == false then
+                error = "Invalid range! First and last index both have invalid values. " ..
+                        "First index has to be greater then or equal to 1! " ..
+                        "Last index has to be less or equal then number of securities in class. " ..
+                        " Currently, security's class: " .. classCode .. " contains only " .. secsCount .. " securities.";
+                result = _createResult(self, false, nil, error);
+            elseif isValidFirstIndex == false then
+                error = "First index out of range! First index has to be greater then or equal to 1!";
+                result = _createResult(self, false, nil, error);
+            elseif isValidLastIndex == false then
+                error = "Last index out of range! " ..
+                        "Last index has to be less or equal then number of securities in class. " ..
+                        " Currently, security's class: " .. classCode .. " contains only " .. secsCount .. " securities.";
+                result = _createResult(self, false, nil, error);
+            elseif firstIndex > lastIndex then
+                error = "Invalid range! First index is greater then last index!";
+                result = _createResult(self, false, nil, error);
+            end;
         else
             result["status"] = "FAILED";
             local error = "CALL OF " .. "getClassSecurities" ..
@@ -1012,7 +1069,7 @@ local QuikDataManager = class("QuikDataManager");
         end;
 
         _logger: debug("CALL: getClassSecuritiesList(...) FINISHED WITH RESULT: "
-                .. _jsonParser: encode_pretty(result));
+                                                    .. _jsonParser: encode_pretty(result));
         return result;
     end;
 

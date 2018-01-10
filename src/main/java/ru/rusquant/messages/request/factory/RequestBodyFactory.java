@@ -117,7 +117,9 @@ public class RequestBodyFactory {
             case CLASS_SECURITIES: {
                 validateClassSecuritiesArgs(args);
                 String classCode = (String) args.get(0);
-                return new ClassSecuritiesRequestBody(classCode);
+                Integer firstIndex = (Integer) args.get(1);
+                Integer lastIndex = (Integer) args.get(2);
+                return new ClassSecuritiesRequestBody(classCode, firstIndex, lastIndex);
             }
             case SUBSCRIBE_QUOTES: {
                 validateQuotesArgs(args);
@@ -415,8 +417,17 @@ public class RequestBodyFactory {
     }
 
     private void validateClassSecuritiesArgs(List<?> args) {
-        validateSingleArg(args);
-        validateStringArgs(args, "class securities");
+        validateMultipleArgs(args, 3);
+        if (!(args.get(0) instanceof String)) {
+            String msg = "Argument with number " + 1 + " of " + "class securities" + " request is not a string!";
+            throw new IllegalArgumentException(msg);
+        }
+        for(int i = 1; i < args.size(); i++) {
+            if (!(args.get(i) instanceof Integer)) {
+                String msg = "Argument with number " + (i + 1) + " of " + "class securities" + " request is not an integer!";
+                throw new IllegalArgumentException(msg);
+            }
+        }
     }
 
     private void validateMaxCountOfLotsArgs(List<?> args) {

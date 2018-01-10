@@ -98,10 +98,11 @@ public interface J2QuikAPI {
     QuikDataObject getClassInfo(String classCode);
 
     /**
-     * The function is designed to obtain a list of paper codes for a list of classes defined by a list of codes.
+     * The function returns a list of security codes within class.
      * The paper codes in the list are separated by a comma ",". At the end of the received line, the symbol "," is always appended.
+     * Range limitation [firstIndex, lastIndex] is due to buffer size limitation
      **/
-    QuikDataObject getClassSecurities(String classCode);
+    QuikDataObject getClassSecurities(String classCode, Integer firstIndex, Integer lastIndex);
 
 
     /**====================== Lua script interaction functions and QUIK Workstation  ======================**/

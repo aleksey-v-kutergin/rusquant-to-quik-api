@@ -681,19 +681,26 @@ public class TestConnectorUser {
 
 
     private static void runClassSecuritiesTest(J2QuikConnector connector, BufferedReader reader) throws IOException {
-        System.out.println("Running Quik table info test...");
+        System.out.println("Running class securities test...");
         System.out.println();
 
         boolean isExit = false;
         while (!isExit) {
             System.out.println();
-            System.out.println("Enter security class code or type exit:");
-            String message = reader.readLine();
-            if (message != null && !message.isEmpty()) {
-                if ("exit".equals(message)) {
+            System.out.println("Enter security class code:");
+            String classCode = reader.readLine();
+
+            System.out.println("Enter first index:");
+            String firstIndex = reader.readLine();
+
+            System.out.println("Enter last index or type exit:");
+            String lastIndex = reader.readLine();
+
+            if (lastIndex != null && !lastIndex.isEmpty()) {
+                if ("exit".equals(lastIndex)) {
                     isExit = true;
                 } else {
-                    QuikDataObject result = connector.getClassSecurities(message);
+                    QuikDataObject result = connector.getClassSecurities(classCode, Integer.parseInt(firstIndex), Integer.parseInt(lastIndex));
                     if (result instanceof ErrorObject) {
                         System.out.println(((ErrorObject) result).getErrorMessage());
                         isExit = true;

@@ -401,11 +401,13 @@ public class J2QuikConnector extends Connector implements J2QuikAPI {
     }
 
     @Override
-    public QuikDataObject getClassSecurities(String classCode) {
+    public QuikDataObject getClassSecurities(String classCode, Integer firstIndex, Integer lastIndex) {
         ErrorObject error = new ErrorObject();
         try {
-            List<String> args = new ArrayList<>();
+            List<Object> args = new ArrayList<>();
             args.add(classCode);
+            args.add(firstIndex);
+            args.add(lastIndex);
 
             RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.CLASS_SECURITIES, args);
             Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.CLASS_SECURITIES, body);

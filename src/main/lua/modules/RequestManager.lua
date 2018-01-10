@@ -266,8 +266,13 @@ local RequestManager = class("RequestManager");
 
     local _createClassSecuritiesResponse = function(self, request)
         local reuqestBody = request.body;
-        if reuqestBody.classCode ~= nil then
-            local result = _quikDataManager: getClassSecuritiesList(reuqestBody.classCode);
+        local isValid = reuqestBody.classCode ~= nil;
+        isValid = isValid and reuqestBody.firstIndex ~= nil;
+        isValid = isValid and reuqestBody.lastIndex ~= nil;
+        if isValid == true then
+            local result = _quikDataManager: getClassSecuritiesList(reuqestBody.classCode,
+                                                                    reuqestBody.firstIndex,
+                                                                    reuqestBody.lastIndex);
             return _createResponse(self, request, "ClassSecuritiesResponseBody", "codes", result);
         else
             return _createErrorResponse(self, request, "INVALID REQUEST PARAMETERS!");
