@@ -13,3 +13,4 @@ hs_err_pid*
 
 .idea
 RusquantToQuikAPI.iml
+/src/main/lua/build
