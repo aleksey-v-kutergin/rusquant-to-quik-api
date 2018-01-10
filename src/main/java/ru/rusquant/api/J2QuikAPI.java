@@ -251,9 +251,9 @@ public interface J2QuikAPI {
     QuikDataObject getOHLCPrice(DatasourceDescriptor datasource, Long index);
 
     /**
-     * To get all currently available OHLC prices in one request.
+     * To get all currently available OHLC prices in range.
      **/
-    QuikDataObject getOHLCPrices(DatasourceDescriptor datasource);
+    QuikDataObject getOHLCPrices(DatasourceDescriptor datasource, Integer firstIndex, Integer lastIndex);
 
     /**
      * For getting current count of data in datasource;

@@ -28,7 +28,14 @@ public class DateTime extends QuikDataObject {
 
     @Override
     public String toString() {
-        return day + "." + month + "." + year + " " + hour + ":" + min + ":" + sec + "." + ms + "/" + mcs;
+        String dateStr = day + "." + month + "." + year + " " + hour + ":" + min + ":" + sec;
+        if(this.ms != null) {
+            dateStr += "." + ms;
+        }
+        if(this.mcs != null) {
+            dateStr += "/" + mcs;
+        }
+        return dateStr;
     }
 
     public Integer getDay() {

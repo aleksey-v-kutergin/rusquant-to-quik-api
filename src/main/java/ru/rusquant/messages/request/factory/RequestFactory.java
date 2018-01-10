@@ -41,7 +41,7 @@ public class RequestFactory {
         getRequests.add(RequestSubject.IS_SUBSCRIBED_QUOTES);
         getRequests.add(RequestSubject.QUOTES);
         getRequests.add(RequestSubject.DATASOURCE_SIZE);
-        getRequests.add(RequestSubject.ALL_CANDLES);
+        getRequests.add(RequestSubject.CANDLES_SET);
         getRequests.add(RequestSubject.SINGLE_CANDLE);
         getRequests.add(RequestSubject.DEPO);
         getRequests.add(RequestSubject.MONEY);

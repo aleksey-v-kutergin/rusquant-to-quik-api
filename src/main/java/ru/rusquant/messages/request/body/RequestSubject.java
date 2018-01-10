@@ -34,7 +34,7 @@ public enum RequestSubject {
     CREATE_DATASOURCE,
     CLOSE_DATASOURCE,
     DATASOURCE_SIZE,
-    ALL_CANDLES,
+    CANDLES_SET,
     SINGLE_CANDLE,
     DEPO,
     MONEY

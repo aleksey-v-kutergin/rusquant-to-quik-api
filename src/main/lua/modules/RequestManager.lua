@@ -410,11 +410,16 @@ local RequestManager = class("RequestManager");
     end;
 
 
-    local _createAllCandlesResponse = function(self, request)
+    local _createCandlesSetResponse = function(self, request)
         local reuqestBody = request.body;
-        if reuqestBody.descriptor ~= nil then
-            local result = _quikDataManager: getAllCandles(reuqestBody.descriptor);
-            return _createResponse(self, request, "AllCandlesResponseBody", "ohlcDataFrame", result);
+        local isValid = reuqestBody.descriptor ~= nil;
+        isValid = isValid and reuqestBody.firstIndex ~= nil;
+        isValid = isValid and reuqestBody.lastIndex ~= nil;
+        if isValid == true then
+            local result = _quikDataManager: getCandlesSet(reuqestBody.descriptor,
+                                                           reuqestBody.firstIndex,
+                                                           reuqestBody.lastIndex);
+            return _createResponse(self, request, "CandlesSetResponseBody", "ohlcDataFrame", result);
         else
             return _createErrorResponse(self, request, "INVALID REQUEST PARAMETERS!");
         end;
@@ -499,8 +504,8 @@ local RequestManager = class("RequestManager");
             return _createDatasourceSizeResponse(self, request);
         elseif subject == "SINGLE_CANDLE" then
             return _createSingleCandleResponse(self, request);
-        elseif subject == "ALL_CANDLES" then
-            return _createAllCandlesResponse(self, request);
+        elseif subject == "CANDLES_SET" then
+            return _createCandlesSetResponse(self, request);
         elseif subject == "DEPO" then
             return _createDepoResponse(self, request);
         elseif subject == "MONEY" then

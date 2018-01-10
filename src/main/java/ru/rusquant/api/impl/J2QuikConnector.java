@@ -787,19 +787,21 @@ public class J2QuikConnector extends Connector implements J2QuikAPI {
     }
 
     @Override
-    public QuikDataObject getOHLCPrices(DatasourceDescriptor datasource) {
+    public QuikDataObject getOHLCPrices(DatasourceDescriptor datasource, Integer firstIndex, Integer lastIndex) {
         ErrorObject error = new ErrorObject();
         try {
             List<Object> args = new ArrayList<>();
             args.add(datasource);
+            args.add(firstIndex);
+            args.add(lastIndex);
 
-            RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.ALL_CANDLES, args);
-            Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.ALL_CANDLES, body);
+            RequestBody body = requestBodyFactory.createRequestBody(RequestSubject.CANDLES_SET, args);
+            Request request = requestFactory.createRequest(RequestType.GET, RequestSubject.CANDLES_SET, body);
 
             client.postRequest(request);
             Response response = client.getResponse();
             if (ResponseStatus.SUCCESS.equals(response.getStatus())) {
-                return ((AllCandlesResponseBody) response.getBody()).getOhlcDataFrame();
+                return ((CandlesSetResponseBody) response.getBody()).getOhlcDataFrame();
             } else {
                 error.setErrorMessage(response.getError());
             }

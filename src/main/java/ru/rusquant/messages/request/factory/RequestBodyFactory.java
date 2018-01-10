@@ -165,9 +165,12 @@ public class RequestBodyFactory {
                 Long candleIndex = (Long) args.get(1);
                 return new SingleCandleRequestBody(descriptor, candleIndex);
             }
-            case ALL_CANDLES: {
-                validateDatasourceDescriptorArg(args);
-                return new AllCandlesRequestBody((DatasourceDescriptor) args.get(0));
+            case CANDLES_SET: {
+                validateCandlesSetArgs(args);
+                DatasourceDescriptor descriptor = (DatasourceDescriptor) args.get(0);
+                Integer firstIndex = (Integer) args.get(1);
+                Integer lastIndex = (Integer) args.get(2);
+                return new CandlesSetRequestBody(descriptor, firstIndex, lastIndex);
             }
             case MONEY: {
                 validateMoneyArgs(args);
@@ -502,6 +505,21 @@ public class RequestBodyFactory {
         if (!(args.get(1) instanceof Long)) {
             String msg = "Argument with number " + 2 + " of " + "single candle" + " request is not an long!";
             throw new IllegalArgumentException(msg);
+        }
+    }
+
+    private void validateCandlesSetArgs(List<?> args) {
+        validateMultipleArgs(args, 3);
+        validateDescriptorArg(args.subList(0, 1));
+        if (!(args.get(0) instanceof DatasourceDescriptor)) {
+            String msg = "Class of passed argument is not a DatasourceDescriptor!";
+            throw new IllegalArgumentException(msg);
+        }
+        for (int i = 1; i < args.size(); i++) {
+            if (!(args.get(i) instanceof Integer)) {
+                String msg = "Argument with number " + (i + 1) + " of " + "candles set" + " request is not an integer!";
+                throw new IllegalArgumentException(msg);
+            }
         }
     }
 

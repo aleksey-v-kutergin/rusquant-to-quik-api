@@ -37,7 +37,7 @@ import ru.rusquant.messages.response.body.quik.*;
         @JsonSubTypes.Type(value = CreateDatasourceResponseBody.class, name = "CreateDatasourceResponseBody"),
         @JsonSubTypes.Type(value = CloseDatasourceResponseBody.class, name = "CloseDatasourceResponseBody"),
         @JsonSubTypes.Type(value = DatasourceSizeResponseBody.class, name = "DatasourceSizeResponseBody"),
-        @JsonSubTypes.Type(value = AllCandlesResponseBody.class, name = "AllCandlesResponseBody"),
+        @JsonSubTypes.Type(value = CandlesSetResponseBody.class, name = "CandlesSetResponseBody"),
         @JsonSubTypes.Type(value = SingleCandleResponseBody.class, name = "SingleCandleResponseBody"),
         @JsonSubTypes.Type(value = DepoResponseBody.class, name = "DepoResponseBody"),
         @JsonSubTypes.Type(value = MoneyResponseBody.class, name = "MoneyResponseBody")

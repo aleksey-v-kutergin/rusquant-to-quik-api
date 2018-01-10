@@ -832,40 +832,72 @@ local QuikDataManager = class("QuikDataManager");
     end;
 
 
-    function QuikDataManager : getAllCandles(descriptor)
+    function QuikDataManager : getCandlesSet(descriptor, firstIndex, lastIndex)
         local result;
+        local error;
         local exitsInCache = _cache: contains(Cache.OHLC_DATASOURCE, descriptor.id);
 
         if exitsInCache == true then
             local datasource = _cache: extract(Cache.OHLC_DATASOURCE, descriptor.id, false);
             local dsSize = datasource.instance:Size();
 
-            local ohlcDataFrame = {};
-            ohlcDataFrame[QuikDataManager.JAVA_CLASS_FIELD] = "OhlcDataFrame";
-            ohlcDataFrame["records"] = {};
+            local isValidFirstIndex = firstIndex >= 1;
+            local isValidLastIndex = lastIndex <= dsSize;
+            local isValidRange = isValidFirstIndex == true and isValidLastIndex == true;
+            isValidRange = isValidRange and (firstIndex <= lastIndex);
 
-            local candle;
-            local dateTime;
-            if dsSize > 10 then dsSize = 10; end;
-            for i = 1, dsSize, 1 do
-                candle = {};
-                candle[QuikDataManager.JAVA_CLASS_FIELD] = "Candle";
+            if isValidRange == true then
 
-                -- Set prices and volume
-                candle["open"]   = datasource.instance:O(i);
-                candle["high"]   = datasource.instance:H(i);
-                candle["low"]    = datasource.instance:L(i);
-                candle["close"]  = datasource.instance:C(i);
-                candle["volume"] = datasource.instance:V(i);
+                local ohlcDataFrame = {};
+                ohlcDataFrame[QuikDataManager.JAVA_CLASS_FIELD] = "OhlcDataFrame";
+                ohlcDataFrame["records"] = {};
 
-                -- Set date and time
-                dateTime = datasource.instance:T(i);
-                dateTime[QuikDataManager.JAVA_CLASS_FIELD] = "DateTime";
-                candle["datetime"] = dateTime;
-                _logger: debug("\nCANDLE(" .. i .. "): " .. _jsonParser: encode_pretty(candle));
-                ohlcDataFrame.records[i] = candle;
+                local isValidRangeSize = (lastIndex - (firstIndex - 1)) <= QuikDataManager.MAX_RANGE_SIZE;
+                local rangeEnd = lastIndex;
+                if isValidRangeSize == false then
+                    rangeEnd = firstIndex + (QuikDataManager.MAX_RANGE_SIZE - 1);
+                end;
+
+                local candle;
+                local dateTime;
+                for i = 1, rangeEnd, 1 do
+                    candle = {};
+                    candle[QuikDataManager.JAVA_CLASS_FIELD] = "Candle";
+
+                    -- Set prices and volume
+                    candle["open"]   = datasource.instance:O(i);
+                    candle["high"]   = datasource.instance:H(i);
+                    candle["low"]    = datasource.instance:L(i);
+                    candle["close"]  = datasource.instance:C(i);
+                    candle["volume"] = datasource.instance:V(i);
+
+                    -- Set date and time
+                    dateTime = datasource.instance:T(i);
+                    dateTime[QuikDataManager.JAVA_CLASS_FIELD] = "DateTime";
+                    candle["datetime"] = dateTime;
+                    _logger: debug("\nCANDLE(" .. i .. "): " .. _jsonParser: encode_pretty(candle));
+                    ohlcDataFrame.records[i] = candle;
+                end;
+                result = _createResult(self, true, ohlcDataFrame, nil);
+
+            elseif isValidFirstIndex == false and isValidLastIndex == false then
+                error = "Invalid range! First and last index both have invalid values. " ..
+                        "First index has to be greater then or equal to 1! " ..
+                        "Last index has to be less or equal then current size of datasource (total count of candles). " ..
+                        " Currently, datasource with id : " .. descriptor.id .. " contains only " .. dsSize .. " candles.";
+                result = _createResult(self, false, nil, error);
+            elseif isValidFirstIndex == false then
+                error = "First index out of range! First index has to be greater then or equal to 1!";
+                result = _createResult(self, false, nil, error);
+            elseif isValidLastIndex == false then
+                error = "Last index out of range! " ..
+                        "Last index has to be less or equal then current size of datasource (total count of candles). " ..
+                        " Currently, datasource with id : " .. descriptor.id .. " contains only " .. dsSize .. " candles.";
+                result = _createResult(self, false, nil, error);
+            elseif firstIndex > lastIndex then
+                error = "Invalid range! First index is greater then last index!";
+                result = _createResult(self, false, nil, error);
             end;
-            result = _createResult(self, true, ohlcDataFrame, nil);
         else
             local msg = "OHLC DATASOURCE FOR: " ..
                     "{ id = " .. descriptor.id ..
@@ -879,7 +911,7 @@ local QuikDataManager = class("QuikDataManager");
             result = _createResult(self, false, nil, msg);
         end;
 
-        _logger: debug("CALL: getAllCandles(...) FINISHED WITH RESULT: "
+        _logger: debug("CALL: getCandlesSet(...) FINISHED WITH RESULT: "
                 .. _jsonParser: encode_pretty(result));
         return result;
     end;
@@ -1112,7 +1144,7 @@ local QuikDataManager = class("QuikDataManager");
                         "Last index has to be less or equal then number of rows - 1. " ..
                         " Currently, table: " .. tableName .. " contains only " .. rowsCount .. " rows.";
                 result = _createResult(self, false, nil, error);
-            elseif firstIndex <= lastIndex then
+            elseif firstIndex > lastIndex then
                 error = "Invalid range! First index is greater then last index!";
                 result = _createResult(self, false, nil, error);
             end;

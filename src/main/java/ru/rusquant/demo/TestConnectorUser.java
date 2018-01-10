@@ -133,7 +133,7 @@ public class TestConnectorUser {
                 } else if ("gettableitem".equals(message)) {
                     runQuikTableItemTest(connector, reader);
                 } else if ("gettableitems".equals(message)) {
-                    runAllQuikTableItemsTest(connector, reader);
+                    runQuikTableItemsTest(connector, reader);
                 } else if ("getparamext".equals(message)) {
                     runTradingParameterTest(connector, reader);
                 } else if ("subscribeparameter".equals(message)) {
@@ -169,7 +169,7 @@ public class TestConnectorUser {
                 } else if ("getohlcprice".equals(message)) {
                     runSingleCandleTest(connector, reader);
                 } else if ("getohlcprices".equals(message)) {
-                    runAllCandlesTest(connector);
+                    runAllCandlesSetTest(connector, reader);
                 } else if ("getdepo".equals(message)) {
                     runGetDepoTest(connector, reader);
                 } else if ("getmoney".equals(message)) {
@@ -459,7 +459,7 @@ public class TestConnectorUser {
     }
 
 
-    private static void runAllQuikTableItemsTest(J2QuikConnector connector, BufferedReader reader) throws IOException {
+    private static void runQuikTableItemsTest(J2QuikConnector connector, BufferedReader reader) throws IOException {
 		System.out.println("Running Quik table items test...");
 		System.out.println();
 
@@ -910,20 +910,39 @@ public class TestConnectorUser {
     }
 
 
-    private static void runAllCandlesTest(J2QuikConnector connector) {
-        System.out.println("Running all candles test...");
-        System.out.println();
+    private static void runAllCandlesSetTest(J2QuikConnector connector, BufferedReader reader) throws IOException {
+		System.out.println("Running candles set test...");
+		System.out.println();
 
-        if (TestConnectorUser.datasourceDescriptor != null) {
-            QuikDataObject result = connector.getOHLCPrices(TestConnectorUser.datasourceDescriptor);
-            if (result instanceof ErrorObject) {
-                System.out.println(((ErrorObject) result).getErrorMessage());
-            } else {
-                System.out.println(result);
-            }
-        } else {
-            System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
-        }
+		if (TestConnectorUser.datasourceDescriptor != null) {
+			boolean isExit = false;
+			while (!isExit) {
+				System.out.println();
+				System.out.println("Enter first index:");
+				String firstIndex = reader.readLine();
+
+				System.out.println("Enter last index or type exit:");
+				String lastIndex = reader.readLine();
+
+				if (lastIndex != null && !lastIndex.isEmpty()) {
+					if ("exit".equals(lastIndex)) {
+						isExit = true;
+					} else {
+						QuikDataObject result = connector.getOHLCPrices(TestConnectorUser.datasourceDescriptor, Integer.parseInt(firstIndex), Integer.parseInt(lastIndex));
+						if (result instanceof ErrorObject) {
+							System.out.println(((ErrorObject) result).getErrorMessage());
+							isExit = true;
+						} else {
+							System.out.println(result);
+						}
+					}
+				} else {
+					System.out.println("Invalid test type!");
+				}
+			}
+		} else {
+			System.out.println("Parameter datasourceDescriptor is unset. Create datasource first! Exiting...");
+		}
     }
 
     private static void runGetDepoTest(J2QuikConnector connector, BufferedReader reader) throws IOException {

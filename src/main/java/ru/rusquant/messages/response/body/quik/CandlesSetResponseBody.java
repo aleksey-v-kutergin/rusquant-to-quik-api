@@ -8,15 +8,15 @@ import ru.rusquant.messages.response.body.ResponseBody;
  * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
  * Company: Rusquant
  */
-public class AllCandlesResponseBody extends ResponseBody {
+public class CandlesSetResponseBody extends ResponseBody {
 
     private OhlcDataFrame ohlcDataFrame;
 
-    public AllCandlesResponseBody() {
+    public CandlesSetResponseBody() {
 
     }
 
-    public AllCandlesResponseBody(OhlcDataFrame ohlcDataFrame) {
+    public CandlesSetResponseBody(OhlcDataFrame ohlcDataFrame) {
         this.ohlcDataFrame = ohlcDataFrame;
     }
 
