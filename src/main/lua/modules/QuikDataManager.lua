@@ -158,18 +158,18 @@ local QuikDataManager = class("QuikDataManager");
 
 
     -- During development, folowing trubles have been uccured:
-    -- 1. QLua's sendTransaction(...) requires upper case keys in input transaction table
-    --    However, transaction replay table contains lower case keys
+    -- 1. QLua's sendTransaction(...) requires upper-case keys in input transaction table
+    --    However, transaction replay table contains lower-case keys
     --
     -- 2. Since, the same java class is used both for incoming transaction and replay, it is nice to obtain
-    --    set of fields from incoming object + set of fields, that become availble after transaction is
+    --    set of fields from incoming object + set of fields, that become availble after transaction
     --    has been registered at quik server.
-    --    For some reason, not all fields fron input transaction table present in trans replay table.
+    --    For some reason, not all fields from input transaction table present in trans replay table.
 
     -- 3. Total mess with keys.
     --
-    -- The simples way to solve above problems - merge input transaction and replay table base on fixes fields
-    -- set with priority to transaction replay table.
+    -- The simples way to solve above problems - merge input transaction and replay table base on fixed set of fields
+    -- with priority to transaction replay table.
     local function _mergeTransactionReplay(self, origin, replay)
         _logger: debug("CALL: _mergeTransactionReplay(...) WITH" ..
                 " ORIGIN: " .. _jsonParser: encode_pretty(origin) ..
