@@ -355,7 +355,7 @@ local QuikDataManager = class("QuikDataManager");
             if order ~= nil then
                 result = _createResult(self, true, order, nil);
             else
-                result = _createResult(self, true, nil, "ORDER REPLAY HAS NOT OCCURED YET!");
+                result = _createResult(self, false, nil, "ORDER REPLAY HAS NOT OCCURED YET!");
             end;
         else
             local counter = 0;
@@ -370,7 +370,7 @@ local QuikDataManager = class("QuikDataManager");
             if counter <= ORDER_REPLAY_RETRY_COUNT then
                 result = _createResult(self, true, order, nil);
             else
-                result = _createResult(self, true, nil,
+                result = _createResult(self, false, nil,
                     "EXCEEDING RETRY COUNT FOR WAITING OF OCCURANCE OF THE ORDER IN CACHE! ORDER HAS NOT OCCURED YET!");
             end;
         end;
