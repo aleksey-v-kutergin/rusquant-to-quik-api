@@ -10,44 +10,36 @@ import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
- *   Class covers serialization \ deserialization of
- *   Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *   Company: Rusquant
+ * Class covers serialization \ deserialization of
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class MessagesManager
-{
-	private static MessagesManager instance = new MessagesManager();
+public class MessagesManager {
 
-	private ObjectMapper mapper = new ObjectMapper();
+    private static MessagesManager instance = new MessagesManager();
 
-	public static MessagesManager getInstance()
-	{
-		return instance;
-	}
+    private ObjectMapper mapper = new ObjectMapper();
 
-	private MessagesManager()
-	{
+    public static MessagesManager getInstance() {
+        return instance;
+    }
 
-	}
+    private MessagesManager() {
+    }
 
+    public String serializeRequest(Request request) throws IOException {
+        if (request == null) return null;
 
-	public String serializeRequest(Request request) throws IOException
-	{
-		if(request == null) return null;
+        StringWriter writer = new StringWriter();
+        mapper.writeValue(writer, request);
+        return writer.toString();
+    }
 
-		StringWriter writer = new StringWriter();
-		mapper.writeValue(writer, request);
-		return writer.toString();
-	}
+    public Response deserializeResponse(String rawJsonResponse) throws IOException {
+        if (rawJsonResponse == null || rawJsonResponse.isEmpty()) return null;
 
-
-
-	public Response deserializeResponse(String rawJsonResponse) throws IOException
-	{
-		if(rawJsonResponse == null || rawJsonResponse.isEmpty()) return null;
-
-		StringReader reader = new StringReader(rawJsonResponse);
-		Response response = mapper.readValue(reader, Response.class);
-		return response;
-	}
+        StringReader reader = new StringReader(rawJsonResponse);
+        Response response = mapper.readValue(reader, Response.class);
+        return response;
+    }
 }

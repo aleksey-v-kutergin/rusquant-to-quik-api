@@ -1,43 +1,37 @@
 package ru.rusquant.data.quik;
 
 /**
- *    Terminal's info parameter data object.
- *    Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
- *    Company: Rusquant
+ * Terminal's info parameter data object.
+ * Author: Aleksey Kutergin <aleksey.v.kutergin@gmail.ru>
+ * Company: Rusquant
  */
-public class InfoParameter extends QuikDataObject
-{
-	private String parameterName;
-	private String parameterValue;
+public class InfoParameter extends QuikDataObject {
 
-	public InfoParameter()
-	{
+    private String parameterName;
+    private String parameterValue;
 
-	}
+    public InfoParameter() {
 
-	public InfoParameter(String parameterName, String parameterValue)
-	{
-		this.parameterValue = parameterValue;
-		this.parameterName = parameterName;
-	}
+    }
 
-	public String getParameterValue()
-	{
-		return parameterValue;
-	}
+    public InfoParameter(String parameterName, String parameterValue) {
+        this.parameterValue = parameterValue;
+        this.parameterName = parameterName;
+    }
 
-	public void setParameterValue(String parameterValue)
-	{
-		this.parameterValue = parameterValue;
-	}
+    public String getParameterValue() {
+        return parameterValue;
+    }
 
-	public String getParameterName()
-	{
-		return parameterName;
-	}
+    public void setParameterValue(String parameterValue) {
+        this.parameterValue = parameterValue;
+    }
 
-	public void setParameterName(String parameterName)
-	{
-		this.parameterName = parameterName;
-	}
+    public String getParameterName() {
+        return parameterName;
+    }
+
+    public void setParameterName(String parameterName) {
+        this.parameterName = parameterName;
+    }
 }

@@ -157,7 +157,7 @@
                                       <!-- Add main class to manifest file of the app -->
                                       <!-- This is necessary if the target is standalone executable jar, which could be executed via: java -jar rusquant-to-quik-api.jar in command line -->
                                       <!-- This is not necessary if the target is standalone library of classes -->
-                                      <mainClass>ru.rusquant.demo.TestConnectorUser</mainClass>
+                                      <!-- <mainClass>ru.rusquant.demo.TestConnectorUser</mainClass> -->
                                   </transformer>
                               </transformers>
                           </configuration>
@@ -169,7 +169,7 @@
 
           </plugins>
 
-          <finalName>rusquant-to-quik-api-${buildNumber}</finalName>
+          <finalName>r2q-api</finalName>
 
       </build>
 
