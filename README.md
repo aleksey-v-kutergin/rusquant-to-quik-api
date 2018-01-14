@@ -1,7 +1,7 @@
 # Rusquant to Quik API
 #### *Trade from R now is real!*
 
-If this project help you, you can give me a cup of coffee :) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5XQLMWGEXG9CC)
+If this project will help you, you can give me a cup of coffee :) [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5XQLMWGEXG9CC)
 
 ## About
 
